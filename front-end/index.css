@@ -1,0 +1,16 @@
+#button1{
+    width: 300px;
+    height: 40px;
+    background-color: #8fa5bf;
+}
+#button2{
+    width: 300px;
+    height: 40px;
+    background-color: #8fa5bf;
+}
+#container{
+    text-align: center;
+}
+body{
+    background-image: url("./background/ocean.jpg");
+}

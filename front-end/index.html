@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./index.css" />
+
+
+  <title>CIAAQ</title>
+</head>
+
+<body>
+  <h1>Welcome to CIAAQ</h1>
+  <div class="container" id="app">
+    <!--  Jag hade denna över buttons login-->
+    <div id="container">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal" id="button1"
+        v-on:click="">Login</button>
+      <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#createAccountModal"
+        id="button2">Create account</button>
+    </div>
+    <!-- <button type="submit" class="btn btn-primary">Login</button>
+    <button type="submit" class="btn btn-primary">Creat account</button>
+    <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button> -->
+
+
+    <!-- HÄR ÄR MODAL FÖR ATT LOGGA IN-->
+
+    <div class="modal fade" id="loginModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Login</h5>
+            <form>
+              <div class="mb-3">
+                <label for="emailInput" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+              </div>
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Password</label>
+                <input type="password" class="form-control" id="inputPassword">
+              </div>
+              <button type="button" class="btn btn-primary" v-on:click="login">Login</button>
+              <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--  HÄR KOMMER MODAL FÖR ATT CREATE ACCOUNT-->
+
+    <div class="modal fade" id="createAccountModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Create User</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="formAdd">
+              <div class="form-group">
+                <label for="Email">Email</label>
+                <input type="text" class="form-control" name="addEmail" id="addEmail">
+              </div>
+              <div class="form-group">
+                <label for="firstname">Firstname</label>
+                <input type="text" class="form-control" name="addFirstname" id="addFirstname">
+              </div>
+              <div class="form-group">
+                <label for="lastname">Lastname</label>
+                <input type="text" class="form-control" name="addLastname" id="addLastname">
+              </div>
+              <div class="form-group">
+                <label for="Password">Password</label>
+                <input type="text" class="form-control" name="addPassword" id="addPassword">
+              </div>
+              <div class="form-group">
+                <!-- Här bytte jag type till button istället för submit eftersom du INTE vill submitta formen (ursprungsfelet med att ni aldrig fick sucess.)-->
+                <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
+                <input type="button" class="btn btn-primary float-right" value="AddUser" v-on:click="createAccount">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script>
+
+    //VI KOMMER GÖRA EN FUNKTION SOM HETER:
+
+    //updateQuestion() m
+
+    //updateAnswer()med AJAx
+
+
+
+    //eventuellt Editquestion för alla??
+    //ELLER SÅ GÖR VI SÅ ATT MODALEN VISAR VAD DU KAN GÖRA. ? ALLTSÅ OM DU ÄR ADMIN KOMMER DIN MODAL ATT VISA FLER KNAPPAR ÄN OM DU ÄR USER.
+    //GÖR VI SÅ KAN VI HA EN MOUNTED MED ALLA FRÅGOR FÖR ALLA
+
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        users: [],
+      },
+      methods: {
+        createAccount() {
+          const user = {
+            email: $('#addEmail').val(),
+            firstname: $('#addFirstname').val(),
+            lastname: $('#addLastname').val(),
+            password: $('#addPassword').val(),
+            accounttype: 3,
+          }
+          $.ajax({
+            url: '/users',
+            type: 'POST',
+            data: JSON.stringify(user),
+            dataType: 'JSON',
+            contentType: 'application/json; charset=utf-8',
+            success: () => {
+
+              $('#createAccountModal').modal('hide');
+
+              clearAddForm();
+            }
+          });
+        },
+
+        login() {
+          var user = {
+            email: $('#loginModal #emailInput').val(),
+            password: $('#loginModal #inputPassword').val()
+          }
+          
+          $.ajax({
+            url: '/login',
+            type: 'POST',
+            data: JSON.stringify(user),
+            dataType: 'JSON',
+            contentType: 'application/json; charset=utf-8',
+            success: (data) => {
+              if (data === 'admin') {
+                window.location.href = "/admin.html";
+              } else if (data === 'contributer') {
+                window.location.href = "/contributer.html";
+              } else if (data === 'user') {
+                window.location.href = "/user.html";
+                //Om ni flyttar användaren till ett annat ställe kommer denna koden förmodligen inte att köras
+                console.log('vi är här');
+              } else {
+                $('loginModal').modal('show');
+              }
+              //Vad är det ni försöker göra här egentligen? 
+              $.getJSON("vet inte vad vi gör här men får kolla på andra", function (jsondata) {
+
+              });
+              $('loginModal').modal('hide');
+              console.log('vi kom hit');
+            },
+            error: (error) => {
+              console.log(error);
+            }
+          });
+        },
+      }
+    });
+
+
+  </script>
+</body>
+
+</html>

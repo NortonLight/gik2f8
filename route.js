@@ -38,9 +38,9 @@ routes.post('/login', async (req, res) => {
             if (user) {
 
                 if (user.accounttype == 1) {
-                    res.redirect('/admin');
+                    return res.json(user);
                 } else if (user.accounttype == 2) {
-                    res.redirect('/contributer');
+                    return res.json(user);
                 } else if (user.accounttype == 3) {
                     return res.json(user);
                 }

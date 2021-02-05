@@ -122,8 +122,8 @@ const userLogin = async (data, pass) => {
         if (data.email != null) {
             if (data.email == trueEmail.email) {
                 const userPass = await dbCon.get('SELECT password FROM users WHERE email=?', [data.email]);
-                const match = pass == userPass.password;
-                //const match = await bcrypt.compare(pass, userPass.password);
+                //const match = pass == userPass.password;
+                const match = await bcrypt.compare(pass, userPass.password);
 
                 if (match) {
                     const userLog = await dbCon.get('SELECT email, firstname, lastname, id, accounttype FROM users WHERE password=?', userPass.password);

@@ -57,7 +57,7 @@
                 <button type="button" class="btn btn-danger float-right" data-toggle="modal"
                     data-target="#accountSettingsModal">Account settings</button>
                 <!-- DENNA BUTTON SKA BARA VISAS NÄR MAN ÄR INLOGGAD SOM SUPER ADMIN-->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal"
+                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal"
                     id="buttonEditQ">edit</button>
             </div>
         </div>
@@ -125,7 +125,7 @@
                     <td>@mdo</td>
                     <td>@mdo</td>
                     <td type="button" class="btn btn-danger float-center" data-toggle="modal"
-                        data-target="#editAnswerModal">Edit
+                        data-target="#Härskavi länka till edit question">Edit
                     </td>
                 </tr>
             </tbody>
@@ -175,7 +175,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="edit_QmessageId">Message Id</label>
-                                <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId">
+                                <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="answerQuestion">Answer question</label>
@@ -284,14 +284,15 @@
                         type: 'GET',
                         success: (questions) => {
                             document.getElementById("UpdateCategory").selectedIndex = questions.category_id - 1;
-                            $('#UpdateCategory').val(question.Category);
-                            $('#UpdateTitle').val(question.Title);
-                            $('#UpdateAnswer').val(question.Answer);
+                            $('#editCategory').val(question.Category);
+                            $('#editTitle').val(question.Title);
+                            $('#edit_Qmessage').val(question.Answer);
+                            $('#edit_QmessageId').val(question.id)
                             //Måste vi ta emot alla saker som finns i vår table questions?
 
                         }
                     });
-                    $('#updateQuestion').modal('show');
+                    $('#editQuestionModal').modal('show');
                 },
 
                 answerQuestion() {

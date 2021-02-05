@@ -101,18 +101,6 @@
 
   <script>
 
-    //VI KOMMER GÖRA EN FUNKTION SOM HETER:
-
-    //updateQuestion() m
-
-    //updateAnswer()med AJAx
-
-
-
-    //eventuellt Editquestion för alla??
-    //ELLER SÅ GÖR VI SÅ ATT MODALEN VISAR VAD DU KAN GÖRA. ? ALLTSÅ OM DU ÄR ADMIN KOMMER DIN MODAL ATT VISA FLER KNAPPAR ÄN OM DU ÄR USER.
-    //GÖR VI SÅ KAN VI HA EN MOUNTED MED ALLA FRÅGOR FÖR ALLA
-
     const vm = new Vue({
       el: "#app",
       data: {
@@ -157,21 +145,18 @@
             success: (data) => {
               if (data.accounttype === 3) {
                 window.location.href = "/admin.html";
-              } else if (data.accounttype === 2) {
+              } 
+              else if (data.accounttype === 2) {
                 window.location.href = "/contributer.html";
-              } else if (data.accounttype === 1) {
+              } 
+              else if (data.accounttype === 1) {
                 window.location.href = "/user.html";
-                //Om ni flyttar användaren till ett annat ställe kommer denna koden förmodligen inte att köras
-                console.log('vi är här');
-              } else {
+              } 
+              else {
                 $('loginModal').modal('show');
               }
-              //Vad är det ni försöker göra här egentligen? 
-              $.getJSON("vet inte vad vi gör här men får kolla på andra", function (jsondata) {
-
-              });
+            
               $('loginModal').modal('hide');
-              console.log('vi kom hit');
             },
             error: (error) => {
               console.log(error);

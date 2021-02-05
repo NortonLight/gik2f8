@@ -1,0 +1,4 @@
+1. Hämta koden från början: git clone https://github.com/NortonLight/gik2f8.git
+2. För att spara ändringar, git commit -am "Meddelande"
+3. För att skicka upp den till github: git push origin main
+4. För att hämta ändringar, git fetch och sedan git pull

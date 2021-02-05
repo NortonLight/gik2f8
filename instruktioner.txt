@@ -3,3 +3,6 @@
 3. För att skicka upp den till github: git push origin main
 4. För att hämta ändringar, git fetch och sedan git pull
 5. Tugga tuggummi
+
+
+

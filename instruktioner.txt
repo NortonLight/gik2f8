@@ -6,3 +6,22 @@
 
 
 
+methods:{
+addItem(){
+var my_object = {
+mail:this.mail,
+date:this.date,
+adress:this.adress,
+company: this.company,
+fliers: this.fliers
+};
+
+this.rowData.push(my_object)
+this.mail = '';
+this.date = '';
+this.adress = '';
+this.company = '';
+this.fliers = '';
+}
+}
+})

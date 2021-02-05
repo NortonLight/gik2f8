@@ -31,3 +31,13 @@ h1{
     font-weight: bold;
     font-size: 80px;
 }
+
+.modal{
+    background-color: #8fa5bf;
+}
+#ModalLoginButton{
+    background-color: #8fa5bf;
+}
+#ModalAddUserButton{
+    background-color: #8fa5bf;
+}

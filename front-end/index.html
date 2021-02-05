@@ -46,7 +46,7 @@
                 <label for="inputPassword" class="form-label">Password</label>
                 <input type="password" class="form-control" id="inputPassword">
               </div>
-              <button type="button" class="btn btn-primary" v-on:click="login">Login</button>
+              <button id="ModalLoginButton" type="button" class="btn btn-primary" v-on:click="login">Login</button>
               <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
             </form>
           </div>
@@ -85,7 +85,7 @@
               <div class="form-group">
                 <!-- Här bytte jag type till button istället för submit eftersom du INTE vill submitta formen (ursprungsfelet med att ni aldrig fick sucess.)-->
                 <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
-                <input type="button" class="btn btn-primary float-right" value="AddUser" v-on:click="createAccount">
+                <input id="ModalAddUserButton" type="button" class="btn btn-primary float-left" value="AddUser" v-on:click="createAccount">
               </div>
             </form>
           </div>
@@ -101,7 +101,7 @@
 
   <script>
 
-    const vm = new Vue({
+    const homeVue = new Vue({
       el: "#app",
       data: {
         users: [],

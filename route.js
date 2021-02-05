@@ -42,7 +42,7 @@ routes.post('/login', async (req, res) => {
                 } else if (user.accounttype == 2) {
                     res.redirect('/contributer');
                 } else if (user.accounttype == 3) {
-                    return res.end('user');
+                    return res.json(user);
                 }
 
             }

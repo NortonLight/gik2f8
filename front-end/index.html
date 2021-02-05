@@ -155,11 +155,11 @@
             dataType: 'JSON',
             contentType: 'application/json; charset=utf-8',
             success: (data) => {
-              if (data === 'admin') {
+              if (data.accounttype === 3) {
                 window.location.href = "/admin.html";
-              } else if (data === 'contributer') {
+              } else if (data.accounttype === 2) {
                 window.location.href = "/contributer.html";
-              } else if (data === 'user') {
+              } else if (data.accounttype === 1) {
                 window.location.href = "/user.html";
                 //Om ni flyttar användaren till ett annat ställe kommer denna koden förmodligen inte att köras
                 console.log('vi är här');

@@ -1,16 +1,33 @@
+*{
+    font-family: Arial, Helvetica, sans-serif ;
+}
+
+
 #button1{
+    margin-top: 150px;
     width: 300px;
     height: 40px;
     background-color: #8fa5bf;
+    font-weight: bold;
 }
 #button2{
+    margin-top: 150px;
     width: 300px;
     height: 40px;
     background-color: #8fa5bf;
+    font-weight: bold;
+
 }
 #container{
     text-align: center;
 }
 body{
     background-image: url("./background/ocean.jpg");
+}
+h1{
+    margin-top: 100px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 80px;
 }

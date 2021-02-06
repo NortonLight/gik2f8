@@ -114,7 +114,16 @@ routes.post('/users', async (req, res) => {
         throw new Error(error);
     }
 });
+routes.delete('/users', async (req, res) => {
+    try {
+        const data = req.params.id;
+        const dele = await dbService.deleteUser(data);
+        res.json(dele);
 
+    } catch (error) {
+        throw new error(error);
+    }
+});
 
 // Get user Frågor // Testa
 routes.get('/userquestions', async (req, res) => {
@@ -189,11 +198,5 @@ routes.post('/question', async (req, res) => {
         throw new Error(error);
     }
 });
-
-//På min fråga(title, text, datum, kategori, id, )
-//PÅ user sidan ska man kunna se de frågor som ställs ofta (FAQ)
-//man ska kunna se vilka frågor som ställs mest i vilken kategori
-//Get mina frågor (vue) standard!! montend
-//Att kunna se om någon har svarat på frågan
 
 module.exports = routes;

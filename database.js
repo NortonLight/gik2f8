@@ -157,6 +157,7 @@ const deleteUser = async (id) => {
     try {
         const dbCon = await dbPromise;
         const del = await dbCon.run('DELETE FROM users WHERE id=?', [id]);
+        return del;
     }
     catch (error) {
         throw new Error(error);

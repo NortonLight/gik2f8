@@ -34,3 +34,7 @@ body{
 #editQuestionModal, #askQuestionModal{
     background-color: #8fa5bf;
 }
+#labelSignIn{
+    font-size: 15px;
+    margin: 2px;
+}

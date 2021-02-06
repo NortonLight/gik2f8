@@ -1,0 +1,41 @@
+*{
+    font-family: Arial, Helvetica, sans-serif ;
+    color: white;
+    
+}
+
+body{
+    background-image: url("./background/ocean.jpg");
+    color: white;
+    font-size: 20px;
+}
+#navUser{
+    color: #8fa5bf;
+    background-image: url("./background/ocean.jpg");
+    height: 80px ;
+    width: 100vw;
+    font-size:20px;
+    font-weight: bold;
+    color: white;
+}
+#navUser2{
+    color: white;
+}
+
+#logoId{
+    font-size: 25px;
+}
+#buttonLogout, #buttonEditQ, #buttonEditTable{
+    background-color: #8fa5bf;
+    font-weight: bold;
+    border: white;
+    margin: 2px;
+}
+#editQuestionModal, #askQuestionModal{
+    background-color: #8fa5bf;
+}
+
+#labelSignIn{
+    font-size: 15px;
+    margin: 2px;
+}

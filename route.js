@@ -28,7 +28,6 @@ routes.post('/login', async (req, res) => {
     try {
         sess = req.session;
         sess.email = req.body.email;
-        //sess.type = req.body.type;
         data = req.body.password;
         const password = data;
         const emailMatch = emailValidation.test(sess.email);
@@ -47,12 +46,6 @@ routes.post('/login', async (req, res) => {
 
             }
         } else {
-            //Dumt att skicka html här eftersom vi frågar ett
-            //api, returnera typ ett json-svar att användaren
-            //måste logga in
-            //Och varför skicka please login first, när användaren försöker logga in?
-            //res.write('<h1>Please login first.</h1>');
-            //res.end('<a href=' + '/' + '>Login</a>');
             res.json({status: "nok", message: "email or password does not pass validation"});
         }
     }
@@ -96,7 +89,7 @@ routes.get('/user', async (req, res) => {
     }
 });
 
-//lägga till en user
+//user
 routes.post('/users', async (req, res) => {
     try {
         const data = req.body;
@@ -114,7 +107,27 @@ routes.post('/users', async (req, res) => {
         throw new Error(error);
     }
 });
-routes.delete('/users', async (req, res) => {
+routes.put('/user', async (req, res) => {
+    try {
+        const data = req.body;
+        const email = validation.test(data.email);
+        const firstname = validation.test(data.firstname);
+        const lastname = validation.test(data.lastname);
+        const password = validation.test(data.password);
+        const accounttype = intValidation.test(data.accounttype);
+        const block = intValidation.test(data.block);
+        const id = intValidation.test(data.id);
+        if (email && firstname && lastname && password && accounttype && block && id) {
+            await dbService.updateUser(data);
+            res.json('user was updated');
+        }
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+});
+
+routes.delete('/users/:id', async (req, res) => {
     try {
         const data = req.params.id;
         const dele = await dbService.deleteUser(data);
@@ -169,7 +182,7 @@ routes.put('/question', async (req, res) => {
     }
 });
 //tabort min fråga // Testa
-routes.delete('/users', async (req, res) => {
+routes.delete('/question', async (req, res) => {
     try {
         const data = req.body.id;
         const dele = await dbService.deleteQuestion(data);
@@ -180,7 +193,7 @@ routes.delete('/users', async (req, res) => {
     }
 });
 
-//lägga till en fråga /7Testa
+//lägga till en fråga //Testa
 routes.post('/question', async (req, res) => {
     try {
         const data = req.body;

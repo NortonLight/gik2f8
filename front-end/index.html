@@ -85,7 +85,8 @@
               <div class="form-group">
                 <!-- Här bytte jag type till button istället för submit eftersom du INTE vill submitta formen (ursprungsfelet med att ni aldrig fick sucess.)-->
                 <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
-                <input id="ModalAddUserButton" type="button" class="btn btn-primary float-left" value="AddUser" v-on:click="createAccount">
+                <input id="ModalAddUserButton" type="button" class="btn btn-primary float-left" value="AddUser"
+                  v-on:click="createAccount">
               </div>
             </form>
           </div>
@@ -113,7 +114,7 @@
             firstname: $('#addFirstname').val(),
             lastname: $('#addLastname').val(),
             password: $('#addPassword').val(),
-            accounttype: 2,
+            accounttype: 1,
           }
           $.ajax({
             url: '/users',
@@ -135,7 +136,7 @@
             email: $('#loginModal #emailInput').val(),
             password: $('#loginModal #inputPassword').val()
           }
-          
+
           $.ajax({
             url: '/login',
             type: 'POST',
@@ -143,20 +144,26 @@
             dataType: 'JSON',
             contentType: 'application/json; charset=utf-8',
             success: (data) => {
-              if (data.accounttype === 3) {
-                window.location.href = "/admin.html";
-              } 
-              else if (data.accounttype === 2) {
-                window.location.href = "/contributer.html";
-              } 
-              else if (data.accounttype === 1) {
-                window.location.href = "/user.html";
-              } 
-              else {
+              if (data.block === 1) {
+                window.alert("The user is blocked");
                 $('loginModal').modal('show');
+              } else {
+                if (data.accounttype === 3) {
+                  window.location.href = "/user.html";
+                }
+                else if (data.accounttype === 2) {
+                  window.location.href = "/contributer.html";
+                }
+                else if (data.accounttype === 1) {
+                  window.location.href = "/admin.html";
+                }
+                else {
+                  window.alert("Wrong email or password");
+                  $('loginModal').modal('show');
+                }
+
+                $('loginModal').modal('hide');
               }
-            
-              $('loginModal').modal('hide');
             },
             error: (error) => {
               console.log(error);
@@ -167,6 +174,7 @@
     });
 
 
-   </script>
-  </body>
+  </script>
+</body>
+
 </html>

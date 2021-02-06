@@ -36,14 +36,14 @@ const getQuestions = async () => {
         throw new Error(error);
     }
 };
-const getUserQuestion = async (data) =>{
-    try{
+const getUserQuestion = async (data) => {
+    try {
         const dbCon = await dbPromise;
-        const userQuestion = await dbCon.all('SELECT title, question, timeofquestion, duplicate, category, id FROM questions WHERE userquestion=?',[data.userQuestion]);
+        const userQuestion = await dbCon.all('SELECT title, question, timeofquestion, duplicate, category, id FROM questions WHERE userquestion=?', [data.userQuestion]);
         return userQuestion;
 
     }
-    catch(error) {
+    catch (error) {
         throw new Error(error);
     }
 
@@ -91,7 +91,7 @@ const deleteQuestion = (async (id) => {
 const addQuestion = async (data) => {
     try {
         const dbCon = await dbPromise;
-        
+
         const question = await dbCon.run('INSERT INTO questions (category, title ,question, duplicate, userQuestion) VALUES(?, ? ,?, ?, ?)', [data.category, data.title, data.question, data.duplicate, data.userQuestion]);
         return question;
 
@@ -126,14 +126,14 @@ const userLogin = async (data, pass) => {
                 const match = await bcrypt.compare(pass, userPass.password);
 
                 if (match) {
-                    const userLog = await dbCon.get('SELECT email, firstname, lastname, id, accounttype FROM users WHERE password=?', userPass.password);
+                    const userLog = await dbCon.get('SELECT email, firstname, lastname, id, accounttype, block FROM users WHERE password=?', userPass.password);
                     return userLog;
                 } else {
                     //Vad kommer error ifrån här? Ett fel har ju inte uppstått
                     //Utan lösenorden matchade ju inte
                     //Anledningen till att ni hamnar här är ju att ni inte har krypterade lösenord i databasen
                     //men försöker jämföra två okrypterade lösenord vilket ställer till det.
-                    
+
                     //Kanske göra som så att "skapa ett nytt error som indikerar vad som gått fel istället?"
                     throw new Error("Passwords don't match.");
                     //throw new Error(error);
@@ -152,6 +152,17 @@ const userLogin = async (data, pass) => {
     }
 };
 
+const updateUser = (async (data) => {
+    try {
+        const hashPassword = await genPass(data.password);
+        const dbCon = await dbPromise;
+        const user = await dbCon.get('UPDATE users set email=?, firstname=?, lastname=?, password=?,  accounttype=?, block=? WHERE id=?', [data.email, data.firstname, data.lastname, hashPassword, data.accounttype, data.block, data.id]);
+        return user;
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+});
 
 const deleteUser = async (id) => {
     try {
@@ -171,5 +182,6 @@ module.exports = {
     userLogin: userLogin,
     updateQuestion: updateQuestion,
     deleteQuestion: deleteQuestion,
-    getUserQuestion: getUserQuestion
+    getUserQuestion: getUserQuestion,
+    updateUser: updateUser
 }

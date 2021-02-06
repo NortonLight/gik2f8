@@ -11,12 +11,7 @@ CREATE TABLE IF NOT EXISTS users (
     accounttype INTEGER(3) NOT NULL,
     block INTEGER(2),
     id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL);
-
-INSERT INTO users (email, firstname, lastname, password, accounttype) VALUES
-    ('ghaith@du.se', 'Ghaith', 'Kashlan', 'kalle123', '3'),
-    ('simon@du.se', 'Simon', 'Alexsandersson', 'kalle123', '2'),
-    ('superadmin@du.se', 'Kalle', 'Somthing', 'kalle123', '1');
-    
+   
 
 DROP TABLE IF EXISTS questions;
 CREATE TABLE IF NOT EXISTS questions (

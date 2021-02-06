@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <div class="container" id="user"></div>
+    <div class="container" id="user">
     <nav id="navUser" class="navbar navbar-expand-lg navbar-light bg-light">
         <div id="navUser2" class="container-fluid">
             <a id="logoId" class="navbar-brand" href="#">Welcome to CIAAQ</a>
@@ -27,7 +27,7 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                         <!-- HÄR LÄNKAR VI TILL STARTSIDAN. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
                     </li>
-                    <li><a class="nav-link" data-toggle="modal" data-target="#askQuestionModal" href="#">Ask a
+                    <li><a input="button" class="nav-link" data-toggle="modal" data-target="#askQuestionModal" href="#">Ask a
                             question</a></li>
                     <!-- KAN GÖRAS OM TILL EN BUTTON FÖR ATT ASK A QUESTION-->
                     <!-- HÄR LÄNKAR VI TILL EN MODAL SOM HANTERAR VÅRA FRÅGOR. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
@@ -50,15 +50,12 @@
                         </ul>
                     </li>
                 </ul>
+                <label id="labelSignIn" class="float-right">Singed in as: User</label>
+                <button id="buttonLogout" type="button" class="btn btn-primary float-right" data-toggle="modal"
+                    data-target="#logoutModal">Logout</button>
+                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal"
+                    id="buttonEditQ">edit</button>
             </div>
-            <label id="labelSignIn" class="float-right">Singed in as: User</label>
-            <button id="buttonLogout" type="button" class="btn btn-primary float-right" data-toggle="modal"
-                data-target="#logoutModal">Logout</button>
-            <button id="buttonAccount" type="button" class="btn btn-primary float-right" data-toggle="modal"
-                data-target="#accountSettingsModal">Account settings</button>
-            <!-- DENNA BUTTON SKA BARA VISAS NÄR MAN ÄR INLOGGAD SOM SUPER ADMIN-->
-            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal"
-                id="buttonEditQ">edit</button>
         </div>
     </nav>
     <!--  Jag hade denna över buttons login-->
@@ -70,8 +67,6 @@
             <td>{{ item.company }}</td>
             <td>{{ item.fliers }}</td>
         </tr> -->
-    <button id="askQuestion2" type="button" class="btn btn-primary float-right" data-toggle="modal"
-        data-target="#askQuestionModal">ask</button>
 
     <tr class="table table-striped table hover" v-for="question in questions" v-bind:key="questions.category">
         <th scope="row">{{ questions.category }}</th>
@@ -132,24 +127,17 @@
         </tbody>
     </table>
 
-    <div id="container">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal" id="button1"
-            v-on:click="">Login</button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createAccountModal"
-            id="button2">Create account</button>
-    </div>
+
+
+
 
     <!-- HÄR ÄR MODAL FÖR ATT EDITA OCH POSTA SVAR-->
-
-    <!-- Här är för USERS att ställa frågor, contributers och superadmin BEHÖVER INTE STÄLLA FRÅGOR -->
+    <!-- Här är för USER och contributers att edit questions -->
     <div class="modal fade" id="editQuestionModal" tabindex="-1">
-        <!-- VI MÅSTE ÄNDRA DENNA MODAL SÅ MAN KAN VÄLA KATEFORI I MODALEN.-->
         <div class="modal-dialog">
-            <!-- VI MÅSTE KOPPLA DEN TILL DATABASEN SEN.-->
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Edit a question</h5>
-                    <!-- HÄR ÄR OM VI VILL LÄGGA TILL FRÅGOR, ALLTSÅ KOPPLA TILL ASK A QUSESTION.-->
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -180,6 +168,10 @@
                                 readonly>
                         </div>
                         <div class="form-group">
+                            <label for="questionUser">User: </label>
+                            <input type="text" class="form-control" name="questionUser" id="questionUser" readonly>
+                        </div>
+                        <div class="form-group">
                             <label for="answerQuestion">Answer question</label>
                             <input type="text" class="form-control" name="answerQuestion" id="answerQuestion"
                                 width="50px" height="50px">
@@ -187,53 +179,9 @@
                         <div class="modal-footer">
                             <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <input type="button" class="btn btn-primary" value="Edit question"
-                                v-on:click="editQuestion">
-                            <input type="button" class="btn btn-primary" value="Post answer" v-on:click="postAnswer">
+                            <input type="button" class="btn btn-primary" value="Post answer" v-on:click="answerQuestion">
                             <input type="button" class="btn btn-primary" value="Delete answer"
                                 v-on:click="deleteQuestion">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--  HÄR KOMMER MODAL FÖR ATT CREATE ACCOUNT-->
-
-    <div class="modal fade" id="createAccountModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Create User</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="formAdd">
-                        <div class="form-group">
-                            <label for="Email">Email</label>
-                            <input type="text" class="form-control" name="addEmail" id="addEmail">
-                        </div>
-                        <div class="form-group">
-                            <label for="firstname">Firstname</label>
-                            <input type="text" class="form-control" name="addFirstname" id="addFirstname">
-                        </div>
-                        <div class="form-group">
-                            <label for="lastname">Lastname</label>
-                            <input type="text" class="form-control" name="addLastname" id="addLastname">
-                        </div>
-                        <div class="form-group">
-                            <label for="Password">Password</label>
-                            <input type="text" class="form-control" name="addPassword" id="addPassword">
-                        </div>
-                        <div class="form-group">
-                            <!-- Här bytte jag type till button istället för submit eftersom du INTE vill submitta formen (ursprungsfelet med att ni aldrig fick sucess.)-->
-                            <button type="button" class="btn btn-secondary float-right"
-                                data-dismiss="modal">Close</button>
-                            <input id="ModalAddUserButton" type="button" class="btn btn-primary float-left"
-                                value="AddUser" v-on:click="createAccount">
                         </div>
                     </form>
                 </div>
@@ -244,13 +192,10 @@
     <!-- HÄR ÄR MODAL FÖR ATT STÄLLA FRÅGOR SOM USER-->
 
     <div class="modal fade" id="askQuestionModal" tabindex="-1">
-        <!-- VI MÅSTE ÄNDRA DENNA MODAL SÅ MAN KAN VÄLA KATEFORI I MODALEN.-->
         <div class="modal-dialog">
-            <!-- VI MÅSTE KOPPLA DEN TILL DATABASEN SEN.-->
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Ask a question</h5>
-                    <!-- HÄR ÄR OM VI VILL LÄGGA TILL FRÅGOR, ALLTSÅ KOPPLA TILL ASK A QUSESTION.-->
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -272,11 +217,10 @@
                             <input type="text" class="form-control" name="addTitle" id="addTitle">
                         </div>
                         <div class="form-group">
-                            <label for="Description">Question message</label>
+                            <label for="add_Qmessage">Question message</label>
                             <input type="text" class="form-control" name="add_Qmessage" id="add_Qmessage">
                         </div>
                         <div class="modal-footer">
-                            <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <input type="button" class="btn btn-primary" value="Ask question" v-on:click="askQuestion">
                         </div>
@@ -285,6 +229,7 @@
             </div>
         </div>
     </div>
+</div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
         integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
@@ -295,18 +240,6 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
-
-        //VI KOMMER GÖRA EN FUNKTION SOM HETER:
-
-        //updateQuestion() m
-
-        //updateAnswer()med AJAx
-
-
-
-        //eventuellt Editquestion för alla??
-        //ELLER SÅ GÖR VI SÅ ATT MODALEN VISAR VAD DU KAN GÖRA. ? ALLTSÅ OM DU ÄR ADMIN KOMMER DIN MODAL ATT VISA FLER KNAPPAR ÄN OM DU ÄR USER.
-        //GÖR VI SÅ KAN VI HA EN MOUNTED MED ALLA FRÅGOR FÖR ALLA
 
         const userVue = new Vue({
             el: "#user",
@@ -319,18 +252,18 @@
                 rowData: []
             },
             methods: {
-                ShowQuestionInUpdateForm(questions) { //Vet inte om det är rätt detta, Detta är mest för att fylla på med grejer.
+
+                ShowQuestionInUpdateForm(id) { //Vet inte om det är rätt detta, Detta är mest för att fylla på med grejer.
                     $.ajax({
-                        url: '/getQuestions' + questions,
+                        url: '/questions' + id,
                         type: 'GET',
                         success: (questions) => {
                             document.getElementById("UpdateCategory").selectedIndex = questions.category_id - 1;
-                            $('#editCategory').val(question.Category);
-                            $('#editTitle').val(question.Title);
-                            $('#edit_Qmessage').val(question.Answer);
-                            $('#edit_QmessageId').val(question.id)
+                            $('#editCategory').val(questions.Category);
+                            $('#editTitle').val(questions.Title);
+                            $('#edit_Qmessage').val(questions.Answer);
+                            $('#edit_QmessageId').val(questions.id)
                             //Måste vi ta emot alla saker som finns i vår table questions?
-
                         }
                     });
                     $('#editQuestionModal').modal('show');
@@ -338,11 +271,12 @@
 
                 answerQuestion() {
                     var question = {
-                        category: $('#answerQuestionModal #questionCategory').val(), //readonlyigentligen, man ska inte ändra categori? eller?
-                        title: $('#answerQuestionModal #questionTitle').val(),
-                        qMessage: $('#answerQuestionModal #questionM').val(),
-                        user: $('#answerQuestionModal #questionUser').val(),
-                        answer: $('#answerQuestionModal #answer').val(),
+                        category: $('#editQuestionModal #editCategory').val(), //readonlyigentligen, man ska inte ändra categori? eller?
+                        title: $('#editQuestionModall #editTitle').val(),
+                        qMessage: $('#editQuestionModal #edit_Qmessage').val(),
+                        qMessageId: $('#editQuestionModal #edit_QmessageId').val(),
+                        user: $('#editQuestionModal #questionUser').val(),
+                        answer: $('#editQuestionModal #answerQuestion').val(),
                     }
                     $.ajax({
                         url: 'answer',
@@ -374,7 +308,7 @@
                         success: () => {
                             getQuestions();
                             $('#askQuestionModal').modal('hide');
-                            clearaskQuestionform();// DENNA ÄR FEL. DET MÅSTE STÄMMA MED ALLA MODAL. DET GÄLLER ALL KOD.
+                            clearAddform();// DENNA ÄR FEL. DET MÅSTE STÄMMA MED ALLA MODAL. DET GÄLLER ALL KOD.
                         }
                     });
                 }
@@ -396,42 +330,9 @@
                 });
             },
 
-            deleteUser(id) {
-                var user = {
-                    id: $('#accountSettingsModal #').val()
-                }
-                $.ajax({
-                    url: 'deleteUser' + user.Id,
-                    type: 'DELETE',
-                    success: () => {
-                        var self = this;
-                        $.getJSON("questions", function (jsondata) {
-                            self.questions = jsondata;
-                        });
-                    }
-                });
-            },
-
-            //         addItem() {
-            //           var questions = {
-            //             category:this.Category,
-            //               title: this.title,
-            //             question: this.question,
-            //               user: this.user,
-            //             timeofquestion: this.timeofquestion
-            //         };
-            //           this.rowData.push(my_object)
-            //           this.category = '';
-            //           this.title = '';
-            //           this.question = '';
-            //           this.user = '';
-            //           this.timeofquestion = '';
-            //         }
-            //       }
-            // },
             mounted() {
                 var self = this;
-                $.getJSON("/", function (jsondata) {
+                $.getJSON("/questions", function (jsondata) {
                     self.questions = jsondata;
                 });
             }
@@ -441,5 +342,4 @@
 
     </script>
 </body>
-
 </html>

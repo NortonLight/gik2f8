@@ -2,6 +2,8 @@
 2. För att spara ändringar, git commit -am "Meddelande"
 3. För att skicka upp den till github: git push origin main
 4. För att hämta ändringar, git fetch och sedan git pull
+
+git add (den röda texten som syns när man skriver git status)
 5. Tugga tuggummi
 
 

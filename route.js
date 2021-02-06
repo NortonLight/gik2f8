@@ -171,7 +171,7 @@ routes.put('/question', async (req, res) => {
         const title = validation.test(data.title);
         const question = validation.test(data.question);
         const idMatch = intValidation.test(data.id);
-        const timeofquestion = data.timeofquestion;
+        const userQuestion = data.userQuestion;
         if (category && title && question && idMatch) {
             await dbService.updateQuestion(data);
             res.json('question was updated');
@@ -182,9 +182,9 @@ routes.put('/question', async (req, res) => {
     }
 });
 //tabort min fråga // Testa
-routes.delete('/question', async (req, res) => {
+routes.delete('/question/:id', async (req, res) => {
     try {
-        const data = req.body.id;
+        const data = req.params.id;
         const dele = await dbService.deleteQuestion(data);
         res.json(dele);
 
@@ -211,5 +211,52 @@ routes.post('/question', async (req, res) => {
         throw new Error(error);
     }
 });
+//answers
+routes.post('/answer', async (req, res) => {
+    try {
+        const data = req.body;
+        const response = validation.test(data.response);
+        //const vote = intValidation.test(data.vote);
+        const userAnswer = data.userAnswer;
+        const questionId = intValidation.test(data.questionId);
+        if (response && userAnswer && questionId) {
+            await dbService.addAnswer(data);
+            res.json('ok');
+        }
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+});
+
+routes.put('/answer', async (req, res) => {
+    try {
+        const data = req.body;
+        const response = validation.test(data.response);
+        const vote = intValidation.test(data.vote);
+        const userAnswer = validation.test(data.userAnswer);
+        const questionId = intValidation.test(data.questionId);
+        const id = intValidation.test(data.id);
+        const timeofquestion = data.timeofquestion;
+        if (response && userAnswer &&questionId && id) {
+            await dbService.updateAnswer(data);
+            res.json('answer was updated');
+        }
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+});
+routes.delete('/answer/:id', async (req, res) => {
+    try {
+        const data = req.params.id;
+        const dele = await dbService.deleteAnswer(data);
+        res.json(dele);
+
+    } catch (error) {
+        throw new error(error);
+    }
+});
+
 
 module.exports = routes;

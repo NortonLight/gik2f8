@@ -49,14 +49,12 @@ const getUserQuestion = async (data) => {
 
 
 };
-//Gör en getQuestion med email//
-//Testa//
-//if(email == user.userquestion)=> ändra fråga annars du har inga frågor
+
 const updateQuestion = (async (data) => {
     try {
         const dbCon = await dbPromise;
-        const user = await dbCon.get('SELECT accounttype FROM users WHERE email=?', [data.email]);
-        const userQuestion = await dbCon.get('SELECT userquestion FROM questions WHERE userquestion=?', [data.userQuestion]);
+        const user = await dbCon.get('SELECT accounttype, email FROM users WHERE email=?', [data.userQuestion]);
+        const userQuestion = await dbCon.get('SELECT userQuestion FROM questions WHERE userQuestion=?', [data.userQuestion]);
         if (user.accounttype == 1) {
             const update = await dbCon.run('UPDATE questions set category=?, title=?, question=?,  timeofquestion=?, duplicate=?, userQuestion=? WHERE id=?', [data.category, data.title, data.question, data.timeofquestion, data.duplicate, data.email, data.id]);
             return update;
@@ -66,7 +64,7 @@ const updateQuestion = (async (data) => {
             return update;
 
         } else {
-            return response.json('You have no question');
+            throw new error('You have no question');
         }
 
     }
@@ -74,7 +72,7 @@ const updateQuestion = (async (data) => {
         throw new Error(error);
     }
 });
-//Testa
+
 const deleteQuestion = (async (id) => {
     try {
         const dbCon = await dbPromise;
@@ -87,7 +85,7 @@ const deleteQuestion = (async (id) => {
 
 
 });
-//Testa
+
 const addQuestion = async (data) => {
     try {
         const dbCon = await dbPromise;
@@ -101,6 +99,48 @@ const addQuestion = async (data) => {
     }
 
 };
+//Answer
+
+const addAnswer = async (data) => {
+    try {
+        const dbCon = await dbPromise;
+
+        const answer = await dbCon.run('INSERT INTO answers (response, vote ,userAnswer, questionId) VALUES(?, ?, ?, ?)', [data.response, data.vote, data.userAnswer, data.questionId]);
+        return answer;
+
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+
+};
+
+const updateAnswer = (async (data) => {
+    try {
+        //const hashPassword = await genPass(data.password);
+        const dbCon = await dbPromise;
+        const user = await dbCon.get('UPDATE answers set response=?, vote=?, userAnswer=?, questionId=? WHERE id=?', [data.response, data.vote, data.userAnswer, data.questionId, data.id]);
+        return user;
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+});
+const deleteAnswer = (async (id) => {
+    try {
+        const dbCon = await dbPromise;
+        const answerdelete = await dbCon.run('DELETE FROM answers WHERE id=?', [id]);
+        return answerdelete;
+
+    }
+    catch (error) {
+        throw new ErrorEvent(error);
+    }
+
+
+});
+
+
 //User
 const addtUsers = async (data) => {
     try {
@@ -183,5 +223,8 @@ module.exports = {
     updateQuestion: updateQuestion,
     deleteQuestion: deleteQuestion,
     getUserQuestion: getUserQuestion,
-    updateUser: updateUser
+    updateUser: updateUser,
+    addAnswer : addAnswer,
+    deleteAnswer :deleteAnswer,
+    updateAnswer: updateAnswer
 }

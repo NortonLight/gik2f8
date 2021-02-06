@@ -34,6 +34,9 @@ body{
 #editQuestionModal, #askQuestionModal{
     background-color: #8fa5bf;
 }
+.modal-dialog{
+    pointer-events: auto;
+}
 #labelSignIn{
     font-size: 15px;
     margin: 2px;

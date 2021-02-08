@@ -97,12 +97,12 @@
             <tbody>
                 <tr>
                     <th scope="row">1</th>
-                    <td>Mark</td>
+                    <td>{{question.category}}</td>
                     <!-- HÄR MÅSTE VI DYNAMISK MED VUE OCH AJAX FYLLA VÅRAN TABLE MED DEM GREJERN VI VILL HA-->
-                    <td>Otto</td> <!-- TEX {QUESTUIONS.QUESTION}-->
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
+                    <td>{{question.title}}</td> <!-- TEX {QUESTUIONS.QUESTION}-->
+                    <td>{{question.question}}</td>
+                    <td>{{question.timeofquestion}}</td>
+                    <td>{{question.userQuestion}}</td>
                     <td type="button" class="btn btn-primary float-center" data-toggle="modal"
                         data-target="#editAnswerModal">Edit
                     </td>
@@ -258,8 +258,8 @@
                 answers: [],
                 rowData: []
             },
-            methods: 
-    {
+            methods:
+            {
 
                 ShowQuestionInUpdateForm(id) { //Vet inte om det är rätt detta, Detta är mest för att fylla på med grejer.
                     $.ajax({
@@ -276,6 +276,24 @@
                     });
                     $('#editQuestionModal').modal('show');
                 },
+                // getUserQuestion() {
+                //     $.ajax({
+                //         url: '/userquestions',
+                //         type: 'GET',
+                //         success: (questions) => {
+                //             slef.question = questions;
+                //             document.getElementById("UpdateCategory").selectedIndex = questions.category_id - 1;
+                //             $('#editCategory').val(questions.Category);
+                //             $('#editTitle').val(questions.Title);
+                //             $('#edit_Qmessage').val(questions.Answer);
+                //             $('#edit_QmessageId').val(questions.id)
+                //             //Måste vi ta emot alla saker som finns i vår table questions?
+                //         }
+                //     });
+                //     $('#editQuestionModal').modal('show');
+
+
+                // },
 
                 editUserQuestion() {
                     var question = {
@@ -320,29 +338,29 @@
                     });
                 },
 
-            deleteQuestion(id) {
-                var question = {
-                    id: $('#editQuestionModal #updateId').val()
-                }
-                $.ajax({
-                    url: '/deleteQuestion' + question.Id,
-                    type: 'DELETE',
-                    success: () => {
-                        var self = this;
-                        $.getJSON("questions", function (jsondata) {
-                            self.questions = jsondata;
-                        });
+                deleteQuestion(id) {
+                    var question = {
+                        id: $('#editQuestionModal #updateId').val()
                     }
-                });
-            },
+                    $.ajax({
+                        url: '/deleteQuestion' + question.Id,
+                        type: 'DELETE',
+                        success: () => {
+                            var self = this;
+                            $.getJSON("questions", function (jsondata) {
+                                self.questions = jsondata;
+                            });
+                        }
+                    });
+                },
 
-            mounted() {
-                var self = this;
-                $.getJSON("/questions", function (jsondata) {
-                    self.questions = jsondata;
-                });
+                mounted() {
+                    var self = this;
+                    $.getJSON("/userquestions", function (jsondata) {
+                        self.questions = jsondata;
+                    });
+                }
             }
-          }
         });
 
 

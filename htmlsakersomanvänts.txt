@@ -16,3 +16,54 @@
             <td>{{ questions.timeofquestion }}</td>
             <td type="button" class="btn btn-primary float-center" data-toggle="modal" data-target="#editAnswerModal">Edit</td>
         </tr> -->
+
+
+
+
+    <!-- PROVADE LÄGGA TILL MODAL BODY I NAV CLASSEN. GICK INTE...-->
+        <nav id="navUser" class="navbar navbar-expand-lg navbar-light bg-light">
+            <div id="navUser2" class="container-fluid modal-body">
+                <a id="logoId" class="navbar-brand" href="#">Welcome to CIAAQ</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <!-- HÄR LÄNKAR VI TILL STARTSIDAN. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
+                        </li>
+                        <li><a input="button" class="nav-link" data-toggle="modal" data-target="#askQuestionModal"
+                                href="#askQuestionModal">Ask a
+                                question</a></li>
+                        <!-- KAN GÖRAS OM TILL EN BUTTON FÖR ATT ASK A QUESTION-->
+                        <!-- HÄR LÄNKAR VI TILL EN MODAL SOM HANTERAR VÅRA FRÅGOR. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">My questions</a>
+                            <!-- HÄR LÄNKAR VI TILL EN sida som hanterar våra egna sida?????? Eller blir det STARTSIDASN???, SOM HANTERAR VÅRA FRÅGOR. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <!-- HÄR LÄNKAR VI TILL ALLA KATEGORIER I VÅRA FRÅGOR TEX SPORT HEM HUSHÅLL OSV. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
+                                Categorys
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">Sport</a></li>
+                                <!-- HÄR LÄNKAR VI TILL EN MODAL SOM hämtar denna typ av frågor. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
+                                <li><a class="dropdown-item" href="#">Homes&Households</a></li>
+                                <li><a class="dropdown-item" href="#">Movies&Series</a></li>
+                                <li><a class="dropdown-item" href="#">Relationsship</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <label id="labelSignIn" class="float-right">Singed in as: User</label>
+                    <button id="buttonLogout" type="button" class="btn btn-primary float-right" data-toggle="modal"
+                        data-target="#logoutModal">Logout</button>
+                    
+            </div>
+          </div>
+        </nav>
+        <!--  Jag hade denna över buttons login-->

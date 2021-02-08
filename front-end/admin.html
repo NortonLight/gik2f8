@@ -96,14 +96,8 @@
 
 
 
-
-    <!-- HÄR ÄR MODAL FÖR ATT EDITA OCH POSTA SVAR-->
-
-    <!-- Här är för USERS att ställa frågor, contributers och superadmin BEHÖVER INTE STÄLLA FRÅGOR -->
     <div class="modal fade" id="editQuestionModal" tabindex="-1">
-      <!-- VI MÅSTE ÄNDRA DENNA MODAL SÅ MAN KAN VÄLA KATEFORI I MODALEN.-->
       <div class="modal-dialog">
-        <!-- VI MÅSTE KOPPLA DEN TILL DATABASEN SEN.-->
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Edit a question</h5>
@@ -135,9 +129,7 @@
                 <label for="edit_QmessageId">Message Id</label>
                 <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId">
               </div>
-              <!-- LÄGG TILL INPUT RUTA FÖR TEXTSVAR-->
               <div class="modal-footer">
-                <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <input type="button" class="btn btn-primary" value="Edit question" v-on:click="editQuestion">
                 <input type="button" class="btn btn-primary" value="Post answer" v-on:click="postAnswer">
@@ -148,48 +140,7 @@
         </div>
       </div>
     </div>
-
-
-    <!--  HÄR KOMMER MODAL FÖR ATT CREATE ACCOUNT-->
-
-    <div class="modal fade" id="createAccountModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Create User</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form id="formAdd">
-              <div class="form-group">
-                <label for="Email">Email</label>
-                <input type="text" class="form-control" name="addEmail" id="addEmail">
-              </div>
-              <div class="form-group">
-                <label for="firstname">Firstname</label>
-                <input type="text" class="form-control" name="addFirstname" id="addFirstname">
-              </div>
-              <div class="form-group">
-                <label for="lastname">Lastname</label>
-                <input type="text" class="form-control" name="addLastname" id="addLastname">
-              </div>
-              <div class="form-group">
-                <label for="Password">Password</label>
-                <input type="text" class="form-control" name="addPassword" id="addPassword">
-              </div>
-              <div class="form-group">
-                <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
-                <input type="submit" class="btn btn-primary float-right" value="AddUser" v-on:click="createUser">
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
-
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"

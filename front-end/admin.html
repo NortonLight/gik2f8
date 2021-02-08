@@ -21,154 +21,169 @@
           aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#">Home</a>
-              <!-- HÄR LÄNKAR VI TILL STARTSIDAN. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
             </li>
             <li class="nav-item">
-              <!-- Länka till getQuestions av ID. -->
-              <a class="nav-link" href="#">My answered questions</a>
-              <!-- HÄR LÄNKAR VI TILL EN sida som hanterar våra egna sida?????? Eller blir det STARTSIDASN???, SOM HANTERAR VÅRA FRÅGOR. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
+              <a class="nav-link" href="#">All questions</a>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                <!-- HÄR LÄNKAR VI TILL ALLA KATEGORIER I VÅRA FRÅGOR TEX SPORT HEM HUSHÅLL OSV. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
-                Categorys
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <li><a class="dropdown-item" href="#">Sport</a></li>
-                <!-- HÄR LÄNKAR VI TILL EN MODAL SOM hämtar denna typ av frågor. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
-                <li><a class="dropdown-item" href="#">Homes&Households</a></li>
-                <li><a class="dropdown-item" href="#">Movies&Series</a></li>
-                <li><a class="dropdown-item" href="#">Relationsship</a></li>
-              </ul>
+            <li class="nav-item">
+              <a class="nav-link" href="#">All users</a>
             </li>
-          </ul>
           <label id="labelSignIn" class="float-left">Singed in as: SuperAdmin</label>
-          <button type="button" class="btn btn-primary float-right" data-toggle="modal"
-            data-target="#accountSettingsModal">Account settings</button>
           <button id="buttonLogout" type="button" class="btn btn-primary float-left" data-toggle="modal"
             data-target="#logoutModal">Logout</button>
-        </div>
+          </ul>
       </div>
+    </div>
     </nav>
 
 
-
-    <button type="button" class="btn btn-primary float-right" data-toggle="modal"
-    data-target="#createAccountModal">Create account</button>
-    <a input="button" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal">Edit question</a>
     <!-- DENNA STOD NEDANFÖR NAV PRECIS HÄR UNDER 7 RADER NED-->
+    <!-- Denna knappen ska kopplas till Alla tables på user,contri,admin-->
 
-
-    <!-- DENNA BUTTON SKA BARA VISAS NÄR MAN ÄR INLOGGAD SOM SUPER ADMIN-->
-
-
-
-
-      <!-- HÄR KOMMER VI GÖRA ACCOUNTSETTINGS MODAL -->
-
+    <a input="button" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal">Edit question</a>
+    
+    <a input="button" class="btn btn-primary" data-toggle="modal" data-target="#userHandleModal">Handle user</a>
+    
 
 
 
 
 
-
-
-
-
-      <!-- HÄR ÄR MODAL FÖR ATT EDITA OCH POSTA SVAR-->
-
-      <!-- Här är för USERS att ställa frågor, contributers och superadmin BEHÖVER INTE STÄLLA FRÅGOR -->
-      <div class="modal fade" id="editQuestionModal" tabindex="-1">
-        <!-- VI MÅSTE ÄNDRA DENNA MODAL SÅ MAN KAN VÄLA KATEFORI I MODALEN.-->
-        <div class="modal-dialog">
-          <!-- VI MÅSTE KOPPLA DEN TILL DATABASEN SEN.-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Edit a question</h5>
-              <!-- HÄR ÄR OM VI VILL LÄGGA TILL FRÅGOR, ALLTSÅ KOPPLA TILL ASK A QUSESTION.-->
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form id="formEditQ">
-                <div class="form-group">
-                  <label for="Category">Category</label>
-                  <select class="form-control" name="editCategory" id="editCategory">
-                    <option>Sport</option>
-                    <option>Homes&Households</option>
-                    <option>Movies&Series</option>
-                    <option>Relationsship</option>
-                    <option>Movies&Series</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="Title">Title</label>
-                  <input type="text" class="form-control" name="editTitle" id="editTitle">
-                </div>
-                <div class="form-group">
-                  <label for="edit_Qmessage">Question message</label>
-                  <input type="text" class="form-control" name="edit_Qmessage" id="edit_Qmessage">
-                </div>
-                <div class="form-group">
-                  <label for="edit_QmessageId">Message Id</label>
-                  <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId">
-                </div>
-                <!-- LÄGG TILL INPUT RUTA FÖR TEXTSVAR-->
-                <div class="modal-footer">
-                  <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <input type="button" class="btn btn-primary" value="Edit question" v-on:click="editQuestion">
-                  <input type="button" class="btn btn-primary" value="Post answer" v-on:click="postAnswer">
-                  <input type="button" class="btn btn-primary" value="Delete answer" v-on:click="deleteQuestion">
-                </div>
-              </form>
-            </div>
+    <!-- HÄR KOMMER VI GÖRA UserHandle MED en getAllUsers sen en sådan här handlae user knapp brevid.MODAL -->
+    <div class="modal fade" id="userHandleModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Handle Users</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="formUserHandle">
+              <div class="form-group">
+                <label for="Block">Block user</label>
+                <select class="form-control" name="editBlock" id="editBlock">
+                  <option>Block</option>
+                  <option>Unblock</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="userBlockInfo">Block info</label>
+                <input type="text" class="form-control" name="blockInfo" id="blockInfo">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <input type="button" class="btn btn-primary" value="Edit user" v-on:click="editUser">
+                <input type="button" class="btn btn-primary" value="Delete User" v-on:click="deleteQUser">
+              </div>
+            </form>
           </div>
         </div>
       </div>
+    </div>
 
 
-      <!--  HÄR KOMMER MODAL FÖR ATT CREATE ACCOUNT-->
 
-      <div class="modal fade" id="createAccountModal">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Create User</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form id="formAdd">
-                <div class="form-group">
-                  <label for="Email">Email</label>
-                  <input type="text" class="form-control" name="addEmail" id="addEmail">
-                </div>
-                <div class="form-group">
-                  <label for="firstname">Firstname</label>
-                  <input type="text" class="form-control" name="addFirstname" id="addFirstname">
-                </div>
-                <div class="form-group">
-                  <label for="lastname">Lastname</label>
-                  <input type="text" class="form-control" name="addLastname" id="addLastname">
-                </div>
-                <div class="form-group">
-                  <label for="Password">Password</label>
-                  <input type="text" class="form-control" name="addPassword" id="addPassword">
-                </div>
-                <div class="form-group">
-                  <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
-                  <input type="submit" class="btn btn-primary float-right" value="AddUser" v-on:click="createUser">
-                </div>
-              </form>
-            </div>
+
+
+
+
+
+
+
+
+    <!-- HÄR ÄR MODAL FÖR ATT EDITA OCH POSTA SVAR-->
+
+    <!-- Här är för USERS att ställa frågor, contributers och superadmin BEHÖVER INTE STÄLLA FRÅGOR -->
+    <div class="modal fade" id="editQuestionModal" tabindex="-1">
+      <!-- VI MÅSTE ÄNDRA DENNA MODAL SÅ MAN KAN VÄLA KATEFORI I MODALEN.-->
+      <div class="modal-dialog">
+        <!-- VI MÅSTE KOPPLA DEN TILL DATABASEN SEN.-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit a question</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="formEditQ">
+              <div class="form-group">
+                <label for="Category">Category</label>
+                <select class="form-control" name="editCategory" id="editCategory">
+                  <option>Sport</option>
+                  <option>Homes&Households</option>
+                  <option>Movies&Series</option>
+                  <option>Relationsship</option>
+                  <option>Movies&Series</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="Title">Title</label>
+                <input type="text" class="form-control" name="editTitle" id="editTitle">
+              </div>
+              <div class="form-group">
+                <label for="edit_Qmessage">Question message</label>
+                <input type="text" class="form-control" name="edit_Qmessage" id="edit_Qmessage">
+              </div>
+              <div class="form-group">
+                <label for="edit_QmessageId">Message Id</label>
+                <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId">
+              </div>
+              <!-- LÄGG TILL INPUT RUTA FÖR TEXTSVAR-->
+              <div class="modal-footer">
+                <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <input type="button" class="btn btn-primary" value="Edit question" v-on:click="editQuestion">
+                <input type="button" class="btn btn-primary" value="Post answer" v-on:click="postAnswer">
+                <input type="button" class="btn btn-primary" value="Delete answer" v-on:click="deleteQuestion">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!--  HÄR KOMMER MODAL FÖR ATT CREATE ACCOUNT-->
+
+    <div class="modal fade" id="createAccountModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Create User</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="formAdd">
+              <div class="form-group">
+                <label for="Email">Email</label>
+                <input type="text" class="form-control" name="addEmail" id="addEmail">
+              </div>
+              <div class="form-group">
+                <label for="firstname">Firstname</label>
+                <input type="text" class="form-control" name="addFirstname" id="addFirstname">
+              </div>
+              <div class="form-group">
+                <label for="lastname">Lastname</label>
+                <input type="text" class="form-control" name="addLastname" id="addLastname">
+              </div>
+              <div class="form-group">
+                <label for="Password">Password</label>
+                <input type="text" class="form-control" name="addPassword" id="addPassword">
+              </div>
+              <div class="form-group">
+                <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-primary float-right" value="AddUser" v-on:click="createUser">
+              </div>
+            </form>
           </div>
         </div>
       </div>

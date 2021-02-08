@@ -1,6 +1,5 @@
 *{
     font-family: Arial, Helvetica, sans-serif ;
-    color: white;
     
 }
 
@@ -13,7 +12,6 @@ body{
     color: #8fa5bf;
     background-image: url("./background/ocean.jpg");
     height: 80px ;
-    width: 100vw;
     font-size:20px;
     font-weight: bold;
     color: white;
@@ -33,6 +31,8 @@ body{
 }
 #editQuestionModal, #askQuestionModal{
     background-color: #8fa5bf;
+    color: black;
+    font-weight: bold;
 }
 .modal-dialog{
     pointer-events: auto;

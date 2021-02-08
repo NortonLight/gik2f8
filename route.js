@@ -204,7 +204,7 @@ routes.post('/question', async (req, res) => {
         const duplicate = validation.test(data.duplicate);
         const userquestion = req.session.email;
         if (category && title && question && duplicate) {
-            await dbService.addQuestion(data);
+            await dbService.addQuestion(data, userquestion);
             res.json('ok');
         }
     }

@@ -86,11 +86,11 @@ const deleteQuestion = (async (id) => {
 
 });
 
-const addQuestion = async (data) => {
+const addQuestion = async (data, userquestion) => {
     try {
         const dbCon = await dbPromise;
 
-        const question = await dbCon.run('INSERT INTO questions (category, title ,question, duplicate, userQuestion) VALUES(?, ? ,?, ?, ?)', [data.category, data.title, data.question, data.duplicate, data.userQuestion]);
+        const question = await dbCon.run('INSERT INTO questions (category, title ,question, duplicate, userQuestion) VALUES(?, ? ,?, ?, ?)', [data.category, data.title, data.question, data.duplicate, userquestion]);
         return question;
 
     }

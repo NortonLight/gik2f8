@@ -111,6 +111,28 @@
                 </div>
             </div>
         </div>
+        <!--create cards-->
+        <div class="row justify-content-center" style="margin-top: 15px">
+            <div class="card" style="width: 18rem;" v-for="question in questions" v-bind:key="question.id">
+                <div class="card-body">
+                    <h5 class="card-title">{{ question.category }}</h5>
+                    <p class="card-text">{{ question.title }}</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"> {{ question.question }} </li>
+                    </ul>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateModal"
+                        v-on:click="showProductInUpdateForm(product.id)">
+                        Manage Product
+                    </button>
+                    <!--lägg till en buy funktion för att skicka in product till buy.html-->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateModal"
+                        v-on:click="addProducttoCart">
+                        Buy
+                    </button>
+                </div>
+            </div>
+        </div>
+
 
         <!-- HÄR ÄR MODAL FÖR ATT STÄLLA FRÅGOR SOM USER-->
 
@@ -140,9 +162,9 @@
                                 <input type="text" class="form-control" name="addTitle" id="addTitle">
                             </div>
                             <div class="form-group">
-                                <label for="add_Qmessage">Question message</label>
-                                <input type="text" class="form-control" name="add_Qmessage" id="add_Qmessage" width="50px"
-                                height="50px">
+                                <label for="question">Question message</label>
+                                <input type="text" class="form-control" name="question" id="question" width="50px"
+                                    height="50px">
                             </div>
                             <div class="form-group">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -191,6 +213,7 @@
                             $('#edit_Qmessage').val(questions.Answer);
                             $('#edit_QmessageId').val(questions.id)
                             //Måste vi ta emot alla saker som finns i vår table questions?
+                            //det måste vi inte, vi kan ta emot bara de som ska ändras typ tiden och id behöver vi inte ta
                         }
                     });
                     $('#editQuestionModal').modal('show');
@@ -200,7 +223,7 @@
                     var question = {
                         category: $('#editQuestionModal #editCategory').val(), //readonlyigentligen, man ska inte ändra categori? eller?
                         title: $('#editQuestionModall #editTitle').val(),
-                        qMessage: $('#editQuestionModal #edit_Qmessage').val(),
+                        question: $('#editQuestionModal #edit_Qmessage').val(),
                         qMessageId: $('#editQuestionModal #edit_QmessageId').val(),
                         user: $('#editQuestionModal #questionUser').val(),
                     }
@@ -223,19 +246,19 @@
 
                 askQuestion() {
                     const question = {
-                        category_id: $('#addCategory').prop('selectedIndex') + 1,
+                        category: $('#addCategory').val(),
                         title: $('#addTitle').val(),
-                        qMessage: $('#add_Qmessage').val()
+                        question: $('#question').val()
                     }
                     $.ajax({
                         url: '/question',
                         type: 'POST',
                         data: question,
                         success: () => {
-                            getQuestions();
                             $('#askQuestionModal').modal('hide');
-                            clearAddForm();// DENNA ÄR FEL. DET MÅSTE STÄMMA MED ALLA MODAL. DET GÄLLER ALL KOD.
-                        }
+                            clearAddForm();// DENNA funkar nu.
+                            // getQuestions(); den funkade inte för att getQuestions finns inte därför ClearAddForm körs aldrig
+                        },
                     });
                 },
 
@@ -257,7 +280,8 @@
 
                 mounted() {
                     var self = this;
-                    $.getJSON("/questions", function (jsondata) {
+                    $.getJSON("/admin", function (jsondata) {
+                        console.log(JSON.stringify(jsondata));
                         self.questions = jsondata;
                     });
                 }

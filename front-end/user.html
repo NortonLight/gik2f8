@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./user.css" />
+    <title>CIAAQ</title>
+</head>
+
+<body>
+    <div class="container" id="user">
+        <!-- PROVADE LÄGGA TILL MODAL BODY I NAV CLASSEN. GICK INTE...-->
+        <nav id="navUser" class="navbar navbar-expand-lg navbar-light bg-light">
+            <div id="navUser2" class="container-fluid">
+                <a id="logoId" class="navbar-brand" href="#">Welcome to CIAAQ</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <!-- HÄR LÄNKAR VI TILL STARTSIDAN. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
+                        </li>
+                        <li><a input="button" class="nav-link" data-toggle="modal" data-target="#askQuestionModal"
+                                href="#askQuestionModal">Ask a
+                                question</a></li>
+                        <!-- KAN GÖRAS OM TILL EN BUTTON FÖR ATT ASK A QUESTION-->
+                        <!-- HÄR LÄNKAR VI TILL EN MODAL SOM HANTERAR VÅRA FRÅGOR. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">My questions</a>
+                            <!-- HÄR LÄNKAR VI TILL EN sida som hanterar våra egna sida?????? Eller blir det STARTSIDASN???, SOM HANTERAR VÅRA FRÅGOR. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <!-- HÄR LÄNKAR VI TILL ALLA KATEGORIER I VÅRA FRÅGOR TEX SPORT HEM HUSHÅLL OSV. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
+                                Categorys
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">Sport</a></li>
+                                <!-- HÄR LÄNKAR VI TILL EN MODAL SOM hämtar denna typ av frågor. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
+                                <li><a class="dropdown-item" href="#">Homes&Households</a></li>
+                                <li><a class="dropdown-item" href="#">Movies&Series</a></li>
+                                <li><a class="dropdown-item" href="#">Relationsship</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <label id="labelSignIn" class="float-right">Singed in as: User</label>
+                    <button id="buttonLogout" type="button" class="btn btn-primary float-right" data-toggle="modal"
+                        data-target="#logoutModal">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Här gör jag en kommentar-->
+
+        <!-- HÄR ÄR MODAL FÖR ATT EDITA OCH POSTA SVAR-->
+        <!-- Här är för USER och contributers att edit questions -->
+        <div class="modal fade" id="editQuestionModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit a question</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form id="formEditQ">
+                        <div class="form-group">
+                            <label for="Category">Category</label>
+                            <select class="form-control" name="editCategory" id="editCategory">
+                                <option>Sport</option>
+                                <option>Homes&Households</option>
+                                <option>Movies&Series</option>
+                                <option>Relationsship</option>
+                                <option>Movies&Series</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="Title">Title</label>
+                            <input type="text" class="form-control" name="editTitle" id="editTitle">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_Qmessage">Question message</label>
+                            <input type="text" class="form-control" name="edit_Qmessage" id="edit_Qmessage">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_QmessageId">Message Id</label>
+                            <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId"
+                                readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="questionUser">User: </label>
+                            <input type="text" class="form-control" name="questionUser" id="questionUser" readonly>
+                        </div>
+                        <div class="modal-footer">
+                            <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="button" class="btn btn-primary" value="Delete answer"
+                                v-on:click="deleteQuestion">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- HÄR ÄR MODAL FÖR ATT STÄLLA FRÅGOR SOM USER-->
+
+        <div class="modal fade" id="askQuestionModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Ask a question</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formAdd">
+                            <div class="form-group">
+                                <label for="Category">Category</label>
+                                <select class="form-control" name="addCategory" id="addCategory">
+                                    <option>Sport</option>
+                                    <option>Homes&Households</option>
+                                    <option>Movies&Series</option>
+                                    <option>Relationsship</option>
+                                    <option>Movies&Series</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="Title">Title</label>
+                                <input type="text" class="form-control" name="addTitle" id="addTitle">
+                            </div>
+                            <div class="form-group">
+                                <label for="add_Qmessage">Question message</label>
+                                <input type="text" class="form-control" name="add_Qmessage" id="add_Qmessage" width="50px"
+                                height="50px">
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <input type="button" class="btn btn-primary" value="Ask question"
+                                    v-on:click="askQuestion">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script> -->
+
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+
+        const userVue = new Vue({
+            el: "#user",
+            data: {
+                users: [],
+                category: [],
+                title: [],
+                questions: [],
+                answers: [],
+                rowData: []
+            },
+            methods: {
+
+                ShowQuestionInUpdateForm(id) { //Vet inte om det är rätt detta, Detta är mest för att fylla på med grejer.
+                    $.ajax({
+                        url: '/questions' + id,
+                        type: 'GET',
+                        success: (questions) => {
+                            document.getElementById("UpdateCategory").selectedIndex = questions.category_id - 1;
+                            $('#editCategory').val(questions.Category);
+                            $('#editTitle').val(questions.Title);
+                            $('#edit_Qmessage').val(questions.Answer);
+                            $('#edit_QmessageId').val(questions.id)
+                            //Måste vi ta emot alla saker som finns i vår table questions?
+                        }
+                    });
+                    $('#editQuestionModal').modal('show');
+                },
+
+                editUserQuestion() {
+                    var question = {
+                        category: $('#editQuestionModal #editCategory').val(), //readonlyigentligen, man ska inte ändra categori? eller?
+                        title: $('#editQuestionModall #editTitle').val(),
+                        qMessage: $('#editQuestionModal #edit_Qmessage').val(),
+                        qMessageId: $('#editQuestionModal #edit_QmessageId').val(),
+                        user: $('#editQuestionModal #questionUser').val(),
+                    }
+                    $.ajax({
+                        url: 'answer',
+                        type: 'PUT',
+                        data: question,
+                        success: () => {
+                            var self = this;
+                            $getJSON("questions", function (jsondata) {
+                                self.questions = jsondata;
+                            });
+                            $('editQuestionModal').modal('hide');
+                        },
+                        error: (error) => {
+                            console.log(error);
+                        }
+                    });
+                },
+
+                askQuestion() {
+                    const question = {
+                        category_id: $('#addCategory').prop('selectedIndex') + 1,
+                        title: $('#addTitle').val(),
+                        qMessage: $('#add_Qmessage').val()
+                    }
+                    $.ajax({
+                        url: '/question',
+                        type: 'POST',
+                        data: question,
+                        success: () => {
+                            getQuestions();
+                            $('#askQuestionModal').modal('hide');
+                            clearAddForm();// DENNA ÄR FEL. DET MÅSTE STÄMMA MED ALLA MODAL. DET GÄLLER ALL KOD.
+                        }
+                    });
+                },
+
+                deleteQuestion(id) {
+                    var question = {
+                        id: $('#editQuestionModal #updateId').val()
+                    }
+                    $.ajax({
+                        url: '/deleteQuestion' + question.Id,
+                        type: 'DELETE',
+                        success: () => {
+                            var self = this;
+                            $.getJSON("questions", function (jsondata) {
+                                self.questions = jsondata;
+                            });
+                        }
+                    });
+                },
+
+                mounted() {
+                    var self = this;
+                    $.getJSON("/questions", function (jsondata) {
+                        self.questions = jsondata;
+                    });
+                }
+            }
+        });
+
+
+
+    </script>
+</body>
+
+</html>

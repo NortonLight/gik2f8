@@ -277,14 +277,13 @@
                     $('#editQuestionModal').modal('show');
                 },
 
-                answerQuestion() {
+                editUserQuestion() {
                     var question = {
                         category: $('#editQuestionModal #editCategory').val(), //readonlyigentligen, man ska inte ändra categori? eller?
                         title: $('#editQuestionModall #editTitle').val(),
                         qMessage: $('#editQuestionModal #edit_Qmessage').val(),
                         qMessageId: $('#editQuestionModal #edit_QmessageId').val(),
                         user: $('#editQuestionModal #questionUser').val(),
-                        answer: $('#editQuestionModal #answerQuestion').val(),
                     }
                     $.ajax({
                         url: 'answer',

@@ -16,9 +16,9 @@
     <div class="container" id="user">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <button class="btn btn-default flex-grow-1" id="home" name="HOME">HOME</button>
-            
+
             <button class="btn btn-default flex-grow-1" id="askQ" name="Ask question">ASK QUESTION</button>
-            
+
             <button class="btn btn-default flex-grow-1" id="myQ" name="My questions">MY QUESTIONS</button>
         </nav>
 
@@ -105,45 +105,45 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                        <form id="formEditQ">
-                            <div class="form-group">
-                                <label for="Category">Category</label>
-                                <select class="form-control" name="editCategory" id="editCategory">
-                                    <option>Sport</option>
-                                    <option>Homes&Households</option>
-                                    <option>Movies&Series</option>
-                                    <option>Relationsship</option>
-                                    <option>Movies&Series</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="Title">Title</label>
-                                <input type="text" class="form-control" name="editTitle" id="editTitle">
-                            </div>
-                            <div class="form-group">
-                                <label for="edit_Qmessage">Question message</label>
-                                <input type="text" class="form-control" name="edit_Qmessage" id="edit_Qmessage">
-                            </div>
-                            <div class="form-group">
-                                <label for="edit_QmessageId">Message Id</label>
-                                <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId"
-                                    readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="questionUser">User: </label>
-                                <input type="text" class="form-control" name="questionUser" id="questionUser" readonly>
-                            </div>
-                            <div class="modal-footer">
-                                <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <input type="button" class="btn btn-primary" value="Delete answer"
-                                    v-on:click="deleteQuestion">
-                            </div>
-                        </form>
-                    </div>
+                    <form id="formEditQ">
+                        <div class="form-group">
+                            <label for="Category">Category</label>
+                            <select class="form-control" name="editCategory" id="editCategory">
+                                <option>Sport</option>
+                                <option>Homes&Households</option>
+                                <option>Movies&Series</option>
+                                <option>Relationsship</option>
+                                <option>Movies&Series</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="Title">Title</label>
+                            <input type="text" class="form-control" name="editTitle" id="editTitle">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_Qmessage">Question message</label>
+                            <input type="text" class="form-control" name="edit_Qmessage" id="edit_Qmessage">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_QmessageId">Message Id</label>
+                            <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId"
+                                readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="questionUser">User: </label>
+                            <input type="text" class="form-control" name="questionUser" id="questionUser" readonly>
+                        </div>
+                        <div class="modal-footer">
+                            <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="button" class="btn btn-primary" value="Delete answer"
+                                v-on:click="deleteQuestion">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
+
 
         <!-- HÄR ÄR MODAL FÖR ATT STÄLLA FRÅGOR SOM USER-->
 
@@ -186,7 +186,7 @@
                 </div>
             </div>
         </div>
-    
+    </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
@@ -307,7 +307,8 @@
 
                 mounted() {
                     var self = this;
-                    $.getJSON("/userquestions", function (jsondata) {
+                    $.getJSON("/questions", function (jsondata) {
+                        console.log(JSON.stringify(jsondata));
                         self.questions = jsondata;
                     });
                 }

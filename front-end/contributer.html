@@ -112,7 +112,8 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Edit a question</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <!--close knappen funkar nu men det är osynlig så om du kan ändra färgen bara-->
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -149,7 +150,6 @@
                 <input type="text" class="form-control" name="answerQuestion" id="answerQuestion">
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <input type="button" class="btn btn-primary" value="Edit question" v-on:click="editQuestion">
                 <input type="button" class="btn btn-primary" value="Post answer" v-on:click="postAnswer">
                 <input type="button" class="btn btn-primary" value="Delete answer" v-on:click="deleteQuestion">

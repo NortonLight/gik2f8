@@ -4,8 +4,25 @@
 4. För att hämta ändringar, git fetch och sedan git pull
 
 git add (den röda texten som syns när man skriver git status)
-5. Tugga tuggummi
 
+
+To add all the changes you've made:
+
+git add .
+
+To commit them:
+
+git commit -m "MY MESSAGE HERE" #-m is the message flag
+
+You can put those steps together like this:
+
+git commit -a -m "MY MESSAGE HERE"
+
+To push your committed changes from your local repository to your remote repository:
+
+git push origin master
+
+You might have to type in your username/password for github after this. Here's a good primer on using git. A bit old, but it covers what's going on really well.
 
 
 methods:{

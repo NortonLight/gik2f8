@@ -91,3 +91,77 @@
                 </tr>
             </tbody>
         </table>
+
+
+
+
+
+
+              <!--  Jag hade denna över buttons login-->
+
+      <tr v-for="item in rowData">
+        <th scope="row">{{ item.mail }}</th>
+        <td>{{ item.date }}</td>
+        <td>{{ item.adress }}</td>
+        <td>{{ item.company }}</td>
+        <td>{{ item.fliers }}</td>
+      </tr>
+
+      <tr class="table table-striped table hover" v-for="question in questions" v-bind:key="questions.category">
+        <th scope="row">{{ questions.category }}</th>
+        <td>{{ questions.title }}</td>
+        <td>{{ questions.question }}</td>
+        <td>{{ questions.user }}</td>
+        <td>{{ questions.timeofquestion }}</td>
+        <td type="button" class="btn btn-danger float-center" data-toggle="modal" data-target="#editAnswerModal">Edit
+        </td>
+      </tr>
+
+
+      <!--   LÖS HUR VI SKA DYNAMISK FYLLA ALLA FRÅGOR SOM EN TABLE UTFIRÅN OLIKA Category-->
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Category{{}}</th>
+            <th scope="col">Title</th>
+            <th scope="col">Question</th>
+            <th scope="col">User</th>
+            <th scope="col">Timestamp</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td> <!-- HÄR MÅSTE VI DYNAMISK MED VUE OCH AJAX FYLLA VÅRAN TABLE MED DEM GREJERN VI VILL HA-->
+            <td>Otto</td> <!-- TEX {QUESTUIONS.QUESTION}-->
+            <td>@mdo</td>
+            <td>@mdo</td>
+            <td>@mdo</td>
+            <td type="button" class="btn btn-danger float-center" data-toggle="modal" data-target="#editAnswerModal">
+              Edit
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+            <td>@mdokalle</td>
+            <td>@mdokalle</td>
+            <td type="button" class="btn btn-danger float-center" data-toggle="modal" data-target="#editAnswerModal">
+              Edit
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td colspan="2">Larry the Bird</td>
+            <td>@twitter</td>
+            <td>@mdo</td>
+            <td>@mdo</td>
+            <td type="button" class="btn btn-danger float-center" data-toggle="modal" data-target="#editAnswerModal">
+              Edit
+            </td>
+          </tr>
+        </tbody>
+      </table>

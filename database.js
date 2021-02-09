@@ -41,7 +41,7 @@ const getQuestions = async () => {
 const getAnswers = async () => {
     try {
         const dbCon = await dbPromise;
-        const answers = await dbCon.all('SELECT questions.title, questions.question, questions.timeofquestion, questions.duplicate, questions.category, questions.id FROM questions ORDER BY id');
+        const answers = await dbCon.all('SELECT response, timeofanswer, userAnswer FROM answers ORDER BY questionId');
         return answers;
 
     }

@@ -29,7 +29,7 @@
           <label id="labelSignIn" class="float-right">Signed in as: Contributer</label>
         </div>
         <button id="buttonLogout" type="button" class="btn btn-primary float-right" data-toggle="modal"
-                data-target="#logoutModal" v-on:click="logout">Logout</button>
+          data-target="#logoutModal" v-on:click="logout">Logout</button>
       </div>
     </nav>
 
@@ -67,13 +67,13 @@
     </div>
 
     <!-- HÄR ÄR MODAL FÖR ATT EDITA OCH POSTA SVAR-->
+    <!-- Här är för USER och contributers att edit questions -->
     <div class="modal fade" id="editQuestionModal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Edit a question</h5>
-            <!--close knappen funkar nu men det är osynlig så om du kan ändra färgen bara-->
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -94,20 +94,12 @@
                 <input type="text" class="form-control" name="editTitle" id="editTitle">
               </div>
               <div class="form-group">
-                <label for="edit_Qmessage">Question message</label>
-                <input type="text" class="form-control" name="edit_Qmessage" id="edit_Qmessage" readonly>
+                <label for="edit_Qmessage">Question</label>
+                <input type="text" class="form-control" name="edit_Qmessage" id="edit_Qmessage">
               </div>
               <div class="form-group">
                 <label for="edit_QmessageId">Message Id</label>
                 <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId" readonly>
-              </div>
-              <div class="form-group">
-                <label for="questionUser">User: </label>
-                <input type="text" class="form-control" name="questionUser" id="questionUser" readonly>
-              </div>
-              <div class="form-group">
-                <label for="answerQuestion">Answer question</label>
-                <input type="text" class="form-control" name="answerQuestion" id="answerQuestion">
               </div>
               <div class="modal-footer">
                 <input type="button" class="btn btn-primary" value="Edit question" v-on:click="editQuestion">
@@ -142,18 +134,18 @@
         answer: [],
       },
       methods: {
-        ShowQuestionInUpdateForm(questions) { //Vet inte om det är rätt detta, Detta är mest för att fylla på med grejer.
+        ShowQuestionInUpdateForm(id) { //Vet inte om det är rätt detta, Detta är mest för att fylla på med grejer.
           $.ajax({
-            url: '/questions' + questions,
+            url: '/question/' + id,
             type: 'GET',
-            success: (questions) => {
-              document.getElementById("UpdateCategory").selectedIndex = questions.category_id - 1;
-              $('#editCategory').val(question.Category);
-              $('#editTitle').val(question.Title);
-              $('#edit_Qmessage').val(question.Answer);
+            success: (question) => {
+              document.getElementById("editCategory").selectedIndex = question.category_id - 1;
+              $('#editCategory').val(question.category);
+              $('#editTitle').val(question.title);
+              $('#edit_Qmessage').val(question.question);
               $('#edit_QmessageId').val(question.id)
               //Måste vi ta emot alla saker som finns i vår table questions?
-
+              //det måste vi inte, vi kan ta emot bara de som ska ändras typ tiden och id behöver vi inte ta
             }
           });
           $('#editQuestionModal').modal('show');

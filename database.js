@@ -27,7 +27,7 @@ const genPass = async (pass) => {
 const getQuestions = async () => {
     try {
         const dbCon = await dbPromise;
-        const question = await dbCon.all('SELECT questions.title, questions.question, questions.timeofquestion, questions.duplicate, questions.category, questions.id FROM questions ORDER BY id');
+        const question = await dbCon.all('SELECT title, question, timeofquestion, duplicate, userQuestion, category, id FROM questions ORDER BY category');
         return question;
 
     }

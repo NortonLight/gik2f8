@@ -4,17 +4,19 @@
 
 body{
     background-image: url("./background/ocean.jpg");
-    color: white;
     font-size: 20px;
 }
 #navUser{
     color: #8fa5bf;
     background-image: url("./background/ocean.jpg");
     height: 80px ;
-    width: 100vw;
     font-size:20px;
     font-weight: bold;
     color: white;
+    margin: 20px;
+}
+#navbarNavDropdown{
+    margin:10px;
 }
 #navUser2{
     color: white;
@@ -23,18 +25,19 @@ body{
 #logoId{
     font-size: 25px;
 }
-#buttonLogout, #buttonEditQ, #buttonEditTable{
+#buttonLogout, #buttonEditQ, #buttonEditTable , #buttonAccount{
     background-color: #8fa5bf;
     font-weight: bold;
     border: white;
-    margin: 2px;
+    margin: 10px;
 }
 #editQuestionModal, #askQuestionModal{
     background-color: #8fa5bf;
     color: black;
+    font-weight: bold;
 }
 
 #labelSignIn{
     font-size: 15px;
-    margin: 2px;
+    margin: 5px;
 }

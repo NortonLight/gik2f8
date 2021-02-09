@@ -6,6 +6,7 @@
 body{
     background-image: url("./background/ocean.jpg");
     font-size: 20px;
+
 }
 #navUser{
     color: #8fa5bf;
@@ -14,9 +15,15 @@ body{
     font-size:20px;
     font-weight: bold;
     color: white;
+    margin: 20px;
 }
+
 #navUser2{
     color: white;
+}
+
+#navbarNavDropdown{
+    margin:10px;
 }
 
 #logoId{
@@ -26,7 +33,7 @@ body{
     background-color: #8fa5bf;
     font-weight: bold;
     border: white;
-    margin: 2px;
+    margin: 10px;
 }
 #editQuestionModal, #askQuestionModal{
     background-color: #8fa5bf;
@@ -38,5 +45,5 @@ body{
 }
 #labelSignIn{
     font-size: 15px;
-    margin: 2px;
+    margin: 13px;
 }

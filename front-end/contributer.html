@@ -13,15 +13,11 @@
 </head>
 
 <body>
-  <div class="container" id="contributer">
+  <div class="container-fluid" id="contributer">
     <nav id="navUser" class="navbar navbar-expand-lg navbar-light bg-light">
       <div id="navUser2" class="container-fluid">
         <a id="logoId" class="navbar-brand" href="#">Welcome to CIAAQ</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <div class="collapse navbar-collapse container-fluid" id="navbarNavDropdown">
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#">Home</a>
@@ -29,29 +25,17 @@
             <li class="nav-item">
               <a class="nav-link" href="#">My answered questions</a>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                Categorys
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <li><a class="dropdown-item" href="#">Sport</a></li>
-                <li><a class="dropdown-item" href="#">Homes&Households</a></li>
-                <li><a class="dropdown-item" href="#">Movies&Series</a></li>
-                <li><a class="dropdown-item" href="#">Relationsship</a></li>
-              </ul>
-            </li>
           </ul>
-          <label id="labelSignIn" class="float-left">Singed in as: Contributer</label>
-          <button id="buttonLogout" type="button" class="btn btn-primary float-left" data-toggle="modal"
-            data-target="#logoutModal" v-on:click="logout">Logout</button>
+          <label id="labelSignIn" class="float-right">Signed in as: Contributer</label>
         </div>
+        <button id="buttonLogout" type="button" class="btn btn-primary float-right" data-toggle="modal"
+                data-target="#logoutModal" v-on:click="logout">Logout</button>
       </div>
     </nav>
 
 
 
-    <div class="container">
+    <div class="container-fluid">
       <table class="table table-striped table-hover">
         <thead>
           <tr>

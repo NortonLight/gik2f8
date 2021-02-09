@@ -13,21 +13,14 @@
 </head>
 
 <body>
-    <div class="container" id="user">
-        <!-- PROVADE LÄGGA TILL MODAL BODY I NAV CLASSEN. GICK INTE...-->
+    <div class="container-fluid" id="user">
         <nav id="navUser" class="navbar navbar-expand-lg navbar-light bg-light">
             <div id="navUser2" class="container-fluid">
                 <a id="logoId" class="navbar-brand" href="#">Welcome to CIAAQ</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">Home</a>
-                            <!-- HÄR LÄNKAR VI TILL STARTSIDAN. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
                         </li>
                         <li><a input="button" class="nav-link" data-toggle="modal" data-target="#askQuestionModal"
                                 href="#askQuestionModal">Ask a
@@ -41,15 +34,16 @@
                             <!-- HÄR LÄNKAR VI TILL EN sida som hanterar våra egna sida?????? Eller blir det STARTSIDASN???, SOM HANTERAR VÅRA FRÅGOR. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
                         </li>
                     </ul>
-                    <label id="labelSignIn" class="float-right">Singed in as: User</label>
-                    <button id="buttonLogout" type="button" class="btn btn-primary float-right" data-toggle="modal"
-                        data-target="#logoutModal" v-on:click="logout">Logout</button>
+                    <label id="labelSignIn" class="float-right">Signed in as: User</label>
+
                 </div>
+                <button id="buttonLogout" type="button" class="btn btn-primary float-right" data-toggle="modal"
+                data-target="#logoutModal" v-on:click="logout">Logout</button>
             </div>
         </nav>
 
 
-        <div class="container">
+        <div class="container-fluid">
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>

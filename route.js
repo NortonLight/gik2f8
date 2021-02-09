@@ -58,7 +58,7 @@ routes.post('/login', async (req, res) => {
 routes.get('/admin', async (req, res) => {
     try {
         const question = await dbService.getQuestions();
-        res.json(question);
+        return res.json(question);
     }
     catch (error) {
         throw new Error(error);

@@ -34,7 +34,7 @@
                                 question</a></li>
                         <!-- KAN GÖRAS OM TILL EN BUTTON FÖR ATT ASK A QUESTION-->
                         <!-- HÄR LÄNKAR VI TILL EN MODAL SOM HANTERAR VÅRA FRÅGOR. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
-                        
+
                         <!-- Hur länkar man en link så man laddar data vid klick /on click. DÅ ska den ladda alla questions som user har lagt till-->
                         <li class="nav-item">
                             <a class="nav-link" href="#">My questions</a>
@@ -47,6 +47,24 @@
                 </div>
             </div>
         </nav>
+
+        <!--create cards-->
+        <div class="row justify-content-center">
+            <div class="card" style="width: 18rem;" v-for="question in questions" v-bind:key="question.id">
+                <div class="card-body">
+                    <h5 class="card-category">{{ question.category }}</h5>
+                    <p class="card-title">{{ question.title }}</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"> {{ question.question }} </li>
+                    </ul>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal"
+                        v-on:click="ShowQuestionInUpdateForm(question.id)">
+                        Edit question
+                    </button>
+                </div>
+            </div>
+        </div>
+
 
         <!-- Här gör jag en kommentar-->
 
@@ -99,28 +117,6 @@
                 </div>
             </div>
         </div>
-        <!--create cards-->
-        <div class="row justify-content-center" style="margin-top: 15px">
-            <div class="card" style="width: 18rem;" v-for="question in questions" v-bind:key="question.id">
-                <div class="card-body">
-                    <h5 class="card-title">{{ question.category }}</h5>
-                    <p class="card-text">{{ question.title }}</p>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"> {{ question.question }} </li>
-                    </ul>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateModal"
-                        v-on:click="showProductInUpdateForm(product.id)">
-                        Manage Product
-                    </button>
-                    <!--lägg till en buy funktion för att skicka in product till buy.html-->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateModal"
-                        v-on:click="addProducttoCart">
-                        Buy
-                    </button>
-                </div>
-            </div>
-        </div>
-
 
         <!-- HÄR ÄR MODAL FÖR ATT STÄLLA FRÅGOR SOM USER-->
 
@@ -175,7 +171,8 @@
         const userVue = new Vue({
             el: "#user",
             data: {
-                questions: []
+                question: [],
+                questions: [],
             },
             methods: {
 
@@ -259,15 +256,14 @@
                     window.location.href = "/index.html";
 
                 },
-
-                mounted() {
+            },
+            mounted() {
                     var self = this;
                     $.getJSON("/admin", function (jsondata) {
                         console.log(JSON.stringify(jsondata));
                         self.questions = jsondata;
                     });
                 }
-            }
         });
 
 

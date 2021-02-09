@@ -49,7 +49,36 @@
     <a input="button" class="btn btn-primary" data-toggle="modal" data-target="#userHandleModal">Handle user</a>
 
 
-
+    <div class="container">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Category</th>
+            <th scope="col">Title</th>
+            <th scope="col">Question</th>
+            <th scope="col">User</th>
+            <th scope="col">Answer</th>
+            <th scope="col">Timeofquestion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="question in questions" v-bind:key="question.id">
+            <th scope="row"></th>
+            <td>{{question.category}}</td>
+            <td>{{question.title}}</td>
+            <td>{{question.question}}</td>
+            <td>{{question.user}}</td>
+            <td>{{question.answer}}</td>
+            <td>{{question.timeofquestion}}</td>
+            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal"
+                v-on:click="ShowQuestionInUpdateForm(question.id)">
+                Edit question
+              </button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
 
 
@@ -93,7 +122,7 @@
             <h5 class="modal-title">Edit a question</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-          </button>
+            </button>
           </div>
           <div class="modal-body">
             <form id="formEditQ">
@@ -113,11 +142,11 @@
               </div>
               <div class="form-group">
                 <label for="edit_Qmessage">Question message</label>
-                <input type="text" class="form-control" name="edit_Qmessage" id="edit_Qmessage">
+                <input type="text" class="form-control" name="edit_Qmessage" id="edit_Qmessage" readonly>
               </div>
               <div class="form-group">
                 <label for="edit_QmessageId">Message Id</label>
-                <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId">
+                <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId" readonly>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -143,104 +172,107 @@
   <script>
 
 
-const userVue = new Vue({
-            el: "#admin",
-            data: {
-                questions: []
+    const userVue = new Vue({
+      el: "#admin",
+      data: {
+        questions: [],
+        answers: [],
+        rowData: [],
+        answer: [],
+      },
+      methods: {
+
+        ShowQuestionInUpdateForm(id) { //Vet inte om det är rätt detta, Detta är mest för att fylla på med grejer.
+          $.ajax({
+            url: '/questions' + id,
+            type: 'GET',
+            success: (questions) => {
+              document.getElementById("UpdateCategory").selectedIndex = questions.category_id - 1;
+              $('#editCategory').val(questions.Category);
+              $('#editTitle').val(questions.Title);
+              $('#edit_Qmessage').val(questions.Answer);
+              $('#edit_QmessageId').val(questions.id)
+              //Måste vi ta emot alla saker som finns i vår table questions?
+              //det måste vi inte, vi kan ta emot bara de som ska ändras typ tiden och id behöver vi inte ta
+            }
+          });
+          $('#editQuestionModal').modal('show');
+        },
+
+        editUserQuestion() {
+          var question = {
+            category: $('#editQuestionModal #editCategory').val(), //readonlyigentligen, man ska inte ändra categori? eller?
+            title: $('#editQuestionModall #editTitle').val(),
+            question: $('#editQuestionModal #edit_Qmessage').val(),
+            qMessageId: $('#editQuestionModal #edit_QmessageId').val(),
+            user: $('#editQuestionModal #questionUser').val(),
+          }
+          $.ajax({
+            url: 'answer',
+            type: 'PUT',
+            data: question,
+            success: () => {
+              var self = this;
+              $getJSON("questions", function (jsondata) {
+                self.questions = jsondata;
+              });
+              $('editQuestionModal').modal('hide');
             },
-            methods: {
+            error: (error) => {
+              console.log(error);
+            }
+          });
+        },
 
-                ShowQuestionInUpdateForm(id) { //Vet inte om det är rätt detta, Detta är mest för att fylla på med grejer.
-                    $.ajax({
-                        url: '/questions' + id,
-                        type: 'GET',
-                        success: (questions) => {
-                            document.getElementById("UpdateCategory").selectedIndex = questions.category_id - 1;
-                            $('#editCategory').val(questions.Category);
-                            $('#editTitle').val(questions.Title);
-                            $('#edit_Qmessage').val(questions.Answer);
-                            $('#edit_QmessageId').val(questions.id)
-                            //Måste vi ta emot alla saker som finns i vår table questions?
-                            //det måste vi inte, vi kan ta emot bara de som ska ändras typ tiden och id behöver vi inte ta
-                        }
-                    });
-                    $('#editQuestionModal').modal('show');
-                },
-
-                editUserQuestion() {
-                    var question = {
-                        category: $('#editQuestionModal #editCategory').val(), //readonlyigentligen, man ska inte ändra categori? eller?
-                        title: $('#editQuestionModall #editTitle').val(),
-                        question: $('#editQuestionModal #edit_Qmessage').val(),
-                        qMessageId: $('#editQuestionModal #edit_QmessageId').val(),
-                        user: $('#editQuestionModal #questionUser').val(),
-                    }
-                    $.ajax({
-                        url: 'answer',
-                        type: 'PUT',
-                        data: question,
-                        success: () => {
-                            var self = this;
-                            $getJSON("questions", function (jsondata) {
-                                self.questions = jsondata;
-                            });
-                            $('editQuestionModal').modal('hide');
-                        },
-                        error: (error) => {
-                            console.log(error);
-                        }
-                    });
-                },
-
-                askQuestion() {
-                    const question = {
-                        category: $('#addCategory').val(),
-                        title: $('#addTitle').val(),
-                        question: $('#question').val()
-                    }
-                    $.ajax({
-                        url: '/question',
-                        type: 'POST',
-                        data: question,
-                        success: () => {
-                            $('#askQuestionModal').modal('hide');
-                            clearAddForm();// DENNA funkar nu.
-                            // getQuestions(); den funkade inte för att getQuestions finns inte därför ClearAddForm körs aldrig
-                        },
-                    });
-                },
-
-                deleteQuestion(id) {
-                    var question = {
-                        id: $('#editQuestionModal #updateId').val()
-                    }
-                    $.ajax({
-                        url: '/deleteQuestion' + question.Id,
-                        type: 'DELETE',
-                        success: () => {
-                            var self = this;
-                            $.getJSON("questions", function (jsondata) {
-                                self.questions = jsondata;
-                            });
-                        }
-                    });
-                },
-                logout() {
-                    sessionStorage.clear();
-                    window.location.href = "/index.html";
-                },
+        askQuestion() {
+          const question = {
+            category: $('#addCategory').val(),
+            title: $('#addTitle').val(),
+            question: $('#question').val()
+          }
+          $.ajax({
+            url: '/question',
+            type: 'POST',
+            data: question,
+            success: () => {
+              $('#askQuestionModal').modal('hide');
+              clearAddForm();// DENNA funkar nu.
+              // getQuestions(); den funkade inte för att getQuestions finns inte därför ClearAddForm körs aldrig
             },
-            mounted() {
-                    var self = this;
-                    $.getJSON("/admin", function (jsondata) {
-                        console.log(JSON.stringify(jsondata));
-                        self.questions = jsondata;
-                    });
-                }
+          });
+        },
+
+        deleteQuestion(id) {
+          var question = {
+            id: $('#editQuestionModal #updateId').val()
+          }
+          $.ajax({
+            url: '/deleteQuestion' + question.Id,
+            type: 'DELETE',
+            success: () => {
+              var self = this;
+              $.getJSON("questions", function (jsondata) {
+                self.questions = jsondata;
+              });
+            }
+          });
+        },
+        logout() {
+          sessionStorage.clear();
+          window.location.href = "/index.html";
+        },
+      },
+      mounted() {
+        var self = this;
+        $.getJSON("/questions", function (jsondata) {
+          console.log(JSON.stringify(jsondata));
+          self.questions = jsondata;
         });
+      }
+    });
 
 
-    </script>
+  </script>
 </body>
 
 </html>

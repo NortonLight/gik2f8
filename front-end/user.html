@@ -34,7 +34,7 @@
                                 question</a></li>
                         <!-- KAN GÖRAS OM TILL EN BUTTON FÖR ATT ASK A QUESTION-->
                         <!-- HÄR LÄNKAR VI TILL EN MODAL SOM HANTERAR VÅRA FRÅGOR. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
-                        
+
                         <!-- Hur länkar man en link så man laddar data vid klick /on click. DÅ ska den ladda alla questions som user har lagt till-->
                         <li class="nav-item">
                             <a class="nav-link" href="#">My questions</a>
@@ -260,13 +260,13 @@
 
                 },
 
-                mounted() {
-                    var self = this;
-                    $.getJSON("/admin", function (jsondata) {
-                        console.log(JSON.stringify(jsondata));
-                        self.questions = jsondata;
-                    });
-                }
+            mounted() {
+                var self = this;
+                $.getJSON("/admin", function (jsondata) {
+                    console.log(JSON.stringify(jsondata));
+                    self.questions = jsondata;
+                });
+            }
             }
         });
 

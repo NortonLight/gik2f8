@@ -43,7 +43,7 @@
                     </ul>
                     <label id="labelSignIn" class="float-right">Singed in as: User</label>
                     <button id="buttonLogout" type="button" class="btn btn-primary float-right" data-toggle="modal"
-                        data-target="#logoutModal">Logout</button>
+                        data-target="#logoutModal" v-on:click="logout">Logout</button>
                 </div>
             </div>
         </nav>
@@ -253,6 +253,11 @@
                             });
                         }
                     });
+                },
+                logout() {
+                    sessionStorage.clear();
+                    window.location.href = "/index.html";
+
                 },
 
                 mounted() {

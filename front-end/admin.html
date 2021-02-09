@@ -34,7 +34,7 @@
             </li>
             <label id="labelSignIn" class="float-left">Singed in as: SuperAdmin</label>
             <button id="buttonLogout" type="button" class="btn btn-primary float-left" data-toggle="modal"
-              data-target="#logoutModal">Logout</button>
+              data-target="#logoutModal" v-on:click="logout">Logout</button>
           </ul>
         </div>
       </div>
@@ -144,7 +144,7 @@
 
 
 const userVue = new Vue({
-            el: "#user",
+            el: "#admin",
             data: {
                 questions: []
             },
@@ -224,6 +224,10 @@ const userVue = new Vue({
                             });
                         }
                     });
+                },
+                logout() {
+                    sessionStorage.clear();
+                    window.location.href = "/index.html";
                 },
 
                 mounted() {

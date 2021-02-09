@@ -130,6 +130,18 @@ routes.get('/questions', async (req, res) => {
     }
 });
 
+routes.get('/answers', async (req, res) => {
+    try {
+        sess = req.session
+        const answers = await dbService.getAnswers();
+        res.json(answers);
+
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+});
+
 //updatera min fråga //Testa
 routes.put('/question', async (req, res) => {
     try {

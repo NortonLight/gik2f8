@@ -44,7 +44,6 @@
     <!-- DENNA STOD NEDANFÖR NAV PRECIS HÄR UNDER 7 RADER NED-->
     <!-- Denna knappen ska kopplas till Alla tables på user,contri,admin-->
 
-    <a input="button" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal">Edit question</a>
 
     <a input="button" class="btn btn-primary" data-toggle="modal" data-target="#userHandleModal">Handle user</a>
 
@@ -106,6 +105,7 @@
                 <input type="text" class="form-control" name="blockInfo" id="blockInfo">
               </div>
               <div class="modal-footer">
+                <button type="button" class="btn btn-primary Save" data-bs-dismiss="modal">Save changes</button>
                 <input type="button" class="btn btn-primary" value="Edit user" v-on:click="editUser">
                 <input type="button" class="btn btn-primary" value="Delete User" v-on:click="deleteQUser">
               </div>
@@ -269,13 +269,13 @@
           self.questions = jsondata;
         });
       },
-      mounted() {
-        var self = this;
-        $.getJSON("/answers", function (jsondata) {
-          console.log(JSON.stringify(jsondata));
-          self.answers = jsondata;
-        })
-      }
+      // mounted() {
+      //   var self = this;
+      //   $.getJSON("/answers", function (jsondata) {
+      //     console.log(JSON.stringify(jsondata));
+      //     self.answers = jsondata;
+      //   })
+      // }
     });
 
 

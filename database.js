@@ -36,6 +36,20 @@ const getQuestions = async () => {
         throw new Error(error);
     }
 };
+
+//Answers HÄR BEHÖVER DU FIXA DATABASEN TILL ANSSWERS
+const getAnswers = async () => {
+    try {
+        const dbCon = await dbPromise;
+        const answers = await dbCon.all('SELECT questions.title, questions.question, questions.timeofquestion, questions.duplicate, questions.category, questions.id FROM questions ORDER BY id');
+        return answers;
+
+    }
+    catch (error) {
+        console.log(error);
+        throw new Error(error);
+    }
+};
 const getUserQuestion = async (data) => {
     try {
         const dbCon = await dbPromise;
@@ -226,5 +240,6 @@ module.exports = {
     updateUser: updateUser,
     addAnswer : addAnswer,
     deleteAnswer :deleteAnswer,
-    updateAnswer: updateAnswer
+    updateAnswer: updateAnswer,
+    getAnswers: getAnswers
 }

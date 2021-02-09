@@ -268,6 +268,13 @@
           console.log(JSON.stringify(jsondata));
           self.questions = jsondata;
         });
+      },
+      mounted() {
+        var self = this;
+        $.getJSON("/answers", function (jsondata) {
+          console.log(JSON.stringify(jsondata));
+          self.answers = jsondata;
+        })
       }
     });
 

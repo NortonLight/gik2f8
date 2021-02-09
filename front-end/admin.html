@@ -229,15 +229,14 @@ const userVue = new Vue({
                     sessionStorage.clear();
                     window.location.href = "/index.html";
                 },
-
-                mounted() {
+            },
+            mounted() {
                     var self = this;
                     $.getJSON("/admin", function (jsondata) {
                         console.log(JSON.stringify(jsondata));
                         self.questions = jsondata;
                     });
                 }
-            }
         });
 
 

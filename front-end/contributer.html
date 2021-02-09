@@ -278,13 +278,14 @@
                     sessionStorage.clear();
                     window.location.href = "/index.html";
                 },
-        mounted() {
-          var self = this;
-          $.getJSON("/", function (jsondata) {
-            self.questions = jsondata;
-          });
-        }
-      }
+      },
+      mounted() {
+                    var self = this;
+                    $.getJSON("/admin", function (jsondata) {
+                        console.log(JSON.stringify(jsondata));
+                        self.questions = jsondata;
+                    });
+                }
     });
 
   </script>

@@ -106,7 +106,7 @@
                                 <input type="text" class="form-control" name="editTitle" id="editTitle">
                             </div>
                             <div class="form-group">
-                                <label for="edit_Qmessage">Question message</label>
+                                <label for="edit_Qmessage">Question</label>
                                 <input type="text" class="form-control" name="edit_Qmessage" id="edit_Qmessage">
                             </div>
                             <div class="form-group">
@@ -114,10 +114,10 @@
                                 <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId"
                                     readonly>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="questionUser">User: </label>
                                 <input type="text" class="form-control" name="questionUser" id="questionUser" readonly>
-                            </div>
+                            </div> -->
                             <div class="modal-footer">
                                 <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -195,13 +195,13 @@
 
                 ShowQuestionInUpdateForm(id) { //Vet inte om det är rätt detta, Detta är mest för att fylla på med grejer.
                     $.ajax({
-                        url: '/questions' + id,
+                        url: '/question/' + id,
                         type: 'GET',
                         success: (question) => {
                             document.getElementById("editCategory").selectedIndex = question.category_id - 1;
-                            $('#editCategory').val(question.Category);
-                            $('#editTitle').val(question.Title);
-                            $('#edit_Qmessage').val(question.Answer);
+                            $('#editCategory').val(question.category);
+                            $('#editTitle').val(question.title);
+                            $('#edit_Qmessage').val(question.question);
                             $('#edit_QmessageId').val(question.id)
                             //Måste vi ta emot alla saker som finns i vår table questions?
                             //det måste vi inte, vi kan ta emot bara de som ska ändras typ tiden och id behöver vi inte ta

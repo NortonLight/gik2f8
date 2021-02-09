@@ -40,7 +40,7 @@ const getQuestions = async () => {
 const getQuestion = async (id) => {
     try {
     const dbCon = await dbPromise;
-    const question = await dbCon.get('SELECT category, title, question, id FROM quetions WHERE id=?', [id]);
+    const question = await dbCon.get('SELECT category, title, question, id FROM questions WHERE id=?', [id]);
     return question;
     }
     catch (error) {

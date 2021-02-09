@@ -55,40 +55,6 @@ routes.post('/login', async (req, res) => {
         res.json({status: error });
     }
 });
-routes.get('/admin', async (req, res) => {
-    try {
-        const question = await dbService.getQuestions();
-        res.json(question);
-    }
-    catch (error) {
-        throw new Error(error);
-    }
-});
-
-routes.get('/contributer', async (req, res) => {
-    try {
-        const question = await dbService.getQuestions();
-        res.json(question);
-    }
-    catch (error) {
-        throw new Error(error);
-    }
-});
-
-routes.get('/user', async (req, res) => {
-    try {
-        sess = req.session;
-        if(sess.email){
-            
-        const question = await dbService.getUserQuestions();
-        res.json(question);
-
-        }
-    }
-    catch (error) {
-        throw new Error(error);
-    }
-});
 
 //user
 routes.post('/users', async (req, res) => {

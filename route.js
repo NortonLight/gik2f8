@@ -134,7 +134,8 @@ routes.get('/questions', async (req, res) => {
 routes.get('/question/:id', async (req, res) => {
     try{
         sess = req.session
-        const question = await dbService.getQuestion();
+        const qId = req.params.id;
+        const question = await dbService.getQuestion(qId);
         res.json(question);
     }
     catch (error) {

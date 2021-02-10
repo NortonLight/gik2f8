@@ -67,7 +67,7 @@ const getAnswers = async (data) => {
 const getUserQuestion = async (data) => {
     try {
         const dbCon = await dbPromise;
-        const userQuestion = await dbCon.all('SELECT title, question FROM questions WHERE userquestion=?', [data]);
+        const userQuestion = await dbCon.all('SELECT title, question FROM questions WHERE userquestion=?', [data.email]);
         return userQuestion;
 
     }

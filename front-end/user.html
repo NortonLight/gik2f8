@@ -285,7 +285,6 @@
                     $.ajax({
                         url: '/answer',
                         type: 'GET',
-                        data = questions.id,
                         success: (answers) => {
                             $('#open_Qanswer').val(answers.response)
                             //Måste vi ta emot alla saker som finns i vår table questions?

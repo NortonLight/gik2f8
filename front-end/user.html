@@ -278,7 +278,22 @@
                             $('#open_Qmessage').val(question.question);
                         }
                     });
+                    ShowAnswe();
+                   
+                    
                     $('#openQuestionModal').modal('show');
+
+                },
+                ShowAnswe(id){
+                    $.ajax({
+                        url: '/answer',
+                        type: 'GET',
+                        success: (answers) => {
+                            $('#open_Qanswer').val(answers.response)
+                            //Måste vi ta emot alla saker som finns i vår table questions?
+                            //det måste vi inte, vi kan ta emot bara de som ska ändras typ tiden och id behöver vi inte ta
+                        }
+                    });
 
                 },
 
@@ -352,11 +367,11 @@
                     console.log(JSON.stringify(jsondata));
                     self.questions = jsondata;
                 });
-                var self = this;
-                $.getJSON("/answers", function (jsondata) {
-                    console.log(JSON.stringify(jsondata));
-                    self.answers = jsondata;
-                });
+                // var self = this;
+                // $.getJSON("/answers", function (jsondata) {
+                //     console.log(JSON.stringify(jsondata));
+                //     self.answers = jsondata;
+                // });
             },
         });
 

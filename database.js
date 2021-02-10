@@ -62,6 +62,8 @@ const getAnswers = async (data) => {
         throw new Error(error);
     }
 };
+
+//Databasen funger och skickar tillbaka svaret på DATA när vi sätter email = "user@du.se" i routes
 const getUserQuestion = async (data) => {
     try {
         const dbCon = await dbPromise;

@@ -268,13 +268,11 @@
             methods: {
                 ShowQuestionModal(email) {
                     $.ajax({
-                        url: '/userquestions' + email,
+                        url: '/userquestions',
                         type: 'GET',
                         success: (question) => {
                             $('#openTitle').val(question.title);
                             $('#open_Qmessage').val(question.question);
-                            //Måste vi ta emot alla saker som finns i vår table questions?
-                            //det måste vi inte, vi kan ta emot bara de som ska ändras typ tiden och id behöver vi inte ta
                         }
                     });
                     $('#openQuestionModal').modal('show');

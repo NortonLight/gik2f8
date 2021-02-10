@@ -108,8 +108,11 @@ routes.delete('/users/:id', async (req, res) => {
 // Get user Frågor // Testa
 routes.get('/userquestions', async (req, res) => {
     try {
-        sess = req.session
-        const question = await dbService.getUserQuestion(sess.email);
+        //Det är något fel i routes som inte tar emot session email.
+ //       sess = req.session
+       // sess.email = req.session
+        email = "user@du.se"
+        const question = await dbService.getUserQuestion(email);
         res.json(question);
 
 

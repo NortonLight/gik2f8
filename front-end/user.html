@@ -80,7 +80,7 @@
         </div>
 
 
-        
+
         
         <div class="modal fade" id="myQuestionsModal">
             <div class="modal-dialog">
@@ -278,13 +278,13 @@
                             $('#open_Qmessage').val(question.question);
                         }
                     });
-                    ShowAnswe();
+                    ShowAnswer();
                    
                     
                     $('#openQuestionModal').modal('show');
 
                 },
-                ShowAnswe(id){
+                ShowAnswer(id){
                     $.ajax({
                         url: '/answer',
                         type: 'GET',

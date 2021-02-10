@@ -112,6 +112,7 @@ routes.get('/userquestions', async (req, res) => {
         const question = await dbService.getUserQuestion(sess.email);
         res.json(question);
 
+
     }
     catch (error) {
         throw new Error(error);
@@ -143,17 +144,17 @@ routes.get('/question/:id', async (req, res) => {
     }
 });
 
-routes.get('/answers', async (req, res) => {
-    try {
-        const data = req.body.id;
-        const answers = await dbService.getAnswers(data);
-        res.json(answers);
+// routes.get('/answers', async (req, res) => {
+//     try {
+//         const data = req.body.id;
+//         const answers = await dbService.getAnswers(data);
+//         res.json(answers);
 
-    }
-    catch (error) {
-        throw new Error(error);
-    }
-});
+//     }
+//     catch (error) {
+//         throw new Error(error);
+//     }
+// });
 
 //updatera min fråga //Testa
 routes.put('/question', async (req, res) => {

@@ -48,6 +48,7 @@ const getQuestion = async (id) => {
     }
 };
 
+
 //Answers HÄR BEHÖVER DU FIXA DATABASEN TILL ANSSWERS
 const getAnswers = async (data) => {
     try {
@@ -64,7 +65,7 @@ const getAnswers = async (data) => {
 const getUserQuestion = async (data) => {
     try {
         const dbCon = await dbPromise;
-        const userQuestion = await dbCon.all('SELECT title, question, timeofquestion, duplicate, category, id FROM questions WHERE userquestion=?', [data.userQuestion]);
+        const userQuestion = await dbCon.all('SELECT title, question FROM questions WHERE userquestion=?', [data]);
         return userQuestion;
 
     }

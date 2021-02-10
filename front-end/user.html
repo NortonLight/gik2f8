@@ -65,15 +65,56 @@
                         <!-- <td v-for="answer in answers">{{answers.response}}</td>-->
                         <td>{{question.timeofquestion}}</td>
                         <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                            <!-- <button type="button" class="btn btn-primary" data-toggle="modal"
                                 data-target="#editQuestionModal" v-on:click="ShowQuestionInUpdateForm(question.id)">
-                                Edit question
+                                Open question
+                            </button> -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#openQuestionModal" v-on:click="ShowQuestionModal(question.id)">
+                                Open question
                             </button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
+
+
+        <!-- Här är för USER och contributers att edit questions -->
+        <div class="modal fade" id="openQuestionModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Opened Question</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formOpenQ">
+                            <div class="form-group">
+                                <label for="open_Qmessage">Question</label>
+                                <input type="text" class="form-control" name="open_Qmessage" id="open_Qmessage" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="open_Qanswer">Answer</label>
+                                <input type="text" class="form-control" name="open_Qanswer" id="open_Qanswer" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="open_QmessageId">Message Id</label>
+                                <input type="text" class="form-control" name="open_QmessageId" id="open_QmessageId"
+                                    readonly>
+                            </div>
+                            <div class="modal-footer">
+                                <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
 
         <!-- Här gör jag en kommentar-->
@@ -192,22 +233,19 @@
                 answer: [],
             },
             methods: {
-
-                ShowQuestionInUpdateForm(id) { //Vet inte om det är rätt detta, Detta är mest för att fylla på med grejer.
+                ShowQuestionModal(id){
                     $.ajax({
                         url: '/question/' + id,
                         type: 'GET',
                         success: (question) => {
-                            document.getElementById("editCategory").selectedIndex = question.category_id - 1;
-                            $('#editCategory').val(question.category);
-                            $('#editTitle').val(question.title);
-                            $('#edit_Qmessage').val(question.question);
-                            $('#edit_QmessageId').val(question.id)
+                            $('#open_Qmessage').val(question.question);
+                            $('#open_QmessageId').val(question.id)
                             //Måste vi ta emot alla saker som finns i vår table questions?
                             //det måste vi inte, vi kan ta emot bara de som ska ändras typ tiden och id behöver vi inte ta
                         }
                     });
-                    $('#editQuestionModal').modal('show');
+                    $('#openQuestionModal').modal('show');
+
                 },
 
                 editUserQuestion() {

@@ -32,7 +32,7 @@
           </ul>
         </div>
         <button id="buttonLogout" type="button" class="btn btn-primary float-right" data-toggle="modal"
-        data-target="#logoutModal" v-on:click="logout">Logout</button>
+          data-target="#logoutModal" v-on:click="logout">Logout</button>
       </div>
     </nav>
 
@@ -106,12 +106,14 @@
       </div>
     </div>
 
+    <!-- HÄR ÄR MODAL FÖR ATT EDITA OCH POSTA SVAR-->
+    <!-- Här är för USER och contributers att edit questions -->
     <div class="modal fade" id="editQuestionModal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Edit a question</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -132,8 +134,8 @@
                 <input type="text" class="form-control" name="editTitle" id="editTitle">
               </div>
               <div class="form-group">
-                <label for="edit_Qmessage">Question message</label>
-                <input type="text" class="form-control" name="edit_Qmessage" id="edit_Qmessage" readonly>
+                <label for="edit_Qmessage">Question</label>
+                <input type="text" class="form-control" name="edit_Qmessage" id="edit_Qmessage">
               </div>
               <div class="form-group">
                 <label for="edit_QmessageId">Message Id</label>
@@ -175,14 +177,14 @@
 
         ShowQuestionInUpdateForm(id) { //Vet inte om det är rätt detta, Detta är mest för att fylla på med grejer.
           $.ajax({
-            url: '/questions' + id,
+            url: '/question/' + id,
             type: 'GET',
-            success: (questions) => {
-              document.getElementById("UpdateCategory").selectedIndex = questions.category_id - 1;
-              $('#editCategory').val(questions.Category);
-              $('#editTitle').val(questions.Title);
-              $('#edit_Qmessage').val(questions.Answer);
-              $('#edit_QmessageId').val(questions.id)
+            success: (question) => {
+              document.getElementById("editCategory").selectedIndex = question.category_id - 1;
+              $('#editCategory').val(question.category);
+              $('#editTitle').val(question.title);
+              $('#edit_Qmessage').val(question.question);
+              $('#edit_QmessageId').val(question.id)
               //Måste vi ta emot alla saker som finns i vår table questions?
               //det måste vi inte, vi kan ta emot bara de som ska ändras typ tiden och id behöver vi inte ta
             }

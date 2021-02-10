@@ -38,7 +38,7 @@
 
                 </div>
                 <button id="buttonLogout" type="button" class="btn btn-primary float-right" data-toggle="modal"
-                data-target="#logoutModal" v-on:click="logout">Logout</button>
+                    data-target="#logoutModal" v-on:click="logout">Logout</button>
             </div>
         </nav>
 
@@ -51,9 +51,7 @@
                         <th scope="col">Category</th>
                         <th scope="col">Title</th>
                         <th scope="col">Question</th>
-                        <th scope="col">Answer</th>
                         <th scope="col">User</th>
-                        
                         <th scope="col">Timeofquestion</th>
                     </tr>
                 </thead>
@@ -63,15 +61,15 @@
                         <td>{{question.category}}</td>
                         <td>{{question.title}}</td>
                         <td>{{question.question}}</td>
-                        <td v-for="answer in answers">{{answer.response}}</td>
                         <td>{{question.userQuestion}}</td>
-                        
+                        <!-- <td v-for="answer in answers">{{answers.response}}</td>-->
                         <td>{{question.timeofquestion}}</td>
                         <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                            data-target="#editQuestionModal" v-on:click="ShowQuestionInUpdateForm(question.id)">
-                            Edit question
-                        </button></td>
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#editQuestionModal" v-on:click="ShowQuestionInUpdateForm(question.id)">
+                                Edit question
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -91,41 +89,45 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form id="formEditQ">
-                        <div class="form-group">
-                            <label for="Category">Category</label>
-                            <select class="form-control" name="editCategory" id="editCategory">
-                                <option>Sport</option>
-                                <option>Homes&Households</option>
-                                <option>Movies&Series</option>
-                                <option>Relationsship</option>
-                                <option>Movies&Series</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="Title">Title</label>
-                            <input type="text" class="form-control" name="editTitle" id="editTitle">
-                        </div>
-                        <div class="form-group">
-                            <label for="edit_Qmessage">Question message</label>
-                            <input type="text" class="form-control" name="edit_Qmessage" id="edit_Qmessage">
-                        </div>
-                        <div class="form-group">
-                            <label for="edit_QmessageId">Message Id</label>
-                            <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId"
-                                readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="questionUser">User: </label>
-                            <input type="text" class="form-control" name="questionUser" id="questionUser" readonly>
-                        </div>
-                        <div class="modal-footer">
-                            <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <input type="button" class="btn btn-primary" value="Delete answer"
-                                v-on:click="deleteQuestion">
-                        </div>
-                    </form>
+                    <div class="modal-body">
+                        <form id="formEditQ">
+                            <div class="form-group">
+                                <label for="Category">Category</label>
+                                <select class="form-control" name="editCategory" id="editCategory">
+                                    <option>Sport</option>
+                                    <option>Homes&Households</option>
+                                    <option>Movies&Series</option>
+                                    <option>Relationsship</option>
+                                    <option>Movies&Series</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="Title">Title</label>
+                                <input type="text" class="form-control" name="editTitle" id="editTitle">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_Qmessage">Question</label>
+                                <input type="text" class="form-control" name="edit_Qmessage" id="edit_Qmessage">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_QmessageId">Message Id</label>
+                                <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId"
+                                    readonly>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="questionUser">User: </label>
+                                <input type="text" class="form-control" name="questionUser" id="questionUser" readonly>
+                            </div> -->
+                            <div class="modal-footer">
+                                <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <input type="button" class="btn btn-primary" value="Delete answer"
+                                    v-on:click="deleteQuestion">
+                                <input type="submit" class="btn btn-primary float-right" value="Save changes"
+                                    v-on:click="editUserQuestion">
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -193,14 +195,14 @@
 
                 ShowQuestionInUpdateForm(id) { //Vet inte om det är rätt detta, Detta är mest för att fylla på med grejer.
                     $.ajax({
-                        url: '/questions' + id,
+                        url: '/question/' + id,
                         type: 'GET',
-                        success: (questions) => {
-                            document.getElementById("UpdateCategory").selectedIndex = questions.category_id - 1;
-                            $('#editCategory').val(questions.Category);
-                            $('#editTitle').val(questions.Title);
-                            $('#edit_Qmessage').val(questions.Answer);
-                            $('#edit_QmessageId').val(questions.id)
+                        success: (question) => {
+                            document.getElementById("editCategory").selectedIndex = question.category_id - 1;
+                            $('#editCategory').val(question.category);
+                            $('#editTitle').val(question.title);
+                            $('#edit_Qmessage').val(question.question);
+                            $('#edit_QmessageId').val(question.id)
                             //Måste vi ta emot alla saker som finns i vår table questions?
                             //det måste vi inte, vi kan ta emot bara de som ska ändras typ tiden och id behöver vi inte ta
                         }
@@ -222,7 +224,7 @@
                         data: question,
                         success: () => {
                             var self = this;
-                            $getJSON("questions", function (jsondata) {
+                            $getJSON("/questions", function (jsondata) {
                                 self.questions = jsondata;
                             });
                             $('editQuestionModal').modal('hide');
@@ -279,18 +281,11 @@
                     self.questions = jsondata;
                 });
                 var self = this;
-                $.getJSON("/answers", function(jsondata){
+                $.getJSON("/answers", function (jsondata) {
                     console.log(JSON.stringify(jsondata));
                     self.answers = jsondata;
                 });
             },
-            // mounted() {
-            //     var self = this;
-            //     $.getJSON("/answers", function (jsondata) {
-            //         console.log(JSON.stringify(jsondata));
-            //         self.answers = jsondata;
-            //     })
-            // }
         });
 
 

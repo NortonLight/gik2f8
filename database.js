@@ -48,6 +48,7 @@ const getQuestion = async (id) => {
     }
 };
 
+
 //Answers HÄR BEHÖVER DU FIXA DATABASEN TILL ANSSWERS
 const getAnswers = async (data) => {
     try {
@@ -61,10 +62,12 @@ const getAnswers = async (data) => {
         throw new Error(error);
     }
 };
+
+//Databasen funger och skickar tillbaka svaret på DATA när vi sätter email = "user@du.se" i routes
 const getUserQuestion = async (data) => {
     try {
         const dbCon = await dbPromise;
-        const userQuestion = await dbCon.all('SELECT title, question, timeofquestion, duplicate, category, id FROM questions WHERE userquestion=?', [data.userQuestion]);
+        const userQuestion = await dbCon.all('SELECT title, question FROM questions WHERE userquestion=?', [data]);
         return userQuestion;
 
     }

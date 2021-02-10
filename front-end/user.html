@@ -30,7 +30,7 @@
 
                         <!-- Hur länkar man en link så man laddar data vid klick /on click. DÅ ska den ladda alla questions som user har lagt till-->
                         <li class="nav-item">
-                            <a class="nav-link" href="#">My questions</a>
+                            <a class="nav-link" data-toggle="modal" data-target="#myQuestionsModal" href="#myQuestionsModal">My questions</a>
                             <!-- HÄR LÄNKAR VI TILL EN sida som hanterar våra egna sida?????? Eller blir det STARTSIDASN???, SOM HANTERAR VÅRA FRÅGOR. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
                         </li>
                     </ul>
@@ -78,6 +78,38 @@
                 </tbody>
             </table>
         </div>
+        
+        <div class="modal fade" id="myQuestionsModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"> My questions</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Question</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody class="table">
+                                <tr v-for="question in questions" v-bind:key="question.email">
+                                    <td>{{question.title}}</td>
+                                    <td>{{question.question}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
 
 
         <!-- Här är för USER och contributers att edit questions -->
@@ -94,7 +126,8 @@
                         <form id="formOpenQ">
                             <div class="form-group">
                                 <label for="open_Qmessage">Question</label>
-                                <input type="text" class="form-control" name="open_Qmessage" id="open_Qmessage" readonly>
+                                <input type="text" class="form-control" name="open_Qmessage" id="open_Qmessage"
+                                    readonly>
                             </div>
                             <div class="form-group">
                                 <label for="open_Qanswer">Answer</label>
@@ -233,15 +266,13 @@
                 answer: [],
             },
             methods: {
-                ShowQuestionModal(id){
+                ShowQuestionModal(email) {
                     $.ajax({
-                        url: '/question/' + id,
+                        url: '/userquestions',
                         type: 'GET',
                         success: (question) => {
+                            $('#openTitle').val(question.title);
                             $('#open_Qmessage').val(question.question);
-                            $('#open_QmessageId').val(question.id)
-                            //Måste vi ta emot alla saker som finns i vår table questions?
-                            //det måste vi inte, vi kan ta emot bara de som ska ändras typ tiden och id behöver vi inte ta
                         }
                     });
                     ShowAnswe();

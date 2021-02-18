@@ -63,6 +63,18 @@ const getAnswers = async (data) => {
     }
 };
 
+
+const getAnswersId = async (id) => {
+    try {
+    const dbCon = await dbPromise;
+    const question = await dbCon.get('SELECT response FROM answers WHERE questionId=?', [id]);
+    return question;
+    }
+    catch (error) {
+        throw new Error(error)
+    }
+};
+
 const getUsers = async () => {
     try{
         const dbCon = await dbPromise;
@@ -269,5 +281,6 @@ module.exports = {
     deleteAnswer :deleteAnswer,
     updateAnswer: updateAnswer,
     getAnswers: getAnswers,
+    getAnswersId : getAnswersId,
     getUsers : getUsers
 }

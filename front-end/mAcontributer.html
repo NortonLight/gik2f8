@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./contributer.css" />
+  <title>CIAAQ</title>
+</head>
+
+<body>
+  <div class="container-fluid" id="mAcontributer">
+    <nav id="navUser" class="navbar navbar-expand-lg navbar-light bg-light">
+      <div id="navUser2" class="container-fluid">
+        <a id="logoId" class="navbar-brand" href="#">Welcome to CIAAQ</a>
+        <div class="collapse navbar-collapse container-fluid" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="contributer.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="mAcontributer.html">My answered questions</a>
+            </li>
+          </ul>
+          <label id="labelSignIn" class="float-right">Signed in as: Contributer</label>
+        </div>
+        <button id="buttonLogout" type="button" class="btn btn-primary float-right" data-toggle="modal"
+          data-target="#logoutModal" v-on:click="logout">Logout</button>
+      </div>
+    </nav>
+
+
+
+    <div class="container-fluid">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Category</th>
+            <th scope="col">Title</th>
+            <th scope="col">Question</th>
+            <th scope="col">User</th>
+            <th scope="col">Timeofquestion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="question in questions" v-bind:key="question.id">
+            <th scope="row"></th>
+            <td>{{question.category}}</td>
+            <td>{{question.title}}</td>
+            <td>{{question.question}}</td>
+            <td>{{question.user}}</td>
+            <td>{{question.timeofquestion}}</td>
+            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal"
+                v-on:click="ShowQuestionInUpdateForm(question.id)">
+                Edit question
+              </button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- HÄR ÄR MODAL FÖR ATT EDITA OCH POSTA SVAR-->
+    <!-- Här är för USER och contributers att edit questions -->
+    <div class="modal fade" id="editQuestionModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit a question</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="formEditQ">
+              <div class="form-group">
+                <label for="Category">Category</label>
+                <select class="form-control" name="editCategory" id="editCategory">
+                  <option>Sport</option>
+                  <option>Homes&Households</option>
+                  <option>Movies&Series</option>
+                  <option>Relationsship</option>
+                  <option>Movies&Series</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="Title">Title</label>
+                <input type="text" class="form-control" name="editTitle" id="editTitle">
+              </div>
+              <div class="form-group">
+                <label for="edit_Qmessage">Question</label>
+                <input type="text" class="form-control" name="edit_Qmessage" id="edit_Qmessage">
+              </div>
+              <div class="form-group">
+                <label for="edit_QmessageId">Message Id</label>
+                <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId" readonly>
+              </div>
+              <div class="modal-footer">
+                <input type="button" class="btn btn-primary" value="Edit question" v-on:click="editQuestion">
+                <input type="button" class="btn btn-primary" value="Post answer" v-on:click="postAnswer">
+                <input type="button" class="btn btn-primary" value="Delete question" v-on:click="deleteQuestion">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"
+    integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj"
+    crossorigin="anonymous"></script>
+  <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+
+    const userVue = new Vue({
+      el: "#mAcontributer",
+      data: {
+        users: [],
+        category: [],
+        title: [],
+        questions: [],
+        answers: [],
+        rowData: [],
+        answer: [],
+      },
+      methods: {
+        ShowQuestionInUpdateForm(id) { //Vet inte om det är rätt detta, Detta är mest för att fylla på med grejer.
+          $.ajax({
+            url: '/question/' + id,
+            type: 'GET',
+            success: (question) => {
+              document.getElementById("editCategory").selectedIndex = question.category_id - 1;
+              $('#editCategory').val(question.category);
+              $('#editTitle').val(question.title);
+              $('#edit_Qmessage').val(question.question);
+              $('#edit_QmessageId').val(question.id)
+              //Måste vi ta emot alla saker som finns i vår table questions?
+              //det måste vi inte, vi kan ta emot bara de som ska ändras typ tiden och id behöver vi inte ta
+            }
+          });
+          $('#editQuestionModal').show();
+        },
+
+        postAnswerToUser() {
+          var question = {
+            category: $('#editQuestionModal #editCategory').val(), //readonlyigentligen, man ska inte ändra categori? eller?
+            title: $('#editQuestionModall #editTitle').val(),
+            qMessage: $('#editQuestionModal #edit_Qmessage').val(),
+            qMessageId: $('#editQuestionModal #edit_QmessageId').val(),
+            user: $('#editQuestionModal #questionUser').val(),
+          }
+          $.ajax({
+            url: 'answer',
+            type: 'PUT',
+            data: question,
+            success: () => {
+              var self = this;
+              $getJSON("questions", function (jsondata) {
+                self.questions = jsondata;
+              });
+              $('editQuestionModal').hide();
+            },
+            error: (error) => {
+              console.log(error);
+            }
+          });
+        },
+
+        answerQuestion() {
+          var question = {
+            category: $('#answerQuestionModal #questionCategory').val(), //readonlyigentligen, man ska inte ändra categori? eller?
+            title: $('#answerQuestionModal #questionTitle').val(),
+            qMessage: $('#answerQuestionModal #questionM').val(),
+            user: $('#answerQuestionModal #questionUser').val(),
+            answer: $('#answerQuestionModal #answer').val(),
+          }
+          $.ajax({
+            url: 'answer',
+            type: 'PUT',
+            data: question,
+            success: () => {
+              var self = this;
+              $getJSON("questions", function (jsondata) {
+                self.questions = jsondata;
+              });
+              $('editQuestionModal').hide();
+            },
+            error: (error) => {
+              console.log(error);
+            }
+          });
+        },
+
+        deleteQuestion(id) {
+          var question = {
+            id: $('#editQuestionModal #updateId').val()
+          }
+          $.ajax({
+            url: '/deleteQuestion' + question.Id,
+            type: 'DELETE',
+            success: () => {
+              var self = this;
+              $.getJSON("questions", function (jsondata) {
+                self.questions = jsondata;
+              });
+            }
+          });
+        },
+
+        deleteUser(id) {
+          var user = {
+            id: $('#accountSettingsModal #').val()
+          }
+          $.ajax({
+            url: 'deleteUser' + user.Id,
+            type: 'DELETE',
+            success: () => {
+              var self = this;
+              $.getJSON("questions", function (jsondata) {
+                self.questions = jsondata;
+              });
+            }
+          });
+        },
+        logout() {
+          sessionStorage.clear();
+          window.location.href = "/index.html";
+        },
+      },
+      mounted() {
+        var self = this;
+        $.getJSON("/questions", function (jsondata) {
+          console.log(JSON.stringify(jsondata));
+          self.questions = jsondata;
+        });
+      },
+
+      // mounted() {
+      //   var self = this;
+      //   $.getJSON("/answers", function (jsondata) {
+      //     console.log(JSON.stringify(jsondata));
+      //     self.answers = jsondata;
+      //   })
+      // }
+    });
+
+  </script>
+</body>
+
+</html>

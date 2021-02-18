@@ -294,11 +294,6 @@ module.exports = {
     deleteAnswer :deleteAnswer,
     updateAnswer: updateAnswer,
     getAnswers: getAnswers,
-<<<<<<< HEAD
-    getUsers : getUsers,
-    getContAnswers : getContAnswers,
-=======
     getAnswersId : getAnswersId,
     getUsers : getUsers
->>>>>>> e2c288a5c14077a84d452153479deda05a96d094
 }

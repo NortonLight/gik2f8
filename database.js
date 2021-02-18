@@ -63,6 +63,18 @@ const getAnswers = async (data) => {
     }
 };
 
+const getUsers = async () => {
+    try{
+        const dbCon = await dbPromise;
+        const users = await dbCon.all('SELECT email, firstname, lastname, accounttype, block FROM users ORDER BY email ASC');
+        return users;
+    }
+    catch (error) {
+        console.log(error);
+        throw new Error(error);
+    }
+};
+
 //Databasen funger och skickar tillbaka svaret på DATA när vi sätter email = "user@du.se" i routes
 const getUserQuestion = async (data) => {
     try {
@@ -256,5 +268,6 @@ module.exports = {
     addAnswer : addAnswer,
     deleteAnswer :deleteAnswer,
     updateAnswer: updateAnswer,
-    getAnswers: getAnswers
+    getAnswers: getAnswers,
+    getUsers : getUsers
 }

@@ -23,10 +23,10 @@
               <a class="nav-link active" aria-current="page" href="#">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">All questions</a>
+              <a class="nav-link" href="admin.html">All questions</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">All users</a>
+              <a class="nav-link" href="handleuser.html">All users</a>
             </li>
             <label id="labelSignIn" class="float-left">Singed in as: SuperAdmin</label>
           </ul>
@@ -35,8 +35,6 @@
           data-target="#logoutModal" v-on:click="logout">Logout</button>
       </div>
     </nav>
-
-    <a input="button" class="btn btn-primary" data-toggle="modal" data-target="#userHandleModal">Handle user</a>
 
 
     <div class="container-fluid">
@@ -70,41 +68,6 @@
       </table>
     </div>
 
-
-
-    <!-- HÄR KOMMER VI GÖRA UserHandle MED en getAllUsers sen en sådan här handlae user knapp brevid.MODAL -->
-    <div class="modal fade" id="userHandleModal" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Handle Users</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form id="formUserHandle">
-              <div class="form-group">
-                <label for="Block">Block user</label>
-                <select class="form-control" name="editBlock" id="editBlock">
-                  <option>Block</option>
-                  <option>Unblock</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="userBlockInfo">Block info</label>
-                <input type="text" class="form-control" name="blockInfo" id="blockInfo">
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary Save" data-bs-dismiss="modal">Save changes</button>
-                <input type="button" class="btn btn-primary" value="Edit user" v-on:click="editUser">
-                <input type="button" class="btn btn-primary" value="Delete User" v-on:click="deleteQUser">
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- HÄR ÄR MODAL FÖR ATT EDITA OCH POSTA SVAR-->
     <!-- Här är för USER och contributers att edit questions -->

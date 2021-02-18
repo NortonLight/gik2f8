@@ -76,7 +76,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Edit a question</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -104,8 +104,8 @@
                 <label for="edit_QmessageId">Message Id</label>
                 <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId" readonly>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <div class="form-group">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <input type="button" class="btn btn-primary" value="Edit question" v-on:click="editQuestion">
                 <input type="button" class="btn btn-primary" value="Post answer" v-on:click="postAnswer">
                 <input type="button" class="btn btn-primary" value="Delete answer" v-on:click="deleteQuestion">
@@ -152,7 +152,7 @@
               //det måste vi inte, vi kan ta emot bara de som ska ändras typ tiden och id behöver vi inte ta
             }
           });
-          $('#editQuestionModal').modal('show');
+          $('#editQuestionModal').show();
         },
 
         editUserQuestion() {
@@ -172,7 +172,7 @@
               $getJSON("questions", function (jsondata) {
                 self.questions = jsondata;
               });
-              $('editQuestionModal').modal('hide');
+              $('editQuestionModal').hide();
             },
             error: (error) => {
               console.log(error);
@@ -191,7 +191,7 @@
             type: 'POST',
             data: question,
             success: () => {
-              $('#askQuestionModal').modal('hide');
+              $('#askQuestionModal').hide();
               clearAddForm();// DENNA funkar nu.
               // getQuestions(); den funkade inte för att getQuestions finns inte därför ClearAddForm körs aldrig
             },

@@ -71,7 +71,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Edit a question</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -103,6 +103,7 @@
                 <input type="button" class="btn btn-primary" value="Edit question" v-on:click="editQuestion">
                 <input type="button" class="btn btn-primary" value="Post answer" v-on:click="postAnswer">
                 <input type="button" class="btn btn-primary" value="Delete question" v-on:click="deleteQuestion">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
             </form>
           </div>
@@ -146,7 +147,7 @@
               //det måste vi inte, vi kan ta emot bara de som ska ändras typ tiden och id behöver vi inte ta
             }
           });
-          $('#editQuestionModal').modal('show');
+          $('#editQuestionModal').show();
         },
 
         postAnswerToUser() {
@@ -166,7 +167,7 @@
               $getJSON("questions", function (jsondata) {
                 self.questions = jsondata;
               });
-              $('editQuestionModal').modal('hide');
+              $('editQuestionModal').hide();
             },
             error: (error) => {
               console.log(error);
@@ -191,7 +192,7 @@
               $getJSON("questions", function (jsondata) {
                 self.questions = jsondata;
               });
-              $('editQuestionModal').modal('hide');
+              $('editQuestionModal').hide();
             },
             error: (error) => {
               console.log(error);

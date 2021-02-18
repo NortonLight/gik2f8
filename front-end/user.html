@@ -30,7 +30,7 @@
 
                         <!-- Hur länkar man en link så man laddar data vid klick /on click. DÅ ska den ladda alla questions som user har lagt till-->
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="modal" data-target="#myQuestionsModal" href="#myQuestionsModal">My questions</a>
+                            <a class="nav-link" data-toggle="modal" data-target="#myQuestionsModal" v-on:click="ShowQuestionModal">My questions</a>
                             <!-- HÄR LÄNKAR VI TILL EN sida som hanterar våra egna sida?????? Eller blir det STARTSIDASN???, SOM HANTERAR VÅRA FRÅGOR. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
                         </li>
                     </ul>
@@ -95,13 +95,12 @@
                                 <tr>
                                     <th scope="col">Title</th>
                                     <th scope="col">Question</th>
-                                    
                                 </tr>
                             </thead>
                             <tbody class="table">
-                                <tr v-for="question in questions" v-bind:key="question.email">
-                                    <td>{{question.title}}</td>
-                                    <td>{{question.question}}</td>
+                                <tr v-for="question in questions">
+                                    <td name="myQtitle" id="myQtitle">{{question.title}}</td>
+                                    <td name="myQmess" id="myQmess">{{question.question}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -267,21 +266,20 @@
                 answers: [],
                 rowData: [],
                 answer: [],
+                data: [],
             },
             methods: {
-                ShowQuestionModal(email) {
+                ShowQuestionModal() {
                     $.ajax({
                         url: '/userquestions',
                         type: 'GET',
-                        success: (question) => {
-                            $('#openTitle').val(question.title);
-                            $('#open_Qmessage').val(question.question);
+                        success: (data) => {
+                            // title = [data.title]
+                            // question = [data.question]
+                            $('#myQtitle').text(data.title);
+                            $('#myQmess').text(data.question);
                         }
                     });
-                    ShowAnswer();
-                   
-                    
-                    $('#openQuestionModal').modal('show');
 
                 },
                 ShowAnswer(id){

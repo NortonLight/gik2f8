@@ -91,7 +91,7 @@ const getUsers = async () => {
 const getUserQuestion = async (data) => {
     try {
         const dbCon = await dbPromise;
-        const userQuestion = await dbCon.all('SELECT category, title, question, timeofquestion FROM questions WHERE userquestion=?', [data.email]);
+        const userQuestion = await dbCon.all('SELECT category, title, question, timeofquestion FROM questions WHERE userQuestion=?', [data.email]);
         return userQuestion;
 
     }
@@ -294,6 +294,12 @@ module.exports = {
     deleteAnswer :deleteAnswer,
     updateAnswer: updateAnswer,
     getAnswers: getAnswers,
+<<<<<<< HEAD
     getAnswersId : getAnswersId,
     getUsers : getUsers
+=======
+    getUsers : getUsers,
+    getAnswersId : getAnswersId,
+    getContAnswers : getContAnswers,
+>>>>>>> c192246729285f8ef041e50343277ec4911641db
 }

@@ -63,15 +63,11 @@
                         <td>{{question.category}}</td>
                         <td>{{question.title}}</td>
                         <td>{{question.question}}</td>
-                        <!-- <td v-for="answer in answers">{{answers.response}}</td>-->
                         <td>{{question.timeofquestion}}</td>
                         <td>
-                            <!-- <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#editQuestionModal" v-on:click="ShowQuestionInUpdateForm(question.id)">
-                                Open question
-                            </button> -->
                             <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#openQuestionModal" v-on:click="ShowQuestionModal(question.id)">
+                                data-target="#openQuestionModal"
+                                v-on:click="openUserQuestion(question.id), openAnswer(question.id)">
                                 Open question
                             </button>
                         </td>
@@ -82,42 +78,37 @@
 
 
 
+  <!-- Här är för USER och contributers att edit questions -->
+  <div class="modal fade" id="openQuestionModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Opened Question</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formOpenQ">
+                    <div class="form-group">
+                        <label for="open_Qmessage">Question</label>
+                        <input type="text" class="form-control" name="open_Qmessage" id="open_Qmessage"
+                            readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="open_Qanswer">Answer</label>
+                        <input type="text" class="form-control" name="open_Qanswer" id="open_Qanswer" readonly>
+                    </div>
 
-        <!-- Här är för USER och contributers att edit questions -->
-        <div class="modal fade" id="openQuestionModal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Opened Question</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                    <div class="modal-footer">
+                        <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
-                    <div class="modal-body">
-                        <form id="formOpenQ">
-                            <div class="form-group">
-                                <label for="open_Qmessage">Question</label>
-                                <input type="text" class="form-control" name="open_Qmessage" id="open_Qmessage"
-                                    readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="open_Qanswer">Answer</label>
-                                <input type="text" class="form-control" name="open_Qanswer" id="open_Qanswer" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="open_QmessageId">Message Id</label>
-                                <input type="text" class="form-control" name="open_QmessageId" id="open_QmessageId"
-                                    readonly>
-                            </div>
-                            <div class="modal-footer">
-                                <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
+    </div>
+</div>
 
 
 
@@ -176,49 +167,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- HÄR ÄR MODAL FÖR ATT STÄLLA FRÅGOR SOM USER-->
-
-        <div class="modal fade" id="askQuestionModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Ask a question</h5>
-                        <button type="button" class="Close" data-dismiss="modal"  aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="formAdd">
-                            <div class="form-group">
-                                <label for="Category">Category</label>
-                                <select class="form-control" name="addCategory" id="addCategory">
-                                    <option>Sport</option>
-                                    <option>Homes&Households</option>
-                                    <option>Movies&Series</option>
-                                    <option>Relationsship</option>
-                                    <option>Movies&Series</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="Title">Title</label>
-                                <input type="text" class="form-control" name="addTitle" id="addTitle">
-                            </div>
-                            <div class="form-group">
-                                <label for="question">Question message</label>
-                                <input type="text" class="form-control" name="question" id="question" width="50px"
-                                    height="50px">
-                            </div>
-                            <div class="form-group">
-
-                                <input type="button" class="btn btn-primary float float-right" value="Ask question"
-                                    v-on:click="askQuestion">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -232,41 +180,51 @@
             data: {
                 question: [],
                 questions: [],
-                answers: [],
-                rowData: [],
                 answer: [],
-                data: [],
             },
             methods: {
-                ShowQuestionModal() {
+                // ShowQuestionModal() {
+                //     $.ajax({
+                //         url: '/userquestions',
+                //         type: 'GET',
+                //         success: (data) => {
+                //             $('#myQtitle').text(data.title);
+                //             $('#myQmess').text(data.question);
+                //         }
+                //     });
+
+                // },
+                openUserQuestion(id) {
                     $.ajax({
-                        url: '/userquestions',
+                        url: '/question/' + id,
                         type: 'GET',
-                        success: (data) => {
-                            // title = [data.title]
-                            // question = [data.question]
-                            $('#myQtitle').text(data.title);
-                            $('#myQmess').text(data.question);
+                        success: (question) => {
+                            $('#open_Qmessage').val(question.question);
+                            
+                        },
+                        error: (error) => {
+                            console.log(error);
                         }
                     });
-
                 },
-                ShowAnswer(id){
+                openAnswer(id) {
                     $.ajax({
-                        url: '/answer',
+                        url: '/answer/' + id,
                         type: 'GET',
-                        success: (answers) => {
-                            $('#open_Qanswer').val(answers.response)
-                            //Måste vi ta emot alla saker som finns i vår table questions?
-                            //det måste vi inte, vi kan ta emot bara de som ska ändras typ tiden och id behöver vi inte ta
+                        success: (answer) => {
+                            $('#open_Qanswer').val(answer.response)
+                        },
+                        error: (error) => {
+                            console.log(error);
                         }
-                    });
 
+
+                    });
                 },
 
                 editUserQuestion() {
                     var question = {
-                        category: $('#editQuestionModal #editCategory').val(), //readonlyigentligen, man ska inte ändra categori? eller?
+                        category: $('#editQuestionModal #editCategory').val(), 
                         title: $('#editQuestionModall #editTitle').val(),
                         question: $('#editQuestionModal #edit_Qmessage').val(),
                         qMessageId: $('#editQuestionModal #edit_QmessageId').val(),
@@ -286,24 +244,6 @@
                         error: (error) => {
                             console.log(error);
                         }
-                    });
-                },
-
-                askQuestion() {
-                    const question = {
-                        category: $('#addCategory').val(),
-                        title: $('#addTitle').val(),
-                        question: $('#question').val()
-                    }
-                    $.ajax({
-                        url: '/question',
-                        type: 'POST',
-                        data: question,
-                        success: () => {
-                            $('#askQuestionModal').modal('hide');
-                            clearAddForm();// DENNA funkar nu.
-                            // getQuestions(); den funkade inte för att getQuestions finns inte därför ClearAddForm körs aldrig
-                        },
                     });
                 },
 
@@ -332,13 +272,8 @@
                 var self = this;
                 $.getJSON("/userquestions", function (jsondata) {
                     console.log(JSON.stringify(jsondata));
-                    self.question = jsondata;
+                    self.questions = jsondata;
                 });
-                // var self = this;
-                // $.getJSON("/answers", function (jsondata) {
-                //     console.log(JSON.stringify(jsondata));
-                //     self.answers = jsondata;
-                // });
             },
         });
 

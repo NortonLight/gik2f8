@@ -57,6 +57,19 @@ routes.post('/login', async (req, res) => {
 });
 
 //user
+routes.get('/users', async (req, res) => {
+    try{
+        sess = req.session;
+        const allUsers = await dbService.getUsers();
+        res.json(allUsers);
+    }
+    catch (error) {
+        console.log(error);
+        res.json({ status: error });
+    }
+})
+
+//user
 routes.post('/users', async (req, res) => {
     try {
         const data = req.body;

@@ -249,6 +249,18 @@ routes.post('/answer', async (req, res) => {
     }
 });
 
+routes.get('/answer/:id', async (req, res) => {
+    try{
+        sess = req.session
+        const qId = req.params.id;
+        const answer = await dbService.getAnswersId(qId);
+        res.json(answer);
+    }
+    catch (error) {
+        throw new Error (error);
+    }
+});
+
 routes.put('/answer', async (req, res) => {
     try {
         const data = req.body;

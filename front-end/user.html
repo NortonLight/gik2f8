@@ -72,7 +72,7 @@
                                 Open question
                             </button> -->
                             <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#openQuestionModal" v-on:click="ShowQuestionModal(question.id)">
+                                data-target="#openQuestionModal" v-on:click="openUserQuestion(question.id), openAnswer(question.id)">
                                 Open question
                             </button>
                         </td>
@@ -137,11 +137,7 @@
                                 <label for="open_Qanswer">Answer</label>
                                 <input type="text" class="form-control" name="open_Qanswer" id="open_Qanswer" readonly>
                             </div>
-                            <div class="form-group">
-                                <label for="open_QmessageId">Message Id</label>
-                                <input type="text" class="form-control" name="open_QmessageId" id="open_QmessageId"
-                                    readonly>
-                            </div>
+                           
                             <div class="modal-footer">
                                 <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -299,28 +295,32 @@
 
                 },
 
-                editUserQuestion() {
-                    var question = {
-                        category: $('#editQuestionModal #editCategory').val(), //readonlyigentligen, man ska inte ändra categori? eller?
-                        title: $('#editQuestionModall #editTitle').val(),
-                        question: $('#editQuestionModal #edit_Qmessage').val(),
-                        qMessageId: $('#editQuestionModal #edit_QmessageId').val(),
-                        user: $('#editQuestionModal #questionUser').val(),
-                    }
+                openUserQuestion(id) {
                     $.ajax({
-                        url: 'answer',
-                        type: 'PUT',
-                        data: question,
-                        success: () => {
-                            var self = this;
-                            $getJSON("/questions", function (jsondata) {
-                                self.questions = jsondata;
-                            });
-                            $('editQuestionModal').modal('hide');
+                        url: '/question/' + id,
+                        type: 'GET',
+                        success: (question) => {
+                            $('#open_Qmessage').val(question.question);
+                            //$('#open_QmessageId').val(question.id)
+                            //$('openQuestionModal').modal('hide');
                         },
                         error: (error) => {
                             console.log(error);
                         }
+                    });
+                },
+                openAnswer(id) {
+                    $.ajax({
+                        url: '/answer/' + id,
+                        type: 'GET',
+                        success: (answer) => {
+                             $('#open_Qanswer').val(answer.response)
+                        },
+                        error: (error) => {
+                            console.log(error);
+                        }
+
+
                     });
                 },
 

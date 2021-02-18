@@ -53,7 +53,7 @@
             <td>{{question.category}}</td>
             <td>{{question.title}}</td>
             <td>{{question.question}}</td>
-            <td>{{question.user}}</td>
+            <td>{{question.userQuestion}}</td>
             <td>{{question.timeofquestion}}</td>
             <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal"
                 v-on:click="ShowQuestionInUpdateForm(question.id)">
@@ -98,6 +98,10 @@
               <div class="form-group">
                 <label for="answerQ">Answer</label>
                 <input type="text" class="form-control" name="answerQ" id="answerQ">
+              </div>
+              <div class="form-group">
+              <input type="checkbox" id="duplicate" name="duplicate" value="duplicate">
+              <label for="male">Duplicate</label>
               </div>
               <div class="form-group">
                 <label for="edit_QmessageId">Message Id</label>

@@ -86,9 +86,22 @@ const getUserQuestion = async (data) => {
     catch (error) {
         throw new Error(error);
     }
-
-
 };
+
+//INTE KLAR!! måste koppla mina svar, till en users fråga.
+const getContAnswers = async (data) => {
+    try {
+        const dbCon = await dbPromise;
+        const contAnswers = await dbCon.all('SELECT response, vote, userAnswer, questionId, timeofquestion FROM answers WHERE questionId=?', [data]);
+        return contAnswers;
+
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+};
+
+
 
 const updateQuestion = (async (data) => {
     try {
@@ -269,5 +282,6 @@ module.exports = {
     deleteAnswer :deleteAnswer,
     updateAnswer: updateAnswer,
     getAnswers: getAnswers,
-    getUsers : getUsers
+    getUsers : getUsers,
+    getContAnswers : getContAnswers,
 }

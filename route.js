@@ -132,6 +132,20 @@ routes.get('/userquestions', async (req, res) => {
     }
 });
 
+// Get user Frågor // Testa
+routes.get('/contAnswers', async (req, res) => {
+    try {
+        sess = req.session
+        const answers = await dbService.getContAnswers(sess);
+        res.json(answers);
+
+
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+});
+
 routes.get('/questions', async (req, res) => {
     try {
         sess = req.session

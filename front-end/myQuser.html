@@ -32,7 +32,7 @@
                         <!-- HÄR LÄNKAR VI TILL EN MODAL SOM HANTERAR VÅRA FRÅGOR. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
 
                         <!-- Hur länkar man en link så man laddar data vid klick /on click. DÅ ska den ladda alla questions som user har lagt till-->
-                       <!-- <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link" data-toggle="modal" data-target="#myQuestionsModal" v-on:click="ShowQuestionModal">My questions</a>
                             HÄR LÄNKAR VI TILL EN sida som hanterar våra egna sida?????? Eller blir det STARTSIDASN???, SOM HANTERAR VÅRA FRÅGOR. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. 
                         </li>-->
@@ -78,38 +78,37 @@
 
 
 
-  <!-- Här är för USER och contributers att edit questions -->
-  <div class="modal fade" id="openQuestionModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Opened Question</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="formOpenQ">
-                    <div class="form-group">
-                        <label for="open_Qmessage">Question</label>
-                        <input type="text" class="form-control" name="open_Qmessage" id="open_Qmessage"
-                            readonly>
+        <!-- Här är för USER och contributers att edit questions -->
+        <div class="modal fade" id="openQuestionModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Opened Question</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="form-group">
-                        <label for="open_Qanswer">Answer</label>
-                        <input type="text" class="form-control" name="open_Qanswer" id="open_Qanswer" readonly>
-                    </div>
+                    <div class="modal-body">
+                        <form id="formOpenQ">
+                            <div class="form-group">
+                                <label for="open_Qmessage">Question</label>
+                                <input type="text" class="form-control" name="open_Qmessage" id="open_Qmessage"
+                                    readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="open_Qanswer">Answer</label>
+                                <input type="text" class="form-control" name="open_Qanswer" id="open_Qanswer" readonly>
+                            </div>
 
-                    <div class="modal-footer">
-                        <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <div class="modal-footer">
+                                <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-
 
 
         <!-- Här gör jag en kommentar-->
@@ -183,24 +182,14 @@
                 answer: [],
             },
             methods: {
-                // ShowQuestionModal() {
-                //     $.ajax({
-                //         url: '/userquestions',
-                //         type: 'GET',
-                //         success: (data) => {
-                //             $('#myQtitle').text(data.title);
-                //             $('#myQmess').text(data.question);
-                //         }
-                //     });
-
-                // },
                 openUserQuestion(id) {
                     $.ajax({
                         url: '/question/' + id,
                         type: 'GET',
                         success: (question) => {
                             $('#open_Qmessage').val(question.question);
-                            
+                            //$('#open_QmessageId').val(question.id)
+                            //$('openQuestionModal').modal('hide');
                         },
                         error: (error) => {
                             console.log(error);
@@ -217,14 +206,12 @@
                         error: (error) => {
                             console.log(error);
                         }
-
-
                     });
                 },
 
                 editUserQuestion() {
                     var question = {
-                        category: $('#editQuestionModal #editCategory').val(), 
+                        category: $('#editQuestionModal #editCategory').val(),
                         title: $('#editQuestionModall #editTitle').val(),
                         question: $('#editQuestionModal #edit_Qmessage').val(),
                         qMessageId: $('#editQuestionModal #edit_QmessageId').val(),

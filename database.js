@@ -141,11 +141,11 @@ const updateQuestion = (async (data) => {
 const deleteQuestion = (async (id) => {
     try {
         const dbCon = await dbPromise;
-        const deleteQuestion = await dbCon.run('DELETE FROM question WHERE id=?', [id]);
+        const deleteQuestion = await dbCon.run('DELETE FROM questions WHERE id=?', [id]);
 
     }
     catch (error) {
-        throw new ErrorEvent(error);
+        throw new Error(error);
     }
 
 

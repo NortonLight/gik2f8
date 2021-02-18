@@ -204,12 +204,13 @@ routes.put('/question', async (req, res) => {
 //tabort min fråga // Testa
 routes.delete('/question/:id', async (req, res) => {
     try {
-        const data = req.params.id;
-        const dele = await dbService.deleteQuestion(data);
-        res.json(dele);
+        sess = req.session
+        const id = req.params.id;
+        const dele = await dbService.deleteQuestion(id);
+        res.json("Success");
 
     } catch (error) {
-        throw new error(error);
+        throw new Error(error);
     }
 });
 

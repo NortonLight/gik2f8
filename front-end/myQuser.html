@@ -82,17 +82,38 @@
                     <div class="modal-body">
                         <form id="formOpenQuser">
                             <div class="form-group">
+                                <div class="form-group">
+                                    <label for="Category">Category</label>
+                                    <select class="form-control" name="open_QCategory" id="open_QCategory">
+                                        <option>Sport</option>
+                                        <option>Homes&Households</option>
+                                        <option>Movies&Series</option>
+                                        <option>Relationsship</option>
+                                        <option>Movies&Series</option>
+                                    </select>
+                                </div>
+                                <label for="open_QTitle">Title</label>
+                                <input type="text" class="form-control" name="open_QTitle" id="open_QTitle">
+                            </div>
+                            <div class="form-group">
                                 <label for="open_Qmessage">Question</label>
-                                <input type="text" class="form-control" name="open_Qmessage" id="open_Qmessage"
-                                    readonly>
+                                <input type="text" class="form-control" name="open_Qmessage" id="open_Qmessage">
                             </div>
                             <div class="form-group">
                                 <label for="open_Qanswer">Answer</label>
                                 <input type="text" class="form-control" name="open_Qanswer" id="open_Qanswer" readonly>
                             </div>
-
+                            <div class="form-group">
+                                <label for="open_QmessageId">Message Id</label>
+                                <input type="text" class="form-control" name="open_QmessageId" id="open_QmessageId"
+                                    readonly>
+                            </div>
                             <div class="modal-footer">
                                 <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
+                                <input type="button" class="btn btn-primary" value="Delete answer"
+                                    v-on:click="deleteQuestion">
+                                <input type="submit" class="btn btn-primary float-right" value="Save changes"
+                                    v-on:click="editUserQuestion">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
                         </form>
@@ -173,14 +194,34 @@
                 answer: [],
             },
             methods: {
+
+                //         ShowQuestionInUpdateForm(id) { //Vet inte om det är rätt detta, Detta är mest för att fylla på med grejer.
+                //   $.ajax({
+                //     url: '/question/' + id,
+                //     type: 'GET',
+                //     success: (question) => {
+                //       document.getElementById("editCategory").selectedIndex = question.category_id - 1;
+                //       $('#editCategory').val(question.category);
+                //       $('#editTitle').val(question.title);
+                //       $('#edit_Qmessage').val(question.question);
+                //       $('#edit_QmessageId').val(question.id)
+                //       //Måste vi ta emot alla saker som finns i vår table questions?
+                //       //det måste vi inte, vi kan ta emot bara de som ska ändras typ tiden och id behöver vi inte ta
+                //     }
+                //   });
+                //   $('#editQuestionModal').show();
+                // },
+
                 openUserQuestion(id) {
                     $.ajax({
                         url: '/question/' + id,
                         type: 'GET',
                         success: (question) => {
+                            document.getElementById("open_QCategory").selectedIndex = question.category_id - 1;
+                            $('#open_QCategory').val(question.category);
+                            $('#open_QTitle').val(question.title);
                             $('#open_Qmessage').val(question.question);
-                            //$('#open_QmessageId').val(question.id)
-                            //$('openQuestionModal').modal('hide');
+                            $('#open_QmessageId').val(question.id);
                         },
                         error: (error) => {
                             console.log(error);
@@ -202,14 +243,13 @@
 
                 editUserQuestion() {
                     var question = {
-                        category: $('#editQuestionModal #editCategory').val(),
-                        title: $('#editQuestionModall #editTitle').val(),
-                        question: $('#editQuestionModal #edit_Qmessage').val(),
-                        qMessageId: $('#editQuestionModal #edit_QmessageId').val(),
-                        user: $('#editQuestionModal #questionUser').val(),
+                        category: $('#openUserQuestionModal #open_QCategory').val(),
+                        title: $('#openUserQuestionModal #open_QTitle').val(),
+                        question: $('#openUserQuestionModal #open_Qmessage').val(),
+                        id: $('#openUserQuestionModal #open_QmessageId').val(),
                     }
                     $.ajax({
-                        url: 'answer',
+                        url: '/question',
                         type: 'PUT',
                         data: question,
                         success: () => {
@@ -217,7 +257,7 @@
                             $getJSON("/questions", function (jsondata) {
                                 self.questions = jsondata;
                             });
-                            $('editQuestionModal').modal('hide');
+                            $('openUserQuestionModal').hide();
                         },
                         error: (error) => {
                             console.log(error);
@@ -227,16 +267,19 @@
 
                 deleteQuestion(id) {
                     var question = {
-                        id: $('#editQuestionModal #updateId').val()
+                        id: $('#openUserQuestionModal #open_QmessageId').val()
                     }
                     $.ajax({
-                        url: '/deleteQuestion' + question.Id,
+                        url: '/question/' + question.id,
                         type: 'DELETE',
                         success: () => {
                             var self = this;
-                            $.getJSON("questions", function (jsondata) {
+                            $.getJSON("/userquestions", function (jsondata) {
                                 self.questions = jsondata;
                             });
+                            //Kolla denna cleara efter deletead fråga.
+                            clearformOpenQuser()
+                            $('openUserQuestionModal').hide();
                         }
                     });
                 },

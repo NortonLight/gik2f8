@@ -22,14 +22,14 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="user.html">Home</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="myQuser.html">My questions</a>
+                        </li>
                         <li><a input="button" class="nav-link" data-toggle="modal" data-target="#askQuestionModal"
                                 href="#askQuestionModal">Ask a
                                 question</a></li>
                         <!-- KAN GÖRAS OM TILL EN BUTTON FÖR ATT ASK A QUESTION-->
                         <!-- HÄR LÄNKAR VI TILL EN MODAL SOM HANTERAR VÅRA FRÅGOR. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="myQuser.html">My questions</a>
-                        </li>
 
                         <!-- Hur länkar man en link så man laddar data vid klick /on click. DÅ ska den ladda alla questions som user har lagt till-->
                        <!-- <li class="nav-item">
@@ -54,7 +54,6 @@
                         <th scope="col">Category</th>
                         <th scope="col">Title</th>
                         <th scope="col">Question</th>
-                        <th scope="col">User</th>
                         <th scope="col">Timeofquestion</th>
                     </tr>
                 </thead>
@@ -64,7 +63,6 @@
                         <td>{{question.category}}</td>
                         <td>{{question.title}}</td>
                         <td>{{question.question}}</td>
-                        <td>{{question.userQuestion}}</td>
                         <!-- <td v-for="answer in answers">{{answers.response}}</td>-->
                         <td>{{question.timeofquestion}}</td>
                         <td>
@@ -82,38 +80,6 @@
             </table>
         </div>
 
-
-
-        
-        <div class="modal fade" id="myQuestionsModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title"> My questions</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Title</th>
-                                    <th scope="col">Question</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table">
-                                <tr v-for="question in questions">
-                                    <td name="myQtitle" id="myQtitle">{{question.title}}</td>
-                                    <td name="myQmess" id="myQmess">{{question.question}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-                </div>
-            </div>
-        </div>
 
 
 
@@ -364,9 +330,9 @@
             },
             mounted() {
                 var self = this;
-                $.getJSON("/questions", function (jsondata) {
+                $.getJSON("/userquestions", function (jsondata) {
                     console.log(JSON.stringify(jsondata));
-                    self.questions = jsondata;
+                    self.question = jsondata;
                 });
                 // var self = this;
                 // $.getJSON("/answers", function (jsondata) {

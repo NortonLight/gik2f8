@@ -28,13 +28,6 @@
                         <li><a input="button" class="nav-link" data-toggle="modal" data-target="#askQuestionModal"
                                 href="#askQuestionModal">Ask a
                                 question</a></li>
-                        <!-- KAN GÖRAS OM TILL EN BUTTON FÖR ATT ASK A QUESTION-->
-                        <!-- HÄR LÄNKAR VI TILL EN MODAL SOM HANTERAR VÅRA FRÅGOR. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
-                        <!-- Hur länkar man en link så man laddar data vid klick /on click. DÅ ska den ladda alla questions som user har lagt till-->
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" data-toggle="modal" data-target="#myQuestionsModal" v-on:click="ShowQuestionModal">My questions</a>
-                            HÄR LÄNKAR VI TILL EN sida som hanterar våra egna sida?????? Eller blir det STARTSIDASN???, SOM HANTERAR VÅRA FRÅGOR. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. 
-                        </li>-->
                     </ul>
                     <label id="labelSignIn" class="float-right">Signed in as: User</label>
 
@@ -64,15 +57,11 @@
                         <td>{{question.title}}</td>
                         <td>{{question.question}}</td>
                         <td>{{question.userQuestion}}</td>
-                        <!-- <td v-for="answer in answers">{{answers.response}}</td>-->
                         <td>{{question.timeofquestion}}</td>
                         <td>
-                            <!-- <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#editQuestionModal" v-on:click="ShowQuestionInUpdateForm(question.id)">
-                                Open question
-                            </button> -->
                             <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#openQuestionModal" v-on:click="openUserQuestion(question.id), openAnswer(question.id)">
+                                data-target="#openQuestionModal"
+                                v-on:click="openUserQuestion(question.id), openAnswer(question.id)">
                                 Open question
                             </button>
                         </td>
@@ -80,40 +69,6 @@
                 </tbody>
             </table>
         </div>
-
-
-
-
-        <div class="modal fade" id="myQuestionsModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title"> My questions</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Title</th>
-                                    <th scope="col">Question</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table">
-                                <tr v-for="question in questions">
-                                    <td name="myQtitle" id="myQtitle">{{question.title}}</td>
-                                    <td name="myQmess" id="myQmess">{{question.question}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
 
 
         <!-- Här är för USER och contributers att edit questions -->
@@ -137,68 +92,10 @@
                                 <label for="open_Qanswer">Answer</label>
                                 <input type="text" class="form-control" name="open_Qanswer" id="open_Qanswer" readonly>
                             </div>
-                           
+
                             <div class="modal-footer">
                                 <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-        <!-- Här gör jag en kommentar-->
-
-        <!-- HÄR ÄR MODAL FÖR ATT EDITA OCH POSTA SVAR-->
-        <!-- Här är för USER och contributers att edit questions -->
-        <div class="modal fade" id="editQuestionModal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Edit a question</h5>
-                        <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="formEditQ">
-                            <div class="form-group">
-                                <label for="Category">Category</label>
-                                <select class="form-control" name="editCategory" id="editCategory">
-                                    <option>Sport</option>
-                                    <option>Homes&Households</option>
-                                    <option>Movies&Series</option>
-                                    <option>Relationsship</option>
-                                    <option>Movies&Series</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="Title">Title</label>
-                                <input type="text" class="form-control" name="editTitle" id="editTitle">
-                            </div>
-                            <div class="form-group">
-                                <label for="edit_Qmessage">Question</label>
-                                <input type="text" class="form-control" name="edit_Qmessage" id="edit_Qmessage">
-                            </div>
-                            <div class="form-group">
-                                <label for="edit_QmessageId">Message Id</label>
-                                <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId"
-                                    readonly>
-                            </div>
-                            <!-- <div class="form-group">
-                                <label for="questionUser">User: </label>
-                                <input type="text" class="form-control" name="questionUser" id="questionUser" readonly>
-                            </div> -->
-                            <div class="modal-footer">
-                                <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <input type="button" class="btn btn-primary" value="Delete answer"
-                                    v-on:click="deleteQuestion">
-                                <input type="submit" class="btn btn-primary float-right" value="Save changes"
-                                    v-on:click="editUserQuestion">
                             </div>
                         </form>
                     </div>
@@ -263,37 +160,10 @@
             data: {
                 question: [],
                 questions: [],
-                answers: [],
-                rowData: [],
                 answer: [],
-                data: [],
             },
             methods: {
-                ShowQuestionModal() {
-                    $.ajax({
-                        url: '/userquestions',
-                        type: 'GET',
-                        success: (data) => {
-                            // title = [data.title]
-                            // question = [data.question]
-                            $('#myQtitle').text(data.title);
-                            $('#myQmess').text(data.question);
-                        }
-                    });
 
-                },
-                ShowAnswer(id) {
-                    $.ajax({
-                        url: '/answer',
-                        type: 'GET',
-                        success: (answers) => {
-                            $('#open_Qanswer').val(answers.response)
-                            //Måste vi ta emot alla saker som finns i vår table questions?
-                            //det måste vi inte, vi kan ta emot bara de som ska ändras typ tiden och id behöver vi inte ta
-                        }
-                    });
-
-                },
 
                 openUserQuestion(id) {
                     $.ajax({
@@ -314,7 +184,7 @@
                         url: '/answer/' + id,
                         type: 'GET',
                         success: (answer) => {
-                             $('#open_Qanswer').val(answer.response)
+                            $('#open_Qanswer').val(answer.response)
                         },
                         error: (error) => {
                             console.log(error);
@@ -342,21 +212,6 @@
                     });
                 },
 
-                deleteQuestion(id) {
-                    var question = {
-                        id: $('#editQuestionModal #updateId').val()
-                    }
-                    $.ajax({
-                        url: '/deleteQuestion' + question.Id,
-                        type: 'DELETE',
-                        success: () => {
-                            var self = this;
-                            $.getJSON("questions", function (jsondata) {
-                                self.questions = jsondata;
-                            });
-                        }
-                    });
-                },
                 logout() {
                     sessionStorage.clear();
                     window.location.href = "/index.html";
@@ -369,11 +224,6 @@
                     console.log(JSON.stringify(jsondata));
                     self.questions = jsondata;
                 });
-                // var self = this;
-                // $.getJSON("/answers", function (jsondata) {
-                //     console.log(JSON.stringify(jsondata));
-                //     self.answers = jsondata;
-                // });
             },
         });
 

@@ -30,7 +30,8 @@
 
                         <!-- Hur länkar man en link så man laddar data vid klick /on click. DÅ ska den ladda alla questions som user har lagt till-->
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="modal" data-target="#myQuestionsModal" v-on:click="ShowQuestionModal">My questions</a>
+                            <a class="nav-link" data-toggle="modal" data-target="#myQuestionsModal"
+                                v-on:click="ShowQuestionModal">My questions</a>
                             <!-- HÄR LÄNKAR VI TILL EN sida som hanterar våra egna sida?????? Eller blir det STARTSIDASN???, SOM HANTERAR VÅRA FRÅGOR. SÅ MAN ÅTERKOMMER TILL SIDAN MED ALLA FRÅGOR. -->
                         </li>
                     </ul>
@@ -81,7 +82,7 @@
 
 
 
-        
+
         <div class="modal fade" id="myQuestionsModal">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -105,9 +106,9 @@
                             </tbody>
                         </table>
                     </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -120,7 +121,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Opened Question</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -142,7 +143,7 @@
                             </div>
                             <div class="modal-footer">
                                 <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
                         </form>
                     </div>
@@ -161,7 +162,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Edit a question</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -196,7 +197,7 @@
                             </div> -->
                             <div class="modal-footer">
                                 <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <input type="button" class="btn btn-primary" value="Delete answer"
                                     v-on:click="deleteQuestion">
                                 <input type="submit" class="btn btn-primary float-right" value="Save changes"
@@ -215,7 +216,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Ask a question</h5>
-                        <button type="button" class="close float-right" data-dismiss="modal"  aria-label="Close">
+                        <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -241,6 +242,7 @@
                                     height="50px">
                             </div>
                             <div class="form-group">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
                                 <input type="button" class="btn btn-primary float float-right" value="Ask question"
                                     v-on:click="askQuestion">
@@ -282,7 +284,7 @@
                     });
 
                 },
-                ShowAnswer(id){
+                ShowAnswer(id) {
                     $.ajax({
                         url: '/answer',
                         type: 'GET',

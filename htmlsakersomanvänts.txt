@@ -162,6 +162,6 @@
             <td type="button" class="btn btn-danger float-center" data-toggle="modal" data-target="#editAnswerModal">
               Edit
             </td>
-          </tr>
-        </tbody>
+          </tr>cxf<a<<xa    Q°°°=
+        ?`*'p9ok
       </table>

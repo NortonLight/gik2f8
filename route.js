@@ -186,14 +186,15 @@ routes.get('/question/:id', async (req, res) => {
 //updatera min fråga //Testa
 routes.put('/question', async (req, res) => {
     try {
+        sess = req.session;
         const data = req.body;
         const category = validation.test(data.category);
         const title = validation.test(data.title);
         const question = validation.test(data.question);
         const idMatch = intValidation.test(data.id);
-        const userQuestion = data.userQuestion;
+       // const userQuestion = data.userQuestion;
         if (category && title && question && idMatch) {
-            await dbService.updateQuestion(data);
+            await dbService.updateQuestion(data, sess);
             res.json('question was updated');
         }
     }

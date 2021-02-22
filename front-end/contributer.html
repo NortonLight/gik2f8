@@ -154,6 +154,8 @@
           $('#editQuestionModal').show();
         },
 
+
+        //måste hämta och posta ifall frågan är en duplicate, så det ändras vid update question.
         postAnswerToUser() {
           var question = {
             category: $('#editQuestionModal #editCategory').val(), //readonlyigentligen, man ska inte ändra categori? eller?

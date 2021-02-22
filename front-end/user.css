@@ -26,11 +26,16 @@ body{
 #logoId{
     font-size: 25px;
 }
-#buttonLogout, #buttonAccount, #buttonEditQ, #buttonEditTable{
+#buttonLogout, #buttonAccount, #buttonEditQ, #buttonEditTable, #delBtn, #closeBtn, #saveBtn{
     background-color: #8fa5bf;
     font-weight: bold;
     border: white;
     margin: 10px;
+}
+#openQBtn{
+    background-color: #8fa5bf;
+    font-weight: bold;
+    border: white;
 }
 #editQuestionModal, #askQuestionModal{
     background-color: #8fa5bf;

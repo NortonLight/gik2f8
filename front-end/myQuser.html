@@ -25,11 +25,7 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="myQuser.html">My questions</a>
                         </li>
-<<<<<<< HEAD
-                                            </ul>
-=======
                     </ul>
->>>>>>> ea6dbd7876cd88de7731e0f941a50f9f53a168f2
                     <label id="labelSignIn" class="float-right">Signed in as: User</label>
 
                 </div>
@@ -58,7 +54,7 @@
                         <td>{{question.question}}</td>
                         <td>{{question.timeofquestion}}</td>
                         <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                            <button type="button" id="openQBtn" class="btn btn-primary" data-toggle="modal"
                                 data-target="#openUserQuestionModal"
                                 v-on:click="openUserQuestion(question.id), openAnswer(question.id)">
                                 Open question
@@ -110,11 +106,13 @@
                             </div>
                             <div class="modal-footer">
                                 <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
-                                <input type="button" class="btn btn-primary" value="Delete answer"
+                                <div class="btn" data-dismiss="modal">
+                                <input type="button" id="delBtn" class="btn btn-primary" data-dismiss="modal" value="Delete answer"
                                     v-on:click="deleteQuestion">
-                                <input type="button" class="btn btn-primary float-right" value="Save changes"
+                                <input type="button" id="saveBtn" class="btn btn-primary float-right" data-dismiss="modal" value="Save changes"
                                     v-on:click="editUserQuestion">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" id="closeBtn" class="btn btn-secondary float-left" data-dismiss="modal">Close</button>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -252,14 +250,15 @@
                         type: 'PUT',
                         data: question,
                         success: () => {
-                            $('#editQuestionModal').modal('hide');
-                           // clearAddForm();
-                            // var self = this;
-                            // $getJSON("/questions", function (jsondata) {
-                            //     self.questions = jsondata;
+                           // $('#editQuestionModal').hide();
+                            //clearAddForm();
+                            var self = this;
+                            $getJSON("/userquestions", function (jsondata) {
+                                self.questions = jsondata;
                                 
-                          //  });
-                            // $('openUserQuestionModal').hide();
+                            });
+                            //mounted();
+                           $('openUserQuestionModal').hide();
                         },
                         error: (error) => {
                             console.log(error);

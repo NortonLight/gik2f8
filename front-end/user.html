@@ -182,6 +182,7 @@
                         url: '/answer/' + id,
                         type: 'GET',
                         success: (answer) => {
+                            //Clear form måste läggas till
                             $('#open_Qanswer').val(answer.response)
                         },
                         error: (error) => {

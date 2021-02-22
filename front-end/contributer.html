@@ -57,7 +57,7 @@
             <td>{{question.timeofquestion}}</td>
             <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal"
                 v-on:click="ShowQuestionInUpdateForm(question.id)">
-                Edit question
+                Add answer
               </button></td>
           </tr>
         </tbody>
@@ -70,7 +70,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Edit a question</h5>
+            <h5 class="modal-title">Add answer</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -79,21 +79,17 @@
             <form id="formEditQ">
               <div class="form-group">
                 <label for="Category">Category</label>
-                <select class="form-control" name="editCategory" id="editCategory">
-                  <option>Sport</option>
-                  <option>Homes&Households</option>
-                  <option>Movies&Series</option>
-                  <option>Relationsship</option>
-                  <option>Movies&Series</option>
-                </select>
+                <input class="form-control" name="editCategory" id="editCategory" readonly>
+                  
+                
               </div>
               <div class="form-group">
                 <label for="Title">Title</label>
-                <input type="text" class="form-control" name="editTitle" id="editTitle">
+                <input type="text" class="form-control" name="editTitle" id="editTitle" readonly>
               </div>
               <div class="form-group">
                 <label for="edit_Qmessage">Question</label>
-                <input type="text" class="form-control" name="edit_Qmessage" id="edit_Qmessage">
+                <input type="text" class="form-control" name="edit_Qmessage" id="edit_Qmessage" readonly>
               </div>
               <div class="form-group">
                 <label for="answerQ">Answer</label>
@@ -108,9 +104,9 @@
                 <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId" readonly>
               </div>
               <div class="modal-footer">
-                <input type="button" class="btn btn-primary" value="Edit question" v-on:click="editQuestion">
+                <input type="button" class="btn btn-primary" value="Edit Answer" v-on:click="editQuestion">
                 <input type="button" class="btn btn-primary" value="Post answer" v-on:click="postAnswer">
-                <input type="button" class="btn btn-primary" value="Delete question" v-on:click="deleteQuestion">
+                <input type="button" class="btn btn-primary" value="Delete Answer" v-on:click="deleteQuestion">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
             </form>
@@ -146,7 +142,7 @@
             url: '/question/' + id,
             type: 'GET',
             success: (question) => {
-              document.getElementById("editCategory").selectedIndex = question.category_id - 1;
+              //document.getElementById("editCategory").selectedIndex = question.category_id - 1;
               $('#editCategory').val(question.category);
               $('#editTitle').val(question.title);
               $('#edit_Qmessage').val(question.question);
@@ -214,22 +210,6 @@
           }
           $.ajax({
             url: '/deleteQuestion' + question.Id,
-            type: 'DELETE',
-            success: () => {
-              var self = this;
-              $.getJSON("questions", function (jsondata) {
-                self.questions = jsondata;
-              });
-            }
-          });
-        },
-
-        deleteUser(id) {
-          var user = {
-            id: $('#accountSettingsModal #').val()
-          }
-          $.ajax({
-            url: 'deleteUser' + user.Id,
             type: 'DELETE',
             success: () => {
               var self = this;

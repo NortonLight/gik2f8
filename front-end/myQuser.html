@@ -108,7 +108,7 @@
                                 <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
                                 <input type="button" class="btn btn-primary" value="Delete answer"
                                     v-on:click="deleteQuestion">
-                                <input type="submit" class="btn btn-primary float-right" value="Save changes"
+                                <input type="button" class="btn btn-primary float-right" value="Save changes"
                                     v-on:click="editUserQuestion">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
@@ -248,11 +248,14 @@
                         type: 'PUT',
                         data: question,
                         success: () => {
-                            var self = this;
-                            $getJSON("/questions", function (jsondata) {
-                                self.questions = jsondata;
-                            });
-                            $('openUserQuestionModal').hide();
+                            $('#editQuestionModal').modal('hide');
+                           // clearAddForm();
+                            // var self = this;
+                            // $getJSON("/questions", function (jsondata) {
+                            //     self.questions = jsondata;
+                                
+                          //  });
+                            // $('openUserQuestionModal').hide();
                         },
                         error: (error) => {
                             console.log(error);

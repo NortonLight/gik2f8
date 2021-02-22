@@ -139,8 +139,8 @@
                             <div class="form-group">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-                                <input type="button" class="btn btn-primary float float-right" data-dismiss="modal" value="Ask question"
-                                    v-on:click="askQuestion">
+                                <input type="button" class="btn btn-primary float float-right" data-dismiss="modal"
+                                    value="Ask question" v-on:click="askQuestion">
                                 <button input type="reset" class="btn btn-primary"> Clear fields</button>
                             </div>
                         </form>
@@ -183,16 +183,13 @@
                         url: '/answer/' + id,
                         type: 'GET',
                         success: (answer) => {
-                            //Clear form måste läggas till
-                            $('#open_Qanswer').val(answer.response)
-                            
+                            $('#open_Qanswer').val(answer.response);
                         },
                         error: (error) => {
                             console.log(error);
                         }
                     });
                 },
-
 
                 askQuestion() {
                     const question = {
@@ -205,9 +202,9 @@
                         type: 'POST',
                         data: question,
                         success: () => {
-                            $('#askQuestionModal').hide( function (){
+                            $('#askQuestionModal').hide(function () {
                                 $('#formAdd')[0].reset('#askQuestionModal');
-                            });  
+                            });
                             // $('#askQuestionModal').on('hidden.bs.modal', function (){
                             //     //$('#formAdd').find('input[type="text"]').val('');
                             //     $('#formAdd')[1].reset();
@@ -223,13 +220,14 @@
 
                 },
             },
-            mounted() {
-                var self = this;
-                $.getJSON("/questions", function (jsondata) {
-                    console.log(JSON.stringify(jsondata));
-                    self.questions = jsondata;
-                });
-            },
+        
+        mounted() {
+            var self = this;
+            $.getJSON("/questions", function (jsondata) {
+                console.log(JSON.stringify(jsondata));
+                self.questions = jsondata;
+            });
+          },
         });
 
 

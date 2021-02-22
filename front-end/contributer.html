@@ -105,7 +105,7 @@
               </div>
               <div class="modal-footer">
                 <input type="button" class="btn btn-primary" value="Edit Answer" v-on:click="editQuestion">
-                <input type="button" class="btn btn-primary" value="Post answer" v-on:click="postAnswer">
+                <input type="button" class="btn btn-primary" value="Post answer" v-on:click="AddAnswer">
                 <input type="button" class="btn btn-primary" value="Delete Answer" v-on:click="deleteQuestion">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
@@ -153,6 +153,21 @@
           });
           $('#editQuestionModal').show();
         },
+         AddAnswer() {
+            const answer = {
+              questionId: $('#edit_QmessageId').val(),
+              response: $('#answerQ').val()
+            }
+            $.ajax({
+                url: '/answer',
+                type: 'POST',
+                data: answer,
+                success: () => {
+                    $('#askQuestionModal').hide(); cv05-+
+                    , 432
+                },
+            });
+                },
 
         postAnswerToUser() {
           var question = {

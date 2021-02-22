@@ -167,11 +167,11 @@ const addQuestion = async (data, userquestion) => {
 };
 //Answer
 
-const addAnswer = async (data) => {
+const addAnswer = async (data, sess) => {
     try {
         const dbCon = await dbPromise;
 
-        const answer = await dbCon.run('INSERT INTO answers (response, vote ,userAnswer, questionId) VALUES(?, ?, ?, ?)', [data.response, data.vote, data.userAnswer, data.questionId]);
+        const answer = await dbCon.run('INSERT INTO answers (response, vote ,userAnswer, questionId) VALUES(?, ?, ?, ?)', [data.response, data.vote, sess.email, data.questionId]);
         return answer;
 
     }

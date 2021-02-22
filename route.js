@@ -236,13 +236,14 @@ routes.post('/question', async (req, res) => {
 //answers
 routes.post('/answer', async (req, res) => {
     try {
+        sess = req.session;
         const data = req.body;
         const response = validation.test(data.response);
         //const vote = intValidation.test(data.vote);
-        const userAnswer = data.userAnswer;
+        const userAnswer = sess.email;
         const questionId = intValidation.test(data.questionId);
         if (response && userAnswer && questionId) {
-            await dbService.addAnswer(data);
+            await dbService.addAnswer(data, sess);
             res.json('ok');
         }
     }

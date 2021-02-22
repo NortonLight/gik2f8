@@ -121,7 +121,7 @@ const updateQuestion = (async (data, sess) => {
         const user = await dbCon.get('SELECT accounttype, email FROM users WHERE email=?', [sess.email]);
        // const userQuestion = await dbCon.get('SELECT userQuestion FROM questions WHERE userQuestion=?', [data.userQuestion]);
         if (user.accounttype == 1 || user.accounttype == 3) {
-            const update = await dbCon.run('UPDATE questions set category=?, title=?, question=?, duplicate=?, userQuestion=? WHERE id=?', [data.category, data.title, data.question, data.timeofquestion, data.duplicate, sess.email, data.id]);
+            const update = await dbCon.run('UPDATE questions set category=?, title=?, question=?, userQuestion=? WHERE id=?', [data.category, data.title, data.question, sess.email, data.id]);
             return update;
          }
         // else if (user.email) {

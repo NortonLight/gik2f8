@@ -25,9 +25,6 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="myQuser.html">My questions</a>
                         </li>
-                        <li><a input="button" class="nav-link" data-toggle="modal" data-target="#askQuestionModal"
-                                href="#askQuestionModal">Ask a
-                                question</a></li>
                     </ul>
                     <label id="labelSignIn" class="float-right">Signed in as: User</label>
 
@@ -89,7 +86,6 @@
                                         <option>Homes&Households</option>
                                         <option>Movies&Series</option>
                                         <option>Relationsship</option>
-                                        <option>Movies&Series</option>
                                     </select>
                                 </div>
                                 <label for="open_QTitle">Title</label>
@@ -145,7 +141,6 @@
                                     <option>Homes&Households</option>
                                     <option>Movies&Series</option>
                                     <option>Relationsship</option>
-                                    <option>Movies&Series</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -168,7 +163,7 @@
                             <div class="modal-footer">
                                 <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <input type="button" class="btn btn-primary" value="Delete answer"
+                                <input type="button" class="btn btn-primary" data-bs-dismiss="modal" value="Delete answer"
                                     v-on:click="deleteQuestion">
                                 <input type="button" class="btn btn-primary float-right" value="Save changes"
                                     v-on:click="editUserQuestion">
@@ -277,9 +272,10 @@
                             $.getJSON("/userquestions", function (jsondata) {
                                 self.questions = jsondata;
                             });
-                            //Kolla denna cleara efter deletead fråga.
-                            clearformOpenQuser()
                             $('openUserQuestionModal').hide();
+                        },
+                        error: (error) => {
+                            console.log(error);
                         }
                     });
                 },

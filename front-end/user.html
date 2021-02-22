@@ -23,7 +23,7 @@
                             <a class="nav-link active" aria-current="page" href="user.html">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="myQuser.html">My questions</a>
+                            <a class="nav-link" aria-current="page" href="myQuser.html">My questions</a>
                         </li>
                         <li><a input="button" class="nav-link" data-toggle="modal" data-target="#askQuestionModal"
                                 href="#askQuestionModal">Ask a
@@ -59,7 +59,7 @@
                         <td>{{question.userQuestion}}</td>
                         <td>{{question.timeofquestion}}</td>
                         <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                            <button type="button" id="openQBtn2" class="btn btn-primary" data-toggle="modal"
                                 data-target="#openQuestionModal"
                                 v-on:click="openUserQuestion(question.id), openAnswer(question.id)">
                                 Open question
@@ -95,7 +95,9 @@
 
                             <div class="modal-footer">
                                 <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <div class="btn" data-dismiss="modal">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -137,7 +139,7 @@
                             <div class="form-group">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-                                <input type="button" class="btn btn-primary float float-right" value="Ask question"
+                                <input type="button" class="btn btn-primary float float-right" data-dismiss="modal" value="Ask question"
                                     v-on:click="askQuestion">
                                 <button input type="reset" class="btn btn-primary"> Clear fields</button>
                             </div>
@@ -183,12 +185,14 @@
                         success: (answer) => {
                             //Clear form måste läggas till
                             $('#open_Qanswer').val(answer.response)
+                            
                         },
                         error: (error) => {
                             console.log(error);
                         }
                     });
                 },
+
 
                 askQuestion() {
                     const question = {
@@ -201,8 +205,13 @@
                         type: 'POST',
                         data: question,
                         success: () => {
-                            $('#askQuestionModal').modal('hide');
-                            clearAddForm();// DENNA funkar nu.
+                            $('#askQuestionModal').hide( function (){
+                                $('#formAdd')[0].reset('#askQuestionModal');
+                            });  
+                            // $('#askQuestionModal').on('hidden.bs.modal', function (){
+                            //     //$('#formAdd').find('input[type="text"]').val('');
+                            //     $('#formAdd')[1].reset();
+                            // });  
                             // getQuestions(); den funkade inte för att getQuestions finns inte därför ClearAddForm körs aldrig
                         },
                     });

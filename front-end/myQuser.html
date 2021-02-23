@@ -290,11 +290,12 @@
                 },
             },
             mounted() {
+            
                 var self = this;
-                $.getJSON("/userquestions", function (jsondata) {
-                    console.log(JSON.stringify(jsondata));
-                    self.questions = jsondata;
-                });
+                    $.getJSON("/userquestions", function (jsondata) {
+                        console.log(JSON.stringify(jsondata));
+                        self.questions = jsondata;
+                    });
             },
         });
 

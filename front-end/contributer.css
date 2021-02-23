@@ -31,6 +31,15 @@ body{
     border: white;
     margin: 10px;
 }
+#editQbtn, #editQbtn2, #postAbtn, #delBtn, #addAbtn, #editQbtn1, #postAbtn1, #delBtn1{
+    background-color: #8fa5bf;
+    font-weight: bold;
+    border: white;
+}
+.modal-footer {
+    display: flex;
+    
+}
 #editQuestionModal, #askQuestionModal{
     background-color: #8fa5bf;
     color: black;

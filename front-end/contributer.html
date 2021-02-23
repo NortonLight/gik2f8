@@ -56,10 +56,10 @@
             <td>{{question.userQuestion}}</td>
             <td>{{question.timeofquestion}}</td>
             <td><button type="button" id="buttonUp" class="btn btn-success">
-              <span class=" glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button></td>
+                <span class=" glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button></td>
             <td><button type="button" id="buttonDown" class="btn btn-success">
-              <span class=" glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></button></td>
-            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal"
+                <span class=" glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></button></td>
+            <td><button type="button" id="addAbtn" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal"
                 v-on:click="ShowQuestionInUpdateForm(question.id)">
                 Add answer
               </button></td>
@@ -84,8 +84,8 @@
               <div class="form-group">
                 <label for="Category">Category</label>
                 <input class="form-control" name="editCategory" id="editCategory" readonly>
-                  
-                
+
+
               </div>
               <div class="form-group">
                 <label for="Title">Title</label>
@@ -100,17 +100,17 @@
                 <input type="text" class="form-control" name="answerQ" id="answerQ">
               </div>
               <div class="form-group">
-              <input type="checkbox" id="duplicate" name="duplicate" value="duplicate">
-              <label for="male">Duplicate</label>
+                <input type="checkbox" id="duplicate" name="duplicate" value="duplicate">
+                <label for="male">Duplicate</label>
               </div>
               <div class="form-group">
                 <label for="edit_QmessageId">Message Id</label>
                 <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId" readonly>
               </div>
               <div class="modal-footer">
-                <input type="button" class="btn btn-primary" value="Edit Answer" v-on:click="editQuestion">
-                <input type="button" class="btn btn-primary" value="Post answer" v-on:click="AddAnswer">
-                <input type="button" class="btn btn-primary" value="Delete Answer" v-on:click="deleteQuestion">
+                <input type="button" id="editQbtn1" class="btn btn-primary" value="Edit Answer" v-on:click="editQuestion">
+                <input type="button" id="postAbtn1" class="btn btn-primary" value="Post Answer" v-on:click="AddAnswer">
+                <input type="button" id="delBtn1" class="btn btn-primary" value="Delete Answer" v-on:click="deleteQuestion">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
             </form>
@@ -157,20 +157,20 @@
           });
           $('#editQuestionModal').show();
         },
-         AddAnswer() {
-            const answer = {
-              questionId: $('#edit_QmessageId').val(),
-              response: $('#answerQ').val()
-            }
-            $.ajax({
-                url: '/answer',
-                type: 'POST',
-                data: answer,
-                success: () => {
-                    $('#askQuestionModal').hide();
-                },
-            });
-                },
+        AddAnswer() {
+          const answer = {
+            questionId: $('#edit_QmessageId').val(),
+            response: $('#answerQ').val()
+          }
+          $.ajax({
+            url: '/answer',
+            type: 'POST',
+            data: answer,
+            success: () => {
+              $('#askQuestionModal').hide();
+            },
+          });
+        },
 
         postAnswerToUser() {
           var question = {
@@ -244,10 +244,11 @@
       },
       mounted() {
         var self = this;
-        $.getJSON("/questions", function (jsondata) {
-          console.log(JSON.stringify(jsondata));
-          self.questions = jsondata;
-        });
+          $.getJSON("/questions", function (jsondata) {
+            console.log(JSON.stringify(jsondata));
+            self.questions = jsondata;
+          });
+        
       },
 
       // mounted() {

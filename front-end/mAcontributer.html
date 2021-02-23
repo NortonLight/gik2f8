@@ -55,7 +55,7 @@
             <td>{{question.question}}</td>
             <td>{{question.user}}</td>
             <td>{{question.timeofquestion}}</td>
-            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal"
+            <td><button id="editQbtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal"
                 v-on:click="ShowQuestionInUpdateForm(question.id)">
                 Edit question
               </button></td>
@@ -104,10 +104,10 @@
                 <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId" readonly>
               </div>
               <div class="modal-footer">
-                <input type="button" class="btn btn-primary" value="Edit question" v-on:click="editQuestion">
-                <input type="button" class="btn btn-primary" value="Post answer" v-on:click="postAnswer">
-                <input type="button" class="btn btn-primary" value="Delete question" v-on:click="deleteQuestion">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <input type="button" id="editQbtn2" class="btn btn-primary mr-auto" value="Edit question" v-on:click="editQuestion">
+                <input type="button" id="postAbtn" class="btn btn-primary mr-auto" value="Post answer" v-on:click="postAnswer">
+                <input type="button" id="delBtn" class="btn btn-primary mr-auto" value="Delete answer" v-on:click="deleteQuestion">
+                <button type="button" class="btn btn-secondary mr-auto float-right" data-dismiss="modal">Close</button>
               </div>
             </form>
           </div>

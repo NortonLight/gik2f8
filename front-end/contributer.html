@@ -9,6 +9,7 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
   <link rel="stylesheet" href="./contributer.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <title>CIAAQ</title>
 </head>
 
@@ -55,10 +56,17 @@
             <td>{{question.question}}</td>
             <td>{{question.userQuestion}}</td>
             <td>{{question.timeofquestion}}</td>
-            <td><button type="button" id="buttonUp" class="btn btn-success">
-                <span class=" glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button></td>
-            <td><button type="button" id="buttonDown" class="btn btn-success">
-                <span class=" glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></button></td>
+            <td>
+              <span id="ThumbsUp">
+              <i class="fas fa-thumbs-up"></i></span>
+            </td>
+            <td>
+              <span id="ThumbsDown">
+              <i class="fas fa-thumbs-down"></i></span>
+            </td>
+            <!-- <td><button type="button" id="buttonDown">
+                <span class=" glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></button></td> -->
+
             <td><button type="button" id="addAbtn" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal"
                 v-on:click="ShowQuestionInUpdateForm(question.id)">
                 Add answer

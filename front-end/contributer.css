@@ -50,3 +50,11 @@ body{
     font-size: 15px;
     margin: 5px;
 }
+
+#ThumbsDown:hover {
+    color: red;
+}
+
+#ThumbsUp:hover {
+    color: green;
+}

@@ -53,8 +53,10 @@ body{
 
 #ThumbsDown:hover {
     color: red;
+    cursor:pointer;
 }
 
 #ThumbsUp:hover {
     color: green;
+    cursor:pointer;
 }

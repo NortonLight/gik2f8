@@ -105,9 +105,10 @@ const getContAnswers = async (sess) => {
     try {
         const dbCon = await dbPromise;
         const contAnswers = await dbCon.all('SELECT response, questionId FROM answers WHERE userAnswer=?', [sess.email]);
-        const question = await dbCon.get('SELECT category, title, question, timeofquestion, id FROM questions WHERE id=?', contAnswers.questionId);
-        return question;
-        
+       
+        //const question = await dbCon.get('SELECT category, title, question, timeofquestion, id FROM questions WHERE id=?', contAnswers.questionId);
+        return getContquestion(contAnswers);
+
     }
     catch (error) {
         throw new Error(error);

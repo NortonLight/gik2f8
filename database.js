@@ -104,9 +104,11 @@ const getUserQuestion = async (data) => {
 const getContAnswers = async (sess) => {
     try {
         const dbCon = await dbPromise;
-        const contAnswers = await dbCon.all('SELECT response, questionId FROM answers WHERE userAnswer=?', [sess.email]);
-        const question = await dbCon.get('SELECT category, title, question, timeofquestion, id FROM questions WHERE id=?', contAnswers.questionId);
-        return question;
+        const contAnswers = await dbCon.all('SELECT * FROM answers INNER JOIN questions ON answers.questionId = questions.Id AND answers.userAnswer=?',[sess.email]);
+       // const contAnswers = await dbCon.all('SELECT response, questionId FROM answers WHERE userAnswer=?', [sess.email]);
+       // const contAnswer2 = await dbCon.all('SELECT answers.response, answers.questionId, questions.category, questions.title, questions.question, questions.timeofquestion, questions.id FROM Table answers, Table questions WHERE answers.questionId = questions.id', [sess.email]);
+        //const question = await dbCon.get('SELECT category, title, question, timeofquestion, id FROM questions WHERE id=?', contAnswers.questionId);
+        return contAnswers;
         
     }
     catch (error) {

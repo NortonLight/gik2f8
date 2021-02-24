@@ -39,9 +39,9 @@ const getQuestions = async () => {
 
 const getQuestion = async (id) => {
     try {
-    const dbCon = await dbPromise;
-    const question = await dbCon.get('SELECT category, title, question, id FROM questions WHERE id=?', [id]);
-    return question;
+        const dbCon = await dbPromise;
+        const question = await dbCon.get('SELECT category, title, question, id FROM questions WHERE id=?', [id]);
+        return question;
     }
     catch (error) {
         throw new Error(error)
@@ -66,9 +66,9 @@ const getAnswers = async (data) => {
 
 const getAnswersId = async (id) => {
     try {
-    const dbCon = await dbPromise;
-    const question = await dbCon.get('SELECT response FROM answers WHERE questionId=?', [id]);
-    return question;
+        const dbCon = await dbPromise;
+        const question = await dbCon.get('SELECT response FROM answers WHERE questionId=?', [id]);
+        return question;
     }
     catch (error) {
         throw new Error(error)
@@ -76,7 +76,7 @@ const getAnswersId = async (id) => {
 };
 
 const getUsers = async () => {
-    try{
+    try {
         const dbCon = await dbPromise;
         const users = await dbCon.all('SELECT email, firstname, lastname, accounttype, block FROM users ORDER BY email ASC');
         return users;
@@ -101,12 +101,13 @@ const getUserQuestion = async (data) => {
 };
 
 //INTE KLAR!! måste koppla mina svar, till en users fråga.
-const getContAnswers = async (data) => {
+const getContAnswers = async (sess) => {
     try {
         const dbCon = await dbPromise;
-        const contAnswers = await dbCon.all('SELECT response, vote, userAnswer, questionId, timeofquestion FROM answers WHERE questionId=?', [data]);
-        return contAnswers;
-
+        const contAnswers = await dbCon.all('SELECT response, questionId FROM answers WHERE userAnswer=?', [sess.email]);
+        const question = await dbCon.get('SELECT category, title, question, timeofquestion, id FROM questions WHERE id=?', contAnswers.questionId);
+        return question;
+        
     }
     catch (error) {
         throw new Error(error);
@@ -119,16 +120,10 @@ const updateQuestion = (async (data, sess) => {
     try {
         const dbCon = await dbPromise;
         const user = await dbCon.get('SELECT accounttype, email FROM users WHERE email=?', [sess.email]);
-       // const userQuestion = await dbCon.get('SELECT userQuestion FROM questions WHERE userQuestion=?', [data.userQuestion]);
         if (user.accounttype == 1 || user.accounttype == 3) {
             const update = await dbCon.run('UPDATE questions set category=?, title=?, question=?, userQuestion=? WHERE id=?', [data.category, data.title, data.question, sess.email, data.id]);
             return update;
-         }
-        // else if (user.email) {
-        //     const update = await dbCon.run('UPDATE questions set category=?, title=?, question=?,  duplicate=? ,userquestion=? WHERE id=?', [data.category, data.title, data.question, data.duplicate, sess.email, data.id]);
-        //     return update;
-
-        // } 
+        }
         else {
             throw new error('You have no question');
         }
@@ -228,29 +223,17 @@ const userLogin = async (data, pass) => {
         if (data.email != null) {
             if (data.email == trueEmail.email) {
                 const userPass = await dbCon.get('SELECT password FROM users WHERE email=?', [data.email]);
-                //const match = pass == userPass.password;
                 const match = await bcrypt.compare(pass, userPass.password);
 
                 if (match) {
                     const userLog = await dbCon.get('SELECT email, firstname, lastname, id, accounttype, block FROM users WHERE password=?', userPass.password);
                     return userLog;
                 } else {
-                    //Vad kommer error ifrån här? Ett fel har ju inte uppstått
-                    //Utan lösenorden matchade ju inte
-                    //Anledningen till att ni hamnar här är ju att ni inte har krypterade lösenord i databasen
-                    //men försöker jämföra två okrypterade lösenord vilket ställer till det.
-
-                    //Kanske göra som så att "skapa ett nytt error som indikerar vad som gått fel istället?"
                     throw new Error("Passwords don't match.");
-                    //throw new Error(error);
                 }
             }
         } else {
-            //Vad är response här? Response har ni bara tillgång i routen
-            //Så här skulle jag inte kolla om data.email är satt, gör det
-            //i anropande metod istället, dvs routes.post('login')
             throw new Error("Missing email");
-            //response.send('Please write in your email!');
         }
     }
     catch (error) {
@@ -291,11 +274,11 @@ module.exports = {
     deleteQuestion: deleteQuestion,
     getUserQuestion: getUserQuestion,
     updateUser: updateUser,
-    addAnswer : addAnswer,
-    deleteAnswer :deleteAnswer,
+    addAnswer: addAnswer,
+    deleteAnswer: deleteAnswer,
     updateAnswer: updateAnswer,
     getAnswers: getAnswers,
-    getUsers : getUsers,
-    getAnswersId : getAnswersId,
-    getContAnswers : getContAnswers,
+    getUsers: getUsers,
+    getAnswersId: getAnswersId,
+    getContAnswers: getContAnswers,
 }

@@ -133,7 +133,7 @@ routes.get('/userquestions', async (req, res) => {
 });
 
 // Get user Frågor // Testa
-routes.get('/contAnswers', async (req, res) => {
+routes.get('/contributer', async (req, res) => {
     try {
         sess = req.session
         const answers = await dbService.getContAnswers(sess);

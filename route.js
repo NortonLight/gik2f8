@@ -263,9 +263,23 @@ routes.get('/answer/:id', async (req, res) => {
         throw new Error (error);
     }
 });
+routes.put('/vote', async (req, res) => {
+    try{
+        sess = req.session;
+        const vote = req.body;
+        const result = await dbService.updateAnswer(vote);
+        res.json(result);
 
+    }
+    catch(error){
+        throw new Error(error);
+
+    }
+
+});
 routes.put('/answer', async (req, res) => {
     try {
+        sess = req.session;
         const data = req.body;
         const response = validation.test(data.response);
         const vote = intValidation.test(data.vote);

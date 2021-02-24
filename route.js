@@ -282,13 +282,10 @@ routes.put('/answer', async (req, res) => {
         sess = req.session;
         const data = req.body;
         const response = validation.test(data.response);
-        const vote = intValidation.test(data.vote);
-        const userAnswer = validation.test(data.userAnswer);
         const questionId = intValidation.test(data.questionId);
         const id = intValidation.test(data.id);
-        const timeofquestion = data.timeofquestion;
-        if (response && userAnswer &&questionId && id) {
-            await dbService.updateAnswer(data);
+        if (response && sess &&questionId && id) {
+            await dbService.updateAnswer(data, sess);
             res.json('answer was updated');
         }
     }

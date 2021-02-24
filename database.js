@@ -175,11 +175,10 @@ const addAnswer = async (data, sess) => {
 
 };
 
-const updateAnswer = (async (data) => {
+const updateAnswer = (async (data, sess) => {
     try {
-        //const hashPassword = await genPass(data.password);
         const dbCon = await dbPromise;
-        const user = await dbCon.get('UPDATE answers set response=?, vote=?, userAnswer=?, questionId=? WHERE id=?', [data.response, data.vote, data.userAnswer, data.questionId, data.id]);
+        const user = await dbCon.get('UPDATE answers set response=?, vote=?, userAnswer=?, questionId=? WHERE id=?', [data.response, data.vote, sess.email, data.questionId, data.id]);
         return user;
     }
     catch (error) {

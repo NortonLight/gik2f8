@@ -33,6 +33,7 @@
           data-target="#logoutModal" v-on:click="logout">Logout</button>
       </div>
     </nav>
+    
 
 
 
@@ -64,11 +65,9 @@
               <span id="ThumbsDown">
               <i class="fas fa-thumbs-down"></i></span>
             </td>
-            <!-- <td><button type="button" id="buttonDown">
-                <span class=" glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></button></td> -->
-
+            
             <td><button type="button" id="addAbtn" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal"
-                v-on:click="ShowQuestionInUpdateForm(question.id)">
+                v-on:click="openUserQuestion(question.id), openAnswer(question.id)">
                 Add answer
               </button></td>
           </tr>
@@ -76,8 +75,6 @@
       </table>
     </div>
 
-    <!-- HÄR ÄR MODAL FÖR ATT EDITA OCH POSTA SVAR-->
-    <!-- Här är för USER och contributers att edit questions -->
     <div class="modal fade" id="editQuestionModal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -87,40 +84,28 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            <form id="formEditQ">
-              <div class="form-group">
-                <label for="Category">Category</label>
-                <input class="form-control" name="editCategory" id="editCategory" readonly>
-
-
-              </div>
-              <div class="form-group">
-                <label for="Title">Title</label>
-                <input type="text" class="form-control" name="editTitle" id="editTitle" readonly>
-              </div>
               <div class="form-group">
                 <label for="edit_Qmessage">Question</label>
-                <input type="text" class="form-control" name="edit_Qmessage" id="edit_Qmessage" readonly>
+                <input type="text" class="form-control" name="open_Qmessage" id="open_Qmessage" readonly>
               </div>
               <div class="form-group">
                 <label for="answerQ">Answer</label>
-                <input type="text" class="form-control" name="answerQ" id="answerQ">
+                <input type="text" class="form-control" name="open_Qanswer" id="open_Qanswer">
               </div>
               <div class="form-group">
                 <input type="checkbox" id="duplicate" name="duplicate" value="duplicate">
                 <label for="male">Duplicate</label>
               </div>
               <div class="form-group">
-                <label for="edit_QmessageId">Message Id</label>
-                <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId" readonly>
+                <label for="edit_QmessageId"></label>
+                <input type="text" class="form-control" name="open_QmessageId" id="open_QmessageId" hidden>
               </div>
               <div class="modal-footer">
-                <input type="button" id="editQbtn1" class="btn btn-primary" value="Edit Answer" v-on:click="editQuestion">
-                <input type="button" id="postAbtn1" class="btn btn-primary" value="Post Answer" v-on:click="AddAnswer">
-                <input type="button" id="delBtn1" class="btn btn-primary" value="Delete Answer" v-on:click="deleteQuestion">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
+                            <div class="btn" data-dismiss="modal">
+                                <input type="button" id="editQbtn1" class="btn btn-primary" value="Post Answer" v-on:click="AddAnswer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
             </form>
           </div>
         </div>
@@ -140,35 +125,40 @@
     const userVue = new Vue({
       el: "#contributer",
       data: {
-        users: [],
-        category: [],
-        title: [],
         questions: [],
-        answers: [],
-        rowData: [],
-        answer: [],
+        answer: []
       },
       methods: {
-        ShowQuestionInUpdateForm(id) { //Vet inte om det är rätt detta, Detta är mest för att fylla på med grejer.
-          $.ajax({
-            url: '/question/' + id,
-            type: 'GET',
-            success: (question) => {
-              //document.getElementById("editCategory").selectedIndex = question.category_id - 1;
-              $('#editCategory').val(question.category);
-              $('#editTitle').val(question.title);
-              $('#edit_Qmessage').val(question.question);
-              $('#edit_QmessageId').val(question.id)
-              //Måste vi ta emot alla saker som finns i vår table questions?
-              //det måste vi inte, vi kan ta emot bara de som ska ändras typ tiden och id behöver vi inte ta
-            }
-          });
-          $('#editQuestionModal').show();
+         openUserQuestion(id) {
+                  $.ajax({
+                      url: '/question/' + id,
+                      type: 'GET',
+                      success: (question) => {
+                          $('#open_Qmessage').val(question.question);
+                          $('#open_QmessageId').val(question.id);
+                      },
+                      error: (error) => {
+                          console.log(error);
+                      }
+                  });
+        },
+        openAnswer(id) {
+            $.ajax({
+                url: '/answer/' + id,
+                type: 'GET',
+                success: (answer) => {
+                    $('#open_Qanswer').val(answer.response);
+                    $('#open_id').val(answer.id);
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            });
         },
         AddAnswer() {
-          const answer = {
-            questionId: $('#edit_QmessageId').val(),
-            response: $('#answerQ').val()
+          var answer = {
+            questionId: $('#open_QmessageId').val(),
+            response: $('#open_Qanswer').val()
           }
           $.ajax({
             url: '/answer',
@@ -177,72 +167,6 @@
             success: () => {
               $('#askQuestionModal').hide();
             },
-          });
-        },
-
-        postAnswerToUser() {
-          var question = {
-            category: $('#editQuestionModal #editCategory').val(), //readonlyigentligen, man ska inte ändra categori? eller?
-            title: $('#editQuestionModall #editTitle').val(),
-            qMessage: $('#editQuestionModal #edit_Qmessage').val(),
-            qMessageId: $('#editQuestionModal #edit_QmessageId').val(),
-            user: $('#editQuestionModal #questionUser').val(),
-          }
-          $.ajax({
-            url: 'answer',
-            type: 'PUT',
-            data: question,
-            success: () => {
-              var self = this;
-              $getJSON("questions", function (jsondata) {
-                self.questions = jsondata;
-              });
-              $('editQuestionModal').hide();
-            },
-            error: (error) => {
-              console.log(error);
-            }
-          });
-        },
-
-        answerQuestion() {
-          var question = {
-            category: $('#answerQuestionModal #questionCategory').val(), //readonlyigentligen, man ska inte ändra categori? eller?
-            title: $('#answerQuestionModal #questionTitle').val(),
-            qMessage: $('#answerQuestionModal #questionM').val(),
-            user: $('#answerQuestionModal #questionUser').val(),
-            answer: $('#answerQuestionModal #answer').val(),
-          }
-          $.ajax({
-            url: 'answer',
-            type: 'PUT',
-            data: question,
-            success: () => {
-              var self = this;
-              $getJSON("questions", function (jsondata) {
-                self.questions = jsondata;
-              });
-              $('editQuestionModal').hide();
-            },
-            error: (error) => {
-              console.log(error);
-            }
-          });
-        },
-
-        deleteQuestion(id) {
-          var question = {
-            id: $('#editQuestionModal #updateId').val()
-          }
-          $.ajax({
-            url: '/deleteQuestion' + question.Id,
-            type: 'DELETE',
-            success: () => {
-              var self = this;
-              $.getJSON("questions", function (jsondata) {
-                self.questions = jsondata;
-              });
-            }
           });
         },
         logout() {
@@ -256,16 +180,7 @@
             console.log(JSON.stringify(jsondata));
             self.questions = jsondata;
           });
-        
       },
-
-      // mounted() {
-      //   var self = this;
-      //   $.getJSON("/answers", function (jsondata) {
-      //     console.log(JSON.stringify(jsondata));
-      //     self.answers = jsondata;
-      //   })
-      // }
     });
 
   </script>

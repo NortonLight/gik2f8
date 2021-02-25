@@ -295,6 +295,7 @@ routes.get('/answer/:id', async (req, res) => {
         throw new Error (error);
     }
 });
+
 routes.put('/vote', async (req, res) => {
     try{
         sess = req.session;

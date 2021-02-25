@@ -47,3 +47,7 @@ body{
     font-size: 15px;
     margin: 5px;
 }
+.modal-xl{
+    max-width: 1140px;
+
+}

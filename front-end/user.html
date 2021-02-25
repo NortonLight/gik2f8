@@ -90,6 +90,16 @@
                                     readonly>
                             </div>
                             <div class="form-group">
+                                <label for="open_A1">Answer</label>
+                                <input type="text" class="form-control" name="open_A1" id="open_A1"
+                                    readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="open_A2">Answer</label>
+                                <input type="text" class="form-control" name="open_A2" id="open_A2"
+                                    readonly>
+                            </div>
+                            <div class="form-group">
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
@@ -101,14 +111,15 @@
                                     <tbody>
                                         <tr>
                                             <th scope="row"></th>
-                                            <td>{{answers.response}}</td>
-                                            <td>{{answers.userAnswer}}</td>
-                                            <td>{{answers.timeofanswer}}</td>
+                                            <div class="form-group" id="response">
+                                            <td>{{answers.response}}</td></div>
+                                            <td id="uAnswer">{{answers.userAnswer}}</td>
+                                            <td id="ToA">{{answers.timeofanswer}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="modal-footer">
+                            <div class="modal-footer"> 
                                 <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
                                 <div class="btn" data-dismiss="modal">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -256,17 +267,36 @@
                 //         }
                 //     });
                 // },
+                  //return answers;
+                            //$('#open_Qanswer').val(answer.response);
+                            // $('#response').val(answers.response);
+                            // $('#uAnswer').val(answers.userAnswer);
+                            // $('#ToA').val(answers.timeofanswer); 
+                                                     
+                            // answers[0].answers.response;
+                            // answers[1].answers.user;
+                            // answers[2].answers.timeofanswer;                            
+                            //self.answers = this;
+                            // var openModal = $('openQuestionModal');
+                            //var self = this;
+                    //var openModal = $('openQuestionModal');
 
                 //DENNA ÄR DEN SOM SKA FUNGERA SOM VANLIGT.
                 openAnswer(id) {
-                    var self = this;
+                    
                     $.ajax({
                         url: '/answer/' + id,
                         type: 'GET',
-                        success: (answers) => {
-                            self.answers = this;
-                            console.log(answers);
-                            //$('#open_Qanswer').val(answer.response);
+                        success: (answer) => {
+                            i = 0;
+                            for(i in answer) {
+                               $('#response').val(answer[i].response);
+                               $('#uAnswer').val(answer[i].userAnswer);
+                               $('#ToA').val(answer[i].timeofanswer);
+                            }
+                          
+                          //  $('#open_A').val(answer.response); 
+                            console.log(answer);
                         },
                         error: (error) => {
                             console.log(error);

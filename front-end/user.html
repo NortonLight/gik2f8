@@ -120,7 +120,7 @@
             </div>
         </div>
 
-                                <!-- <p>{{answer.response}}</p>
+        <!-- <p>{{answer.response}}</p>
                                 <label for="open_Qanswer">Answer</label>
                                 <input type="text" class="form-control" formcontrolname="{{answer.response}}"
                                     id="open_Qanswer" readonly>
@@ -216,7 +216,7 @@
                 questions: [],
                 answer: [],
                 answers: [],
-            
+
             },
             methods: {
                 // $(function() {
@@ -259,14 +259,14 @@
 
                 //DENNA ÄR DEN SOM SKA FUNGERA SOM VANLIGT.
                 openAnswer(id) {
-                    var self = this;
+                    // var self = this;
                     $.ajax({
                         url: '/answer/' + id,
                         type: 'GET',
                         success: (answers) => {
-                            self.answers = this;
+                            //  self.answers = this;
                             console.log(answers);
-                            //$('#open_Qanswer').val(answer.response);
+                            $('#open_Qanswer').val(answer.response);
                         },
                         error: (error) => {
                             console.log(error);

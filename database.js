@@ -74,19 +74,6 @@ const getAnswersId = async (id) => {
         throw new Error(error)
     }
 };
-
-const getUsers = async () => {
-    try {
-        const dbCon = await dbPromise;
-        const users = await dbCon.all('SELECT email, firstname, lastname, accounttype, block FROM users ORDER BY email ASC');
-        return users;
-    }
-    catch (error) {
-        console.log(error);
-        throw new Error(error);
-    }
-};
-
 //Databasen funger och skickar tillbaka svaret på DATA när vi sätter email = "user@du.se" i routes
 const getUserQuestion = async (data) => {
     try {
@@ -201,6 +188,20 @@ const deleteAnswer = (async (id) => {
 
 
 //User
+
+const getUsers = async () => {
+    try {
+        const dbCon = await dbPromise;
+        const users = await dbCon.all('SELECT * FROM users ORDER BY email ASC');
+        return users;
+    }
+    catch (error) {
+        console.log(error);
+        throw new Error(error);
+    }
+};
+
+
 const addtUsers = async (data) => {
     try {
         const hashPassword = await genPass(data.password);
@@ -241,13 +242,23 @@ const userLogin = async (data, pass) => {
 
 const updateUser = (async (data) => {
     try {
-        const hashPassword = await genPass(data.password);
+        //const hashPassword = await genPass(data.password);
         const dbCon = await dbPromise;
-        const user = await dbCon.get('UPDATE users set email=?, firstname=?, lastname=?, password=?,  accounttype=?, block=? WHERE id=?', [data.email, data.firstname, data.lastname, hashPassword, data.accounttype, data.block, data.id]);
+        const user = await dbCon.get('UPDATE users set accounttype=? WHERE id=?', [data.accounttype, data.id]);
         return user;
     }
     catch (error) {
         throw new Error(error);
+    }
+});
+const getuserbyId = (async (id) => {
+    try{
+        const dbCon = await dbPromise;
+        const user = await dbCon.get('SELECT email, accounttype, block, id FROM users WHERE id=?', [id]);
+        return user;
+    }
+    catch (error){
+        throw new Error (error);
     }
 });
 
@@ -261,22 +272,35 @@ const deleteUser = async (id) => {
         throw new Error(error);
     }
 };
+const blockUser = async (data) => {
+    try {
+        const dbCon = await dbPromise;
+        const del = await dbCon.run('UPDATE users set block=? WHERE id=?', [data.block, data.id]);
+        return del;
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+};
 module.exports = {
     getQuestions: getQuestions,
     getQuestion: getQuestion,
-    addtUsers: addtUsers,
-    deleteUser: deleteUser,
     addQuestion: addQuestion,
-    userLogin: userLogin,
     updateQuestion: updateQuestion,
     deleteQuestion: deleteQuestion,
     getUserQuestion: getUserQuestion,
-    updateUser: updateUser,
     addAnswer: addAnswer,
+    getAnswersId: getAnswersId,
+    getContAnswers: getContAnswers,
     deleteAnswer: deleteAnswer,
     updateAnswer: updateAnswer,
     getAnswers: getAnswers,
     getUsers: getUsers,
-    getAnswersId: getAnswersId,
-    getContAnswers: getContAnswers,
+    updateUser: updateUser,
+    addtUsers: addtUsers,
+    deleteUser: deleteUser,
+    blockUser: blockUser,
+    userLogin: userLogin,
+    getuserbyId: getuserbyId,
+    
 }

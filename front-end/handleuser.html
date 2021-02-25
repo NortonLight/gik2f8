@@ -169,71 +169,22 @@
     const userVue = new Vue({
       el: "#adminhandle",
       data: {
-        questions: [],
-        answers: [],
-        rowData: [],
-        answer: [],
-        users: [],
+        users: []
+        
       },
+      
+      // for(type in allUsers.accounttype){
+      //       if(type == 1){
+      //           allUsers.accounttype = "admin";
+      //       }else if (type == 2){
+      //           allUsers.accounttype= "Contributer";
+      //       }else if(type == 3){
+      //           allUsers.accounttype =" Consumer";
+      //       }else{
+      //         throw new Error(error);
+      //       }
+      //     }
       methods: {
-
-        ShowQuestionInUpdateForm(id) { //Vet inte om det är rätt detta, Detta är mest för att fylla på med grejer.
-          $.ajax({
-            url: '/question/' + id,
-            type: 'GET',
-            success: (question) => {
-              document.getElementById("editCategory").selectedIndex = question.category_id - 1;
-              $('#editCategory').val(question.category);
-              $('#editTitle').val(question.title);
-              $('#edit_Qmessage').val(question.question);
-              $('#edit_QmessageId').val(question.id)
-              //Måste vi ta emot alla saker som finns i vår table questions?
-              //det måste vi inte, vi kan ta emot bara de som ska ändras typ tiden och id behöver vi inte ta
-            }
-          });
-          $('#editQuestionModal').modal('show');
-        },
-
-        editUserQuestion() {
-          var question = {
-            category: $('#editQuestionModal #editCategory').val(), //readonlyigentligen, man ska inte ändra categori? eller?
-            title: $('#editQuestionModall #editTitle').val(),
-            question: $('#editQuestionModal #edit_Qmessage').val(),
-            qMessageId: $('#editQuestionModal #edit_QmessageId').val(),
-            user: $('#editQuestionModal #questionUser').val(),
-          }
-          $.ajax({
-            url: 'answer',
-            type: 'PUT',
-            data: question,
-            success: () => {
-              var self = this;
-              $getJSON("questions", function (jsondata) {
-                self.questions = jsondata;
-              });
-              $('editQuestionModal').modal('hide');
-            },
-            error: (error) => {
-              console.log(error);
-            }
-          });
-        },
-
-        deleteQuestion(id) {
-          var question = {
-            id: $('#editQuestionModal #updateId').val()
-          }
-          $.ajax({
-            url: '/deleteQuestion' + question.Id,
-            type: 'DELETE',
-            success: () => {
-              var self = this;
-              $.getJSON("questions", function (jsondata) {
-                self.questions = jsondata;
-              });
-            }
-          });
-        },
         logout() {
           sessionStorage.clear();
           window.location.href = "/index.html";
@@ -244,15 +195,10 @@
         $.getJSON("/users", function (jsondata) {
           console.log(JSON.stringify(jsondata));
           self.users = jsondata;
+         
+          
         });
       },
-      // mounted() {
-      //   var self = this;
-      //   $.getJSON("/answers", function (jsondata) {
-      //     console.log(JSON.stringify(jsondata));
-      //     self.answers = jsondata;
-      //   })
-      // }
     });
 
 
@@ -260,4 +206,3 @@
 </body>
 
 </html>
-<!--<img src="background/ocean.jpg" class="img-fluid" alt="..."> DENNA BAKGRUND SKA VI HA ÖVER HELA SIDAN-->

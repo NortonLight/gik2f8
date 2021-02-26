@@ -69,6 +69,19 @@ routes.get('/users', async (req, res) => {
     }
 })
 
+routes.get('/users/:id', async (req, res) => {
+    try{
+        sess = req.session;
+        id = req.params.id;
+        const allUsers = await dbService.getuserbyId(id);
+        res.json(allUsers);
+    }
+    catch (error) {
+        console.log(error);
+        res.json({ status: error });
+    }
+})
+
 //user
 routes.post('/users', async (req, res) => {
     try {
@@ -90,14 +103,18 @@ routes.post('/users', async (req, res) => {
 routes.put('/user', async (req, res) => {
     try {
         const data = req.body;
-        const email = validation.test(data.email);
-        const firstname = validation.test(data.firstname);
-        const lastname = validation.test(data.lastname);
-        const password = validation.test(data.password);
+        if (data.accounttype == 'Admin'){
+            data.accounttype = 1;
+        }else if (data.accounttype == 'Contributer'){
+            data.accounttype = 2;
+        }else if (data.accounttype == 'Consumer'){
+            data.accounttype = 3;
+        }else{
+            data.accounttype = null;
+        }
         const accounttype = intValidation.test(data.accounttype);
-        const block = intValidation.test(data.block);
         const id = intValidation.test(data.id);
-        if (email && firstname && lastname && password && accounttype && block && id) {
+        if (accounttype && id) {
             await dbService.updateUser(data);
             res.json('user was updated');
         }
@@ -107,6 +124,21 @@ routes.put('/user', async (req, res) => {
     }
 });
 
+
+routes.put('/block', async (req, res) => {
+    try {
+        const data = req.body;
+        const block = intValidation.test(data.block);
+        const id = intValidation.test(data.id);
+        if (block && id) {
+            await dbService.blockUser(data);
+            res.json('user was Blocked');
+        }
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+});
 routes.delete('/users/:id', async (req, res) => {
     try {
         const data = req.params.id;
@@ -203,10 +235,30 @@ routes.put('/question', async (req, res) => {
         const title = validation.test(data.title);
         const question = validation.test(data.question);
         const idMatch = intValidation.test(data.id);
+        const duplicate = validation.test(data.duplicate);
        // const userQuestion = data.userQuestion;
         if (category && title && question && idMatch) {
             await dbService.updateQuestion(data, sess);
             res.json('question was updated');
+        }
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+});
+routes.put('/duplicate', async (req, res) =>{
+    try {
+        sess = req.session;
+        const data = req.body;
+        const duplicate = validation.test(data.duplicate);
+        if(data.duplicate == "duplicate"){
+            data.duplicate = 1;
+        }else{
+            data.duplicate = 0;
+        }
+       if (duplicate) {
+            await dbService.duplicate(data);
+            res.json('question was duplicated');
         }
     }
     catch (error) {

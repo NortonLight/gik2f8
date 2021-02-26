@@ -45,8 +45,6 @@
             <th scope="col">Email</th>
             <th scope="col">Firstname</th>
             <th scope="col">Lastname</th>
-            <th scope="col">Accounttype</th>
-            <th scope="col">Status</th>
           </tr>
         </thead>
         <tbody>
@@ -55,18 +53,14 @@
             <td>{{user.email}}</td>
             <td>{{user.firstname}}</td>
             <td>{{user.lastname}}</td>
-            <td>{{user.accounttype}}</td>
-            <td>{{user.block}}</td>
-            <!-- <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal"
-                v-on:click="ShowQuestionInUpdateForm(question.id)">
-                Edit question
-              </button></td> -->
-              <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#userHandleModal" > Handle user
+            <td><button id="editUser" type="button" class="btn btn-primary" data-toggle="modal"
+                data-target="#userHandleModal" v-on:click="openUser(user.id)">
+                Handle
+                user
 
               </button>
-              </td>
-              <!-- <a input="button" class="btn btn-primary" data-toggle="modal" data-target="#userHandleModal">Handle user</a>-->
-          </tr> 
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -83,70 +77,41 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+          <div class="form-group">
+            <label for="open_Emaile">Email</label>
+            <input type="text" class="form-control" name="open_Qmessage" id="open_Email" readonly>
+          </div>
+          <div class="form-group">
+            <label for="open_accountType">account type</label>
+            <input type="text" class="form-control" name="open_Qmessage" id="open_accountType" readonly>
+          </div>
           <div class="modal-body">
             <form id="formUserHandle">
               <div class="form-group">
-                <label for="Block">Block user</label>
-                <select class="form-control" name="editBlock" id="editBlock">
-                  <option>Block</option>
-                  <option>Unblock</option>
+                <label for="Block">Change account type to:</label>
+                <select class="form-control" name="editBlock" id="editAccount">
+                  <option>Admin</option>
+                  <option>Contributer</option>
+                  <option>Consumer</option>
                 </select>
               </div>
               <div class="form-group">
                 <label for="userBlockInfo">Block info</label>
-                <input type="text" class="form-control" name="blockInfo" id="blockInfo">
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary Save" data-bs-dismiss="modal">Save changes</button>
-                <input type="button" class="btn btn-primary" value="Edit user" v-on:click="editUser">
-                <input type="button" class="btn btn-primary" value="Delete User" v-on:click="deleteQUser">
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+                <input type="text" class="form-control" name="blockInfo" id="open_block" readonly>
+                <input type="button" id="block" class="btn btn-primary" value="Block User" v-on:click="block">
+                <input type="button" id="Unblock" class="btn btn-primary" value="Unblock User" v-on:click="Unblock">
 
-    <!-- HÄR ÄR MODAL FÖR ATT EDITA OCH POSTA SVAR-->
-    <!-- Här är för USER och contributers att edit questions -->
-    <div class="modal fade" id="editQuestionModal" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Edit a question</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form id="formEditQ">
-              <div class="form-group">
-                <label for="Category">Category</label>
-                <select class="form-control" name="editCategory" id="editCategory">
-                  <option>Sport</option>
-                  <option>Homes&Households</option>
-                  <option>Movies&Series</option>
-                  <option>Relationsship</option>
-                  <option>Movies&Series</option>
-                </select>
               </div>
               <div class="form-group">
-                <label for="Title">Title</label>
-                <input type="text" class="form-control" name="editTitle" id="editTitle">
-              </div>
-              <div class="form-group">
-                <label for="edit_Qmessage">Question</label>
-                <input type="text" class="form-control" name="edit_Qmessage" id="edit_Qmessage">
-              </div>
-              <div class="form-group">
-                <label for="edit_QmessageId">Message Id</label>
-                <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId" readonly>
+                <label for="open_id"></label>
+                <input type="text" class="form-control" name="open_id" id="open_id" hidden>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <input type="button" class="btn btn-primary" value="Edit question" v-on:click="editQuestion">
-                <input type="button" class="btn btn-primary" value="Post answer" v-on:click="postAnswer">
-                <input type="button" class="btn btn-primary" value="Delete answer" v-on:click="deleteQuestion">
+                <div class="btn" data-dismiss="modal">
+                  <input type="button" id="Update" class="btn btn-primary" value="Update User" v-on:click="editUser">
+                  <input type="button" id="delBtn1" class="btn btn-primary" value="Delete User" v-on:click="deleteUser">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
               </div>
             </form>
           </div>
@@ -154,7 +119,6 @@
       </div>
     </div>
   </div>
-
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"
     integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj"
@@ -169,70 +133,122 @@
     const userVue = new Vue({
       el: "#adminhandle",
       data: {
-        questions: [],
-        answers: [],
-        rowData: [],
-        answer: [],
-        users: [],
+        users: []
+
       },
       methods: {
-
-        ShowQuestionInUpdateForm(id) { //Vet inte om det är rätt detta, Detta är mest för att fylla på med grejer.
+        openUser(id) {
           $.ajax({
-            url: '/question/' + id,
+            url: '/users/' + id,
             type: 'GET',
-            success: (question) => {
-              document.getElementById("editCategory").selectedIndex = question.category_id - 1;
-              $('#editCategory').val(question.category);
-              $('#editTitle').val(question.title);
-              $('#edit_Qmessage').val(question.question);
-              $('#edit_QmessageId').val(question.id)
-              //Måste vi ta emot alla saker som finns i vår table questions?
-              //det måste vi inte, vi kan ta emot bara de som ska ändras typ tiden och id behöver vi inte ta
-            }
-          });
-          $('#editQuestionModal').modal('show');
-        },
+            success: (users) => {
+              $('#open_Email').val(users.email);
+              $('#open_id').val(users.id);
+              if (users.accounttype == 1) {
 
-        editUserQuestion() {
-          var question = {
-            category: $('#editQuestionModal #editCategory').val(), //readonlyigentligen, man ska inte ändra categori? eller?
-            title: $('#editQuestionModall #editTitle').val(),
-            question: $('#editQuestionModal #edit_Qmessage').val(),
-            qMessageId: $('#editQuestionModal #edit_QmessageId').val(),
-            user: $('#editQuestionModal #questionUser').val(),
-          }
-          $.ajax({
-            url: 'answer',
-            type: 'PUT',
-            data: question,
-            success: () => {
-              var self = this;
-              $getJSON("questions", function (jsondata) {
-                self.questions = jsondata;
-              });
-              $('editQuestionModal').modal('hide');
+                $('#open_accountType').val("Admin");
+              } else if (users.accounttype == 2) {
+
+                $('#open_accountType').val("Contributer");
+              } else {
+
+                $('#open_accountType').val("Consumer");
+              }
+              if (users.block == null || users.block == 0) {
+                $('#open_block').val("Active");
+              } else {
+                $('#open_block').val("Blocked");
+              }
             },
             error: (error) => {
               console.log(error);
             }
           });
         },
-
-        deleteQuestion(id) {
-          var question = {
-            id: $('#editQuestionModal #updateId').val()
+        block() {
+          const user = {
+            block: 1,
+            id: $('#userHandleModal #open_id').val()
           }
           $.ajax({
-            url: '/deleteQuestion' + question.Id,
+            url: '/block',
+            type: 'PUT',
+            data: user,
+            success: () => {
+              $('userHandleModal').hide(function () {
+                var self = this;
+                $.getJSON("/users", function (jsondata) {
+                  self.users = jsondata;
+                });
+
+              });
+            },
+          });
+
+        },
+
+        Unblock() {
+          const user = {
+            block: 0,
+            id: $('#userHandleModal #open_id').val()
+          }
+          $.ajax({
+            url: '/block',
+            type: 'PUT',
+            data: user,
+            success: () => {
+              $('userHandleModal').hide(function () {
+                var self = this;
+                $.getJSON("/users", function (jsondata) {
+                  self.users = jsondata;
+                });
+
+              });
+            },
+          });
+
+        },
+        editUser() {
+          const user = {
+            accounttype: $('#userHandleModal #editAccount').val(),
+            id: $('#userHandleModal #open_id').val()
+          }
+          $.ajax({
+            url: '/user',
+            type: 'PUT',
+            data: user,
+            success: () => {
+              $('userHandleModal').hide(function () {
+                var self = this;
+                $.getJSON("/users", function (jsondata) {
+                  self.users = jsondata;
+                });
+
+              });
+            },
+
+          });
+
+        },
+        deleteUser() {
+          var question = {
+            id: $('#userHandleModal #open_id').val()
+          }
+          $.ajax({
+            url: '/users/' + question.id,
             type: 'DELETE',
             success: () => {
               var self = this;
-              $.getJSON("questions", function (jsondata) {
+              $.getJSON("/users", function (jsondata) {
                 self.questions = jsondata;
               });
+              $('userHandleModal').hide();
+            },
+            error: (error) => {
+              console.log(error);
             }
           });
+
         },
         logout() {
           sessionStorage.clear();
@@ -242,17 +258,11 @@
       mounted() {
         var self = this;
         $.getJSON("/users", function (jsondata) {
-          console.log(JSON.stringify(jsondata));
           self.users = jsondata;
+
+
         });
       },
-      // mounted() {
-      //   var self = this;
-      //   $.getJSON("/answers", function (jsondata) {
-      //     console.log(JSON.stringify(jsondata));
-      //     self.answers = jsondata;
-      //   })
-      // }
     });
 
 
@@ -260,4 +270,3 @@
 </body>
 
 </html>
-<!--<img src="background/ocean.jpg" class="img-fluid" alt="..."> DENNA BAKGRUND SKA VI HA ÖVER HELA SIDAN-->

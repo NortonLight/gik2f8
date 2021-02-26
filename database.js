@@ -332,11 +332,9 @@ module.exports = {
     updateAnswer: updateAnswer,
     getAnswers: getAnswers,
     getUsers: getUsers,
-<<<<<<< HEAD
     getAnswersId: getAnswersId,
     getContAnswers: getContAnswers,
-    getUserQandAnswers: getUserQandAnswers
-=======
+    getUserQandAnswers: getUserQandAnswers,
     updateUser: updateUser,
     addtUsers: addtUsers,
     deleteUser: deleteUser,
@@ -344,5 +342,4 @@ module.exports = {
     userLogin: userLogin,
     getuserbyId: getuserbyId,
     
->>>>>>> 51215755c3869e80c24513c1e192198d3332e879
 }

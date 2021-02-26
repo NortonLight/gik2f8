@@ -111,7 +111,7 @@
             <small><b>Question: </b></small>
             <p class="card-text">{{question.question}}</p>
             <small><b>Answer: </b></small>
-            <p class="card-text">{{question.response}}</p>
+            <p class="card-text" v-for="response in question" v-bind:key="question.questionId">{{response}}</p>
             <small>{{question.timeofquestion}}</small>
             <small>{{question.userQuestion}}</small>
             </div>

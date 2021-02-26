@@ -158,6 +158,17 @@ routes.get('/questions', async (req, res) => {
     }
 });
 
+routes.get('/QaA', async (req, res) => {
+    try {
+        sess = req.session
+        const question = await dbService.getUserQandAnswers();
+        res.json(question);
+
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+});
 
 routes.get('/question/:id', async (req, res) => {
     try{

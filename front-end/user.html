@@ -51,20 +51,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="question in questions" v-bind:key="question.id">
+                    <tr class="data" v-for="question in questions" v-bind:key="question.id">
                         <th scope="row"></th>
-                        <td>{{question.category}}</td>
-                        <td>{{question.title}}</td>
-                        <td>{{question.question}}</td>
-                        <td>{{question.userQuestion}}</td>
-                        <td>{{question.timeofquestion}}</td>
-                        <td>
-                            <button type="button" id="openQBtn2" class="btn btn-primary" data-toggle="modal"
+                        <td class="categoryT">{{question.category}}</td>
+                        <td class="titleT">{{question.title}}</td>
+                        <td class="questionT">{{question.question}}</td>
+                        <td class="response">{{question.response}}</td>
+                        <td class="userQT">{{question.userQuestion}}</td>
+                        <td class="ToQT">{{question.timeofquestion}}</td>
+                        
+                        <!-- <tr class="data" v-for="question in questions" v-bind:key="question.id">
+                        <td colspan="5">{{question.response}}</td>
+                        </tr>
+                         -->
+                            
+                            <!-- 
+                            <th scope="col">Answer</th> -->
+
+                            <!-- <button type="button" id="openQBtn2" class="btn btn-primary" data-toggle="modal"
                                 data-target="#openQuestionModal"
                                 v-on:click="openUserQuestion(question.id), openAnswer(question.id)">
                                 Open question
-                            </button>
-                        </td>
+                            </button> -->
                     </tr>
                 </tbody>
             </table>
@@ -336,7 +344,7 @@
             mounted() {
 
                 var self = this;
-                $.getJSON("/questions", function (jsondata) {
+                $.getJSON("/QaA", function (jsondata) {
                     console.log(JSON.stringify(jsondata));
                     self.questions = jsondata;
                 });

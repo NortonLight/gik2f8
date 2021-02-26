@@ -113,6 +113,31 @@ const getContAnswers = async (sess) => {
     }
 };
 
+const getUserQandAnswers = async () => {
+    try {
+        const dbCon = await dbPromise;
+        const userQandAnswers = await dbCon.all('SELECT questions.*, answers.*  FROM questions LEFT JOIN answers ON questions.Id = answers.questionId ORDER BY category ASC');
+        return userQandAnswers;
+        
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+};
+
+
+// const getUserQandAnswers = async () => {
+//     try {
+//         const dbCon = await dbPromise;
+//         const userQandAnswers = await dbCon.all('SELECT * FROM questions INNER JOIN answers ON questions.Id = answers.questionId ORDER BY category ASC');
+//         return userQandAnswers;
+        
+//     }
+//     catch (error) {
+//         throw new Error(error);
+//     }
+// };
+
 
 
 const updateQuestion = (async (data, sess) => {
@@ -279,4 +304,5 @@ module.exports = {
     getUsers: getUsers,
     getAnswersId: getAnswersId,
     getContAnswers: getContAnswers,
+    getUserQandAnswers: getUserQandAnswers
 }

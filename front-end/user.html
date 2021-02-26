@@ -37,7 +37,7 @@
             </div>
         </nav>
 
-
+<!-- 
         <div class="container-fluid">
             <table class="table table-striped table-hover">
                 <thead>
@@ -72,11 +72,63 @@
                                 data-target="#openQuestionModal"
                                 v-on:click="openUserQuestion(question.id), openAnswer(question.id)">
                                 Open question
-                            </button> -->
+                            </button> 
                     </tr>
                 </tbody>
             </table>
+        </div> -->
+
+
+        
+ <!-- create cards
+ <div class="row justify-content-center" style="margin-top: 15px">
+    <div class="card" style="width: 18rem;" v-for="product in products" v-bind:key="product.id">
+      <div class="card-body">
+        <!-- TOG BORT + IMG I FRÅN UPLOAD
+        <img type="Image" class="card-img-top" v-bind:src="product.img" width="50px" height="50px">
+        <div class="displayimages">{{product.img}}</div>
+        <h5 class="card-title">{{ product.Name }}</h5>
+        <p class="card-text">{{ product.Description }}</p>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"> {{ product.Price }} </li>
+        </ul>
+        <!--lägg till en buy funktion för att skicka in product till buy.html
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateModal"
+          v-on:click="addProducttoCart">
+          Buy
+        </button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+        <div class="card w-50 justify-content-between border-dark" id="cardQuestion" v-for="question in questions" v-bind:key="question.id">
+            <div class="card-body" id="cardBody">
+            <small><b>Category</b></small>
+            <h5 class="card-title">{{question.category}}</h5> 
+            <small><b>Title</b></small>
+            <h3 class="card-title">{{question.title}}</h3>
+            <small><b>Question: </b></small>
+            <p class="card-text">{{question.question}}</p>
+            <small><b>Answer: </b></small>
+            <p class="card-text">{{question.response}}</p>
+            <small>{{question.timeofquestion}}</small>
+            <small>{{question.userQuestion}}</small>
+            </div>
         </div>
+
+        <!-- <div class="list-group" style="margin-top: 10px;">
+           <!-- <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+              <div class="d-flex w-100 justify-content-between" v-for="question in questions" v-bind:key="question.id">
+                <h5 class="mb-1">{{question.category}}</h5>
+                <h5 class="mb-1">{{question.title}}</h5>
+                <small>{{question.timeofquestion}}</small>
+              <p class="mb-1">{{question.question}}</p>
+              <p class="mb-1">{{question.response}}</p>
+              <small>{{question.userQuestion}}</small>
+            </div>
+            <!-- </a> 
+          </div> -->
 
 
 

@@ -16,6 +16,10 @@ body{
     color: white;
     margin: 20px;
 }
+#cardQuestion{
+    background-image: url("./background/ocean.jpg");
+}
+
 #navUser2{
     color: white;
 }

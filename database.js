@@ -239,6 +239,16 @@ const userLogin = async (data, pass) => {
         throw error;
     }
 };
+const duplicate = async (data) =>{
+    try {
+        const dbCon = await dbPromise;
+        const duplicate = await dbCon.get('UPDATE questions SET duplicate=? WHERE id=?', [data.duplicate, data.id]);
+        return duplicate;
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+};
 
 const updateUser = (async (data) => {
     try {
@@ -289,6 +299,7 @@ module.exports = {
     updateQuestion: updateQuestion,
     deleteQuestion: deleteQuestion,
     getUserQuestion: getUserQuestion,
+    duplicate: duplicate,
     addAnswer: addAnswer,
     getAnswersId: getAnswersId,
     getContAnswers: getContAnswers,

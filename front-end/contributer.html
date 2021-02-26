@@ -87,7 +87,7 @@
               <input type="text" class="form-control" name="open_Qanswer" id="open_Qanswer">
             </div>
             <div class="form-group">
-              <input type="checkbox" id="duplicate" name="duplicate" value="duplicate">
+              <input type="checkbox" id="duplicate" name="duplicate" value="duplicate" v-on:click="duplicate">
               <label for="male">Duplicate</label>
             </div>
             <div class="form-group">
@@ -160,9 +160,24 @@
             type: 'POST',
             data: answer,
             success: () => {
-              $('#askQuestionModal').hide();
+              $('#editQuestionModal').hide();
             },
           });
+        },
+        duplicate(){
+          var question = {
+            duplicate: $('#duplicate').val(),
+            id: $('#open_QmessageId').val()
+          }
+          $.ajax({
+            url: '/duplicate',
+            type: 'PUT',
+            data: question,
+            success: () => {
+              $('#editQuestionModal').hide();
+            },
+          });
+
         },
         logout() {
           sessionStorage.clear();

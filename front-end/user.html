@@ -283,16 +283,6 @@
 
                 //DENNA ÄR DEN SOM SKA FUNGERA SOM VANLIGT.
                 openAnswer(id) {
-<<<<<<< HEAD
-                    // var self = this;
-                    $.ajax({
-                        url: '/answer/' + id,
-                        type: 'GET',
-                        success: (answers) => {
-                            //  self.answers = this;
-                            console.log(answers);
-                            $('#open_Qanswer').val(answer.response);
-=======
                     
                     $.ajax({
                         url: '/answer/' + id,
@@ -307,7 +297,6 @@
                           
                           //  $('#open_A').val(answer.response); 
                             console.log(answer);
->>>>>>> 92b23bc08c742ac81e3ede565f573568ce348f4e
                         },
                         error: (error) => {
                             console.log(error);

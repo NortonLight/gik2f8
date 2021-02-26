@@ -224,10 +224,30 @@ routes.put('/question', async (req, res) => {
         const title = validation.test(data.title);
         const question = validation.test(data.question);
         const idMatch = intValidation.test(data.id);
+        const duplicate = validation.test(data.duplicate);
        // const userQuestion = data.userQuestion;
         if (category && title && question && idMatch) {
             await dbService.updateQuestion(data, sess);
             res.json('question was updated');
+        }
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+});
+routes.put('/duplicate', async (req, res) =>{
+    try {
+        sess = req.session;
+        const data = req.body;
+        const duplicate = validation.test(data.duplicate);
+        if(data.duplicate == "duplicate"){
+            data.duplicate = 1;
+        }else{
+            data.duplicate = 0;
+        }
+       if (duplicate) {
+            await dbService.duplicate(data);
+            res.json('question was duplicated');
         }
     }
     catch (error) {

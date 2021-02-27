@@ -117,16 +117,13 @@
                 </div>
                 <div class="card-footer">
                     <small><b>Answer: </b></small>
-<<<<<<< HEAD
-                    <p class="card-text" v-for="answer in answers" v-if="answer.id"
-                    >{{answer.response}}</p>
+                    <p class="card-text" 
+                    v-for="response in answers" 
+                    v-if="questions.id === answers.questionId" 
+                    :key="question.id"
+                    >{{response.response}}</p>
                     <small>{{question.userAnswer}}</small>
                     <small>{{question.timeofanswer}}</small>
-=======
-                    <p class="card-text" v-for="response in questions" v-bind:key="response.questions">{{response.questions}}</p>
-                    <small>{{item.userAnswer}}</small>
-                    <small>{{item.timeofanswer}}</small>
->>>>>>> d136c3cbb815659bbd3e27c501ef6b9875d82709
                 </div>
             </div>
         </div>
@@ -412,7 +409,7 @@
                 $.getJSON("/QaA", function (jsondata) {
                     self.questions = jsondata;
                     for(let i =0; i< self.questions.length; i++){
-                        if(self.questions[i].response || self.questions[i].vote || self.questions[i].userAnswer || self.questions[i].questionId || self.questions[i].timeofanswer || self.questions[i].id){
+                        if(self.questions[i].response || self.questions[i].vote || self.questions[i].userAnswer || self.questions[i].questionId || self.questions[i].timeofanswer){
                             self.answers.push({response : self.questions[i].response, vote: self.questions[i].vote, userAnswer: self.questions[i].userAnswer, questionId: self.questions[i].questionId, tiomofanswer: self.questions[i].timeofanswer, id: self.questions[i].id});
                         }
                         

@@ -103,7 +103,7 @@ const getContAnswers = async (sess) => {
 const getUserQandAnswers = async () => {
     try {
         const dbCon = await dbPromise;
-        const userQandAnswers = await dbCon.all('SELECT questions.*, answers.*  FROM questions LEFT JOIN answers ON questions.Id = answers.questionId ORDER BY category ASC');
+        const userQandAnswers = await dbCon.all('SELECT questions.*, answers.response, answers.vote, answers.userAnswer, answers.questionId, answers.timeofanswer  FROM questions LEFT JOIN answers ON questions.Id = answers.questionId ORDER BY category ASC');
         return userQandAnswers;
         
     }

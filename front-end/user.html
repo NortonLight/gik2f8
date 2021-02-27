@@ -37,7 +37,7 @@
             </div>
         </nav>
 
-<!-- 
+        <!-- 
         <div class="container-fluid">
             <table class="table table-striped table-hover">
                 <thead>
@@ -64,11 +64,11 @@
                         <td colspan="5">{{question.response}}</td>
                         </tr>
                          -->
-                            
-                            <!-- 
+
+        <!-- 
                             <th scope="col">Answer</th> -->
 
-                            <!-- <button type="button" id="openQBtn2" class="btn btn-primary" data-toggle="modal"
+        <!-- <button type="button" id="openQBtn2" class="btn btn-primary" data-toggle="modal"
                                 data-target="#openQuestionModal"
                                 v-on:click="openUserQuestion(question.id), openAnswer(question.id)">
                                 Open question
@@ -79,8 +79,8 @@
         </div> -->
 
 
-        
- <!-- create cards
+
+        <!-- create cards
  <div class="row justify-content-center" style="margin-top: 15px">
     <div class="card" style="width: 18rem;" v-for="product in products" v-bind:key="product.id">
       <div class="card-body">
@@ -102,18 +102,26 @@
   </div>
 </div> -->
 
-        <div class="card w-50 justify-content-between border-dark" id="cardQuestion" v-for="question in questions" v-bind:key="question.id">
+        <div class="card w-100 justify-content-between border-dark" id="cardQuestion" v-for="question in questions"
+            v-bind:key="question.id">
             <div class="card-body" id="cardBody">
-            <small><b>Category</b></small>
-            <h5 class="card-title">{{question.category}}</h5> 
-            <small><b>Title</b></small>
-            <h3 class="card-title">{{question.title}}</h3>
-            <small><b>Question: </b></small>
-            <p class="card-text">{{question.question}}</p>
-            <small><b>Answer: </b></small>
-            <p class="card-text" v-for="response in question" v-bind:key="question.questionId">{{response}}</p>
-            <small>{{question.timeofquestion}}</small>
-            <small>{{question.userQuestion}}</small>
+                <small><b>Category</b></small>
+                <h5 class="card-title">{{question.category}}</h5>
+                <small><b>Title</b></small>
+                <h3 class="card-title">{{question.title}}</h3>
+                <div class="card-body">
+                    <small><b> Question:</b></small>
+                    <p class="card-text">{{question.question}}</p>
+                    <small>{{question.userQuestion}}</small>
+                    <small>{{question.timeofquestion}}</small>
+                </div>
+                <div class="card-footer">
+                    <small><b>Answer: </b></small>
+                    <p class="card-text" v-for="answer in answers" v-if="answer.id"
+                    >{{answer.response}}</p>
+                    <small>{{question.userAnswer}}</small>
+                    <small>{{question.timeofanswer}}</small>
+                </div>
             </div>
         </div>
 
@@ -151,13 +159,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="open_A1">Answer</label>
-                                <input type="text" class="form-control" name="open_A1" id="open_A1"
-                                    readonly>
+                                <input type="text" class="form-control" name="open_A1" id="open_A1" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="open_A2">Answer</label>
-                                <input type="text" class="form-control" name="open_A2" id="open_A2"
-                                    readonly>
+                                <input type="text" class="form-control" name="open_A2" id="open_A2" readonly>
                             </div>
                             <div class="form-group">
                                 <table class="table table-striped table-hover">
@@ -172,14 +178,15 @@
                                         <tr>
                                             <th scope="row"></th>
                                             <div class="form-group" id="response">
-                                            <td>{{answers.response}}</td></div>
+                                                <td>{{answers.response}}</td>
+                                            </div>
                                             <td id="uAnswer">{{answers.userAnswer}}</td>
                                             <td id="ToA">{{answers.timeofanswer}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="modal-footer"> 
+                            <div class="modal-footer">
                                 <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
                                 <div class="btn" data-dismiss="modal">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -287,7 +294,7 @@
                 questions: [],
                 answer: [],
                 answers: [],
-
+                
             },
             methods: {
                 // $(function() {
@@ -327,35 +334,35 @@
                 //         }
                 //     });
                 // },
-                  //return answers;
-                            //$('#open_Qanswer').val(answer.response);
-                            // $('#response').val(answers.response);
-                            // $('#uAnswer').val(answers.userAnswer);
-                            // $('#ToA').val(answers.timeofanswer); 
-                                                     
-                            // answers[0].answers.response;
-                            // answers[1].answers.user;
-                            // answers[2].answers.timeofanswer;                            
-                            //self.answers = this;
-                            // var openModal = $('openQuestionModal');
-                            //var self = this;
-                    //var openModal = $('openQuestionModal');
+                //return answers;
+                //$('#open_Qanswer').val(answer.response);
+                // $('#response').val(answers.response);
+                // $('#uAnswer').val(answers.userAnswer);
+                // $('#ToA').val(answers.timeofanswer); 
+
+                // answers[0].answers.response;
+                // answers[1].answers.user;
+                // answers[2].answers.timeofanswer;                            
+                //self.answers = this;
+                // var openModal = $('openQuestionModal');
+                //var self = this;
+                //var openModal = $('openQuestionModal');
 
                 //DENNA ÄR DEN SOM SKA FUNGERA SOM VANLIGT.
                 openAnswer(id) {
-                    
+
                     $.ajax({
                         url: '/answer/' + id,
                         type: 'GET',
                         success: (answer) => {
                             i = 0;
-                            for(i in answer) {
-                               $('#response').val(answer[i].response);
-                               $('#uAnswer').val(answer[i].userAnswer);
-                               $('#ToA').val(answer[i].timeofanswer);
+                            for (i in answer) {
+                                $('#response').val(answer[i].response);
+                                $('#uAnswer').val(answer[i].userAnswer);
+                                $('#ToA').val(answer[i].timeofanswer);
                             }
-                          
-                          //  $('#open_A').val(answer.response); 
+
+                            //  $('#open_A').val(answer.response); 
                             console.log(answer);
                         },
                         error: (error) => {
@@ -397,8 +404,18 @@
 
                 var self = this;
                 $.getJSON("/QaA", function (jsondata) {
-                    console.log(JSON.stringify(jsondata));
                     self.questions = jsondata;
+                    for(let i =0; i< self.questions.length; i++){
+                        if(self.questions[i].response || self.questions[i].vote || self.questions[i].userAnswer || self.questions[i].questionId || self.questions[i].timeofanswer || self.questions[i].id){
+                            self.answers.push({response : self.questions[i].response, vote: self.questions[i].vote, userAnswer: self.questions[i].userAnswer, questionId: self.questions[i].questionId, tiomofanswer: self.questions[i].timeofanswer, id: self.questions[i].id});
+                        }
+                        
+                     
+                        
+                    };
+                     console.log(self.answers);
+                    
+                    
                 });
             },
         });

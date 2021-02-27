@@ -97,8 +97,8 @@
                                     readonly>
                             </div>
                             <div class="form-group">
-                                <label for="open_A1">Answer</label>
-                                <input type="text" class="form-control" name="open_A1" id="open_A1" readonly>
+                                <label for="open_Qanswer">Answer</label>
+                                <input type="text" class="form-control" name="open_Qanswer" id="open_Qanswer" readonly>
                             </div>
                             <div class="modal-footer">
                                 <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
@@ -234,20 +234,18 @@
                         }
                     });
                 },
-                // openAnswer(id) {
-                //     var self = this;
-                //     $.ajax({
-                //         url: '/answer/' + id,
-                //         type: 'GET',
-                //         success: (jsondata) => {
-                //            self.answers.response = jsondata;
-                //             //$('#open_Qanswer').val(answer.response);
-                //         },
-                //         error: (error) => {
-                //             console.log(error);
-                //         }
-                //     });
-                // },
+                openAnswer(id) {
+                    $.ajax({
+                        url: '/answer/' + id,
+                        type: 'GET',
+                        success: (answer) => {
+                            $('#open_Qanswer').val(answer.response);
+                        },
+                        error: (error) => {
+                            console.log(error);
+                        }
+                    });
+                },
                 //return answers;
                 //$('#open_Qanswer').val(answer.response);
                 // $('#response').val(answers.response);
@@ -263,27 +261,27 @@
                 //var openModal = $('openQuestionModal');
 
                 //DENNA ÄR DEN SOM SKA FUNGERA SOM VANLIGT.
-                openAnswer(id) {
+                // openAnswer(id) {
 
-                    $.ajax({
-                        url: '/answer/' + id,
-                        type: 'GET',
-                        success: (answer) => {
-                            i = 0;
-                            for (i in answer) {
-                                $('#response').val(answer[i].response);
-                                $('#uAnswer').val(answer[i].userAnswer);
-                                $('#ToA').val(answer[i].timeofanswer);
-                            }
+                //     $.ajax({
+                //         url: '/answer/' + id,
+                //         type: 'GET',
+                //         success: (answer) => {
+                //             i = 0;
+                //             for (i in answer) {
+                //                 $('#response').val(answer[i].response);
+                //                 $('#uAnswer').val(answer[i].userAnswer);
+                //                 $('#ToA').val(answer[i].timeofanswer);
+                //             }
 
-                            //  $('#open_A').val(answer.response); 
-                            console.log(answer);
-                        },
-                        error: (error) => {
-                            console.log(error);
-                        }
-                    });
-                },
+                //             //  $('#open_A').val(answer.response); 
+                //             console.log(answer);
+                //         },
+                //         error: (error) => {
+                //             console.log(error);
+                //         }
+                //     });
+                // },
 
                 askQuestion() {
                     const question = {
@@ -323,13 +321,8 @@
                         if (self.questions[i].response || self.questions[i].vote || self.questions[i].userAnswer || self.questions[i].questionId || self.questions[i].timeofanswer) {
                             self.answers.push({ response: self.questions[i].response, vote: self.questions[i].vote, userAnswer: self.questions[i].userAnswer, questionId: self.questions[i].questionId, tiomofanswer: self.questions[i].timeofanswer, id: self.questions[i].id });
                         }
-
-
-
                     };
                     console.log(self.answers);
-
-
                 });
             },
         });

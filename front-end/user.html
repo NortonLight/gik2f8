@@ -102,25 +102,31 @@
   </div>
 </div> -->
 
-        <div class="card w-100 justify-content-between border-dark" id="cardQuestion" v-for="question in questions"
+        <div class="card w-100 justify-content-between border-dark" id="cardQuestion" v-for="item in questions"
             v-bind:key="question.id">
             <div class="card-body" id="cardBody">
                 <small><b>Category</b></small>
-                <h5 class="card-title">{{question.category}}</h5>
+                <h5 class="card-title">{{item.category}}</h5>
                 <small><b>Title</b></small>
-                <h3 class="card-title">{{question.title}}</h3>
+                <h3 class="card-title">{{item.title}}</h3>
                 <div class="card-body">
                     <small><b> Question:</b></small>
-                    <p class="card-text">{{question.question}}</p>
-                    <small>{{question.userQuestion}}</small>
-                    <small>{{question.timeofquestion}}</small>
+                    <p class="card-text">{{item.question}}</p>
+                    <small>{{item.userQuestion}}</small>
+                    <small>{{item.timeofquestion}}</small>
                 </div>
                 <div class="card-footer">
                     <small><b>Answer: </b></small>
+<<<<<<< HEAD
                     <p class="card-text" v-for="answer in answers" v-if="answer.id"
                     >{{answer.response}}</p>
                     <small>{{question.userAnswer}}</small>
                     <small>{{question.timeofanswer}}</small>
+=======
+                    <p class="card-text" v-for="response in questions" v-bind:key="response.questions">{{response.questions}}</p>
+                    <small>{{item.userAnswer}}</small>
+                    <small>{{item.timeofanswer}}</small>
+>>>>>>> d136c3cbb815659bbd3e27c501ef6b9875d82709
                 </div>
             </div>
         </div>

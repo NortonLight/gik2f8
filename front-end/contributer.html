@@ -59,7 +59,7 @@
             <td>{{question.userQuestion}}</td>
             <td>{{question.timeofquestion}}</td>
             <td><button type="button" id="addAbtn" class="btn btn-primary" data-toggle="modal"
-                data-target="#editQuestionModal" v-on:click="openUserQuestion(question.id), openAnswer(question.id)">
+                data-target="#editQuestionModal" v-on:click="openUserQuestion(question.id)">
                 Add answer
               </button></td>
           </tr>
@@ -132,26 +132,10 @@
             success: (question) => {
               $('#open_Qmessage').val(question.question);
               $('#open_QmessageId').val(question.id);
-            },
-            error: (error) => {
-              console.log(error);
-            }
-          });
-        },
-        openAnswer(id) {
-          $.ajax({
-            url: '/answer/' + id,
-            type: 'GET',
-            success: (answer) => {
-              // $('#open_Qanswer').val(answer.response);
-              // $('#open_id').val(answer.id);
-              $('#open_Qanswer').val(null);
-              if (answer.questionId === id) {
-                $('#open_Qanswer').val(answer.response);
-              } else {
-                answer.response = null;
-                $('#open_Qanswer').val(answer.response);
-              };
+              if(question.duplicate != null){
+                $('#duplicate').is(":ckecked")
+              }
+              
             },
             error: (error) => {
               console.log(error);

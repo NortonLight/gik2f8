@@ -67,11 +67,7 @@ const getAnswers = async (id) => {
 const getAnswersId = async (data) => {
     try {
         const dbCon = await dbPromise;
-<<<<<<< HEAD
         const answer = await dbCon.all('SELECT response, id, questionId, timeofanswer, userAnswer FROM answers WHERE questionId=?', [id]);
-=======
-        const answer = await dbCon.get('SELECT response, id, questionId, timeofanswer, userAnswer FROM answers WHERE questionId=? AND answers.id =? ', [data]);
->>>>>>> 7e300cd2101a87dc0979c5d91cabd79898d81380
         return answer;
     }
     catch (error) {

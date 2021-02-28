@@ -31,7 +31,7 @@ body{
     border: white;
     margin: 10px;
 }
-#editQbtn, #editQbtn2, #postAbtn, #delBtn, #addAbtn, #editQbtn1, #postAbtn1, #delBtn1{
+#editQbtn, #editQbtn2, #postAbtn, #delBtn, #addAbtn, #editQbtn1, #postAbtn1, #delBtn1, #unduplicate, #duplicate{
     background-color: #8fa5bf;
     font-weight: bold;
     border: white;

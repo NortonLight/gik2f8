@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
   <link rel="stylesheet" href="./admin.css" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-  integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <title>CIAAQ</title>
 </head>
 
@@ -56,8 +56,8 @@
             <td>{{question.question}}</td>
             <td>{{question.userQuestion}}</td>
             <td>{{question.timeofquestion}}</td>
-            <td><button type="button" id="editQBtn" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal"
-                v-on:click="ShowQuestionInUpdateForm(question.id)">
+            <td><button type="button" id="editQBtn" class="btn btn-primary" data-toggle="modal"
+                data-target="#editQuestionModal" v-on:click="ShowQuestionInUpdateForm(question.id), openAnswer(question.id)">
                 Edit question
               </button></td>
           </tr>
@@ -103,14 +103,16 @@
                   <i class="fas fa-thumbs-down"></i></span>
               </div>
               <div class="form-group">
-                <label for="edit_QmessageId">Answer</label>
-                <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId" readonly>
+                <label for="open_Qanswer">Answer </label>
+                <input type="text" class="form-control" name="open_Qanswer" id="open_Qanswer" readonly>
               </div>
               <div class="form-group">
-                
-                <input id="editQbtn2" type="button" class="btn btn-primary" value="Edit question" v-on:click="editQuestion">
+
+                <input id="editQbtn2" type="button" class="btn btn-primary" value="Edit question"
+                  v-on:click="editQuestion">
                 <input id="PostABtn" type="button" class="btn btn-primary" value="Post answer" v-on:click="postAnswer">
-                <input id="delQBtn" type="button" class="btn btn-primary" value="Delete answer" v-on:click="deleteQuestion">
+                <input id="delQBtn" type="button" class="btn btn-primary" value="Delete answer"
+                  v-on:click="deleteQuestion">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
             </form>
@@ -157,7 +159,62 @@
           });
           $('#editQuestionModal').show();
         },
+        openAnswer(id) {
+                    $.ajax({
+                        url: '/answer/' + id,
+                        type: 'GET',
+                        success: (answer) => {
+                            $('#open_Qanswer').val(null);
+                            if (answer.questionId === id) {
+                                $('#open_Qanswer').val(answer.response);
+                            } else {
+                                answer.response = null;
+                                $('#open_Qanswer').val(answer.response);
+                            };
+                            $('#open_AmessageId').val(answer.id);
+                            if(answer.vote === 1){
+                                $('#voteUpnum').val(answer.vote);
+                            }else if (answer.vote === 0){
+                                $('#voteDownnum').val(answer.vote);
+                            }else{
+                                $('#voteUpnum').val(0);
+                                $('#voteDownnum').val(0);
+                            }
+                        },
+                        error: (error) => {
+                            console.log(error);
+                        }
+                    });
+                },
+                voteUp() {
+                    var answer = {
+                        vote: 1,
+                        id: $('#open_AmessageId').val()
+                    }
+                    $.ajax({
+                        url: '/vote',
+                        type: 'PUT',
+                        data: answer,
+                        success: () => {
+                            $('#editQuestionModal').hide();
+                        },
+                    });
 
+                },
+                voteDown() {
+                    var answer = {
+                        vote : 0,
+                        id: $('#open_AmessageId').val()
+                    }
+                    $.ajax({
+                        url: '/vote',
+                        type: 'PUT',
+                        data: answer,
+                        success: () => {
+                            $('#editQuestionModal').hide();
+                        },
+                    });
+                },
         editUserQuestion() {
           var question = {
             category: $('#editQuestionModal #editCategory').val(), //readonlyigentligen, man ska inte ändra categori? eller?

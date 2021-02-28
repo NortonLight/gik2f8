@@ -9,21 +9,6 @@ var data;
 
 routes.use(session({ secret: 'ssshhhhh', saveUninitialized: true, resave: true }));
 
-routes.get('/', async (req, res) => {
-    try {
-        sess = req.session;
-        if (sess.email) {
-            return res.redirect('/login');
-        }
-        res.sendFile('index.html');
-
-    }
-    catch (error) {
-        throw new Error(error);
-    }
-});
-
-
 //logga in 
 routes.post('/login', async (req, res) => {
     try {
@@ -82,7 +67,6 @@ routes.get('/users/:id', async (req, res) => {
     }
 })
 
-//user
 routes.post('/users', async (req, res) => {
     try {
         const data = req.body;
@@ -150,26 +134,12 @@ routes.delete('/users/:id', async (req, res) => {
     }
 });
 
-// Get user Frågor // Testa
+// Questions
 routes.get('/userquestions', async (req, res) => {
     try {
         sess = req.session
         const question = await dbService.getUserQuestion(sess);
         res.json(question);
-
-
-    }
-    catch (error) {
-        throw new Error(error);
-    }
-});
-
-// Get user Frågor // Testa
-routes.get('/contributer', async (req, res) => {
-    try {
-        sess = req.session
-        const answers = await dbService.getContAnswers(sess);
-        res.json(answers);
 
 
     }
@@ -190,18 +160,6 @@ routes.get('/questions', async (req, res) => {
     }
 });
 
-routes.get('/QaA', async (req, res) => {
-    try {
-        sess = req.session
-        const question = await dbService.getUserQandAnswers();
-        res.json(question);
-
-    }
-    catch (error) {
-        throw new Error(error);
-    }
-});
-
 routes.get('/question/:id', async (req, res) => {
     try {
         sess = req.session
@@ -214,19 +172,6 @@ routes.get('/question/:id', async (req, res) => {
     }
 });
 
-// routes.get('/answers', async (req, res) => {
-//     try {
-//         const data = req.body.id;
-//         const answers = await dbService.getAnswers(data);
-//         res.json(answers);
-
-//     }
-//     catch (error) {
-//         throw new Error(error);
-//     }
-// });
-
-//updatera min fråga //Testa
 routes.put('/question', async (req, res) => {
     try {
         sess = req.session;
@@ -236,7 +181,6 @@ routes.put('/question', async (req, res) => {
         const question = validation.test(data.question);
         const idMatch = intValidation.test(data.id);
         const duplicate = validation.test(data.duplicate);
-        // const userQuestion = data.userQuestion;
         if (category && title && question && idMatch) {
             await dbService.updateQuestion(data, sess);
             res.json('question was updated');
@@ -257,7 +201,7 @@ routes.put('/duplicate', async (req, res) => {
         throw new Error(error);
     }
 });
-//tabort min fråga // Testa
+
 routes.delete('/question/:id', async (req, res) => {
     try {
         sess = req.session
@@ -270,7 +214,6 @@ routes.delete('/question/:id', async (req, res) => {
     }
 });
 
-//lägga till en fråga //Testa
 routes.post('/question', async (req, res) => {
     try {
         const data = req.body;
@@ -294,7 +237,6 @@ routes.post('/answer', async (req, res) => {
         sess = req.session;
         const data = req.body;
         const response = validation.test(data.response);
-        //const vote = intValidation.test(data.vote);
         const userAnswer = sess.email;
         const questionId = intValidation.test(data.questionId);
         if (response && userAnswer && questionId) {
@@ -307,6 +249,19 @@ routes.post('/answer', async (req, res) => {
     }
 });
 
+
+routes.get('/contributer', async (req, res) => {
+    try {
+        sess = req.session
+        const answers = await dbService.getContAnswers(sess);
+        res.json(answers);
+
+
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+});
 routes.get('/answer/:id', async (req, res) => {
     try {
         sess = req.session

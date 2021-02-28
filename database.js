@@ -47,34 +47,6 @@ const getQuestion = async (id) => {
         throw new Error(error)
     }
 };
-
-
-//Answers HÄR BEHÖVER DU FIXA DATABASEN TILL ANSSWERS
-const getAnswers = async (id) => {
-    try {
-        const dbCon = await dbPromise;
-        const answers = await dbCon.all('SELECT response, timeofanswer, userAnswer FROM answers WHERE answers.id=?', [id]);
-        return answers;
-
-    }
-    catch (error) {
-        console.log(error);
-        throw new Error(error);
-    }
-};
-
-//tog bort all och körde get för och testa.
-const getAnswersId = async (id) => {
-    try {
-        const dbCon = await dbPromise;
-        const answer = await dbCon.all('SELECT * FROM answers WHERE questionId=?', [id]);
-        return answer;
-    }
-    catch (error) {
-        throw new Error(error)
-    }
-};
-//Databasen funger och skickar tillbaka svaret på DATA när vi sätter email = "user@du.se" i routes
 const getUserQuestion = async (data) => {
     try {
         const dbCon = await dbPromise;
@@ -87,30 +59,6 @@ const getUserQuestion = async (data) => {
     }
 };
 
-//INTE KLAR!! måste koppla mina svar, till en users fråga.
-const getContAnswers = async (sess) => {
-    try {
-        const dbCon = await dbPromise;
-        const contAnswers = await dbCon.all('SELECT * FROM answers INNER JOIN questions ON answers.questionId = questions.Id AND answers.userAnswer=?',[sess.email]);
-        return contAnswers;
-        
-    }
-    catch (error) {
-        throw new Error(error);
-    }
-};
-
-const getUserQandAnswers = async () => {
-    try {
-        const dbCon = await dbPromise;
-        const userQandAnswers = await dbCon.all('SELECT questions.*, answers.response, answers.voteUp, answers.voteDown, answers.userAnswer, answers.questionId, answers.timeofanswer  FROM questions LEFT JOIN answers ON questions.Id = answers.questionId ORDER BY category ASC');
-        return userQandAnswers;
-        
-    }
-    catch (error) {
-        throw new Error(error);
-    }
-};
 
 const updateQuestion = (async (data, sess) => {
     try {
@@ -156,7 +104,40 @@ const addQuestion = async (data, userquestion) => {
     }
 
 };
-//Answer
+
+const duplicate = async (data) => {
+    try {
+        const dbCon = await dbPromise;
+        const duplicate = await dbCon.get('UPDATE questions SET duplicate=? WHERE id=?', [data.duplicate, data.id]);
+        return duplicate;
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+};
+//Answers
+const getAnswersId = async (id) => {
+    try {
+        const dbCon = await dbPromise;
+        const answer = await dbCon.all('SELECT * FROM answers WHERE questionId=?', [id]);
+        return answer;
+    }
+    catch (error) {
+        throw new Error(error)
+    }
+};
+
+const getContAnswers = async (sess) => {
+    try {
+        const dbCon = await dbPromise;
+        const contAnswers = await dbCon.all('SELECT * FROM answers INNER JOIN questions ON answers.questionId = questions.Id AND answers.userAnswer=?', [sess.email]);
+        return contAnswers;
+
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+};
 
 const addAnswer = async (data, sess) => {
     try {
@@ -270,20 +251,9 @@ const userLogin = async (data, pass) => {
         throw error;
     }
 };
-const duplicate = async (data) =>{
-    try {
-        const dbCon = await dbPromise;
-        const duplicate = await dbCon.get('UPDATE questions SET duplicate=? WHERE id=?', [data.duplicate, data.id]);
-        return duplicate;
-    }
-    catch (error) {
-        throw new Error(error);
-    }
-};
 
 const updateUser = (async (data) => {
     try {
-        //const hashPassword = await genPass(data.password);
         const dbCon = await dbPromise;
         const user = await dbCon.get('UPDATE users set accounttype=? WHERE id=?', [data.accounttype, data.id]);
         return user;
@@ -293,13 +263,13 @@ const updateUser = (async (data) => {
     }
 });
 const getuserbyId = (async (id) => {
-    try{
+    try {
         const dbCon = await dbPromise;
         const user = await dbCon.get('SELECT email, accounttype, block, id FROM users WHERE id=?', [id]);
         return user;
     }
-    catch (error){
-        throw new Error (error);
+    catch (error) {
+        throw new Error(error);
     }
 });
 
@@ -336,18 +306,16 @@ module.exports = {
     getContAnswers: getContAnswers,
     deleteAnswer: deleteAnswer,
     updateAnswer: updateAnswer,
-    getAnswers: getAnswers,
     voteUpNaswer: voteUpNaswer,
     votedownAswer: votedownAswer,
     getUsers: getUsers,
     getAnswersId: getAnswersId,
     getContAnswers: getContAnswers,
-    getUserQandAnswers: getUserQandAnswers,
     updateUser: updateUser,
     addtUsers: addtUsers,
     deleteUser: deleteUser,
     blockUser: blockUser,
     userLogin: userLogin,
     getuserbyId: getuserbyId,
-    
+
 }

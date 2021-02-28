@@ -57,7 +57,8 @@
             <td>{{question.userQuestion}}</td>
             <td>{{question.timeofquestion}}</td>
             <td><button type="button" id="editQBtn" class="btn btn-primary" data-toggle="modal"
-                data-target="#editQuestionModal" v-on:click="ShowQuestionInUpdateForm(question.id), openAnswer(question.id)">
+                data-target="#editQuestionModal"
+                v-on:click="ShowQuestionInUpdateForm(question.id), openAnswer(question.id)">
                 Edit question
               </button></td>
           </tr>
@@ -66,8 +67,7 @@
     </div>
 
 
-    <!-- HÄR ÄR MODAL FÖR ATT EDITA OCH POSTA SVAR-->
-    <!-- Här är för USER och contributers att edit questions -->
+   
     <div class="modal fade" id="editQuestionModal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -96,30 +96,31 @@
               <div class="form-group">
                 <label for="edit_Qmessage">Question</label>
                 <input type="text" class="form-control" name="edit_Qmessage" id="edit_Qmessage" readonly>
-                <span id="ThumbsUp">
-                  <i class="fas fa-thumbs-up"></i></span>
-
-                <span id="ThumbsDown">
-                  <i class="fas fa-thumbs-down"></i></span>
+               
               </div>
               <div class="form-group">
                 <label for="open_Qanswer">Answer </label>
                 <input type="text" class="form-control" name="open_Qanswer" id="open_Qanswer" readonly>
                 <span id="ThumbsUpAdmin" v-on:click="voteUp">
                   <i class="fas fa-thumbs-up"></i></span>
-              <input type="number" class="timer count-title count-number" style="width: 40px;" id="voteUpnum" readonly>
-              <span id="ThumbsDownAdmin" v-on:click="voteDown">
+                <input type="number" class="timer count-title count-number" style="width: 40px;" id="voteUpnum"
+                  readonly>
+                <span id="ThumbsDownAdmin" v-on:click="voteDown">
                   <i class="fas fa-thumbs-down"></i></span>
-              <input type="number" class="timer count-title count-number" style="width: 40px;" id="voteDownnum" readonly>
+                <input type="number" class="timer count-title count-number" style="width: 40px;" id="voteDownnum"
+                  readonly>
+              </div>
+              <div class="form-group">
+                <label for="answer_user">Answer User</label>
+                <input type="text" class="form-control" name="answer_user" id="answer_user" readonly>
+              </div>
+              <div class="form-group">
+                <label for="answer_time">time of answer</label>
+                <input type="text" class="form-control" name="answer_time" id="answer_time" readonly>
               </div>
 
               <div class="form-group">
-                <input id="editQbtn2" type="button" class="btn btn-primary" value="Edit question"
-                  v-on:click="editQuestion">
-                <input id="PostABtn" type="button" class="btn btn-primary" value="Post answer" v-on:click="postAnswer">
-                <input id="delQBtn" type="button" class="btn btn-primary" value="Delete answer"
-                  v-on:click="deleteQuestion">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
               </div>
             </form>
           </div>
@@ -149,7 +150,7 @@
       },
       methods: {
 
-        ShowQuestionInUpdateForm(id) { //Vet inte om det är rätt detta, Detta är mest för att fylla på med grejer.
+        ShowQuestionInUpdateForm(id) {
           $.ajax({
             url: '/question/' + id,
             type: 'GET',
@@ -159,71 +160,71 @@
               $('#editTitle').val(question.title);
               $('#edit_Qmessage').val(question.question);
               $('#edit_QmessageId').val(question.id)
-              //Måste vi ta emot alla saker som finns i vår table questions?
-              //det måste vi inte, vi kan ta emot bara de som ska ändras typ tiden och id behöver vi inte ta
+             
             }
           });
           $('#editQuestionModal').show();
         },
         openAnswer(id) {
-                    $.ajax({
-                        url: '/answer/' + id,
-                        type: 'GET',
-                        success: (answer) => {
-                            $('#open_Qanswer').val(null);
-                            if (answer.questionId === id) {
-                                $('#open_Qanswer').val(answer.response);
-                            } else {
-                                answer.response = null;
-                                $('#open_Qanswer').val(answer.response);
-                            };
-                            $('#open_AmessageId').val(answer.id);
-                            if(answer.vote === 1){
-                                $('#voteUpnum').val(answer.vote);
-                            }else if (answer.vote === 0){
-                                $('#voteDownnum').val(answer.vote);
-                            }else{
-                                $('#voteUpnum').val(0);
-                                $('#voteDownnum').val(0);
-                            }
-                        },
-                        error: (error) => {
-                            console.log(error);
-                        }
-                    });
-                },
-                voteUp() {
-                    var answer = {
-                        vote: 1,
-                        id: $('#open_AmessageId').val()
-                    }
-                    $.ajax({
-                        url: '/vote',
-                        type: 'PUT',
-                        data: answer,
-                        success: () => {
-                            $('#editQuestionModal').hide();
-                        },
-                    });
+          $.ajax({
+            url: '/answer/' + id,
+            type: 'GET',
+            success: (answer) => {
+              for (let i = 0; i < answer.length; i++) {
+                $('#open_Qanswer').val(null);
+                if (answer[i].questionId === id) {
+                  data = answer[i].response;
+                  $('#open_Qanswer').val(answer[i].response);
 
-                },
-                voteDown() {
-                    var answer = {
-                        vote : 0,
-                        id: $('#open_AmessageId').val()
-                    }
-                    $.ajax({
-                        url: '/vote',
-                        type: 'PUT',
-                        data: answer,
-                        success: () => {
-                            $('#editQuestionModal').hide();
-                        },
-                    });
-                },
+                } else {
+                  answer[i].response = null;
+                  $('#open_Qanswer').val(answer[i].response);
+                };
+
+                $('#answer_user').val(answer[i].userAnswer);
+                $('#answer_time').val(answer[i].timeofanswer);
+                $('#voteUpnum').val(answer[i].voteUp);
+                $('#voteDownnum').val(answer[i].voteDown);
+              };
+
+            },
+            error: (error) => {
+              console.log(error);
+            }
+          });
+        },
+        voteUp() {
+          var answer = {
+            vote: 1,
+            id: $('#open_AmessageId').val()
+          }
+          $.ajax({
+            url: '/vote',
+            type: 'PUT',
+            data: answer,
+            success: () => {
+              $('#editQuestionModal').hide();
+            },
+          });
+
+        },
+        voteDown() {
+          var answer = {
+            vote: 0,
+            id: $('#open_AmessageId').val()
+          }
+          $.ajax({
+            url: '/vote',
+            type: 'PUT',
+            data: answer,
+            success: () => {
+              $('#editQuestionModal').hide();
+            },
+          });
+        },
         editUserQuestion() {
           var question = {
-            category: $('#editQuestionModal #editCategory').val(), //readonlyigentligen, man ska inte ändra categori? eller?
+            category: $('#editQuestionModal #editCategory').val(), 
             title: $('#editQuestionModall #editTitle').val(),
             question: $('#editQuestionModal #edit_Qmessage').val(),
             qMessageId: $('#editQuestionModal #edit_QmessageId').val(),
@@ -258,8 +259,7 @@
             data: question,
             success: () => {
               $('#askQuestionModal').hide();
-              clearAddForm();// DENNA funkar nu.
-              // getQuestions(); den funkade inte för att getQuestions finns inte därför ClearAddForm körs aldrig
+              
             },
           });
         },
@@ -291,13 +291,6 @@
           self.questions = jsondata;
         });
       },
-      // mounted() {
-      //   var self = this;
-      //   $.getJSON("/answers", function (jsondata) {
-      //     console.log(JSON.stringify(jsondata));
-      //     self.answers = jsondata;
-      //   })
-      // }
     });
 
 
@@ -305,4 +298,3 @@
 </body>
 
 </html>
-<!--<img src="background/ocean.jpg" class="img-fluid" alt="..."> DENNA BAKGRUND SKA VI HA ÖVER HELA SIDAN-->

@@ -58,18 +58,10 @@
                         <td class="categoryT">{{question.category}}</td>
                         <td class="titleT">{{question.title}}</td>
                         <td class="questionT">{{question.question}}</td>
-                        <!-- <td class="response">{{question.response}}</td> -->
                         <td class="userQT">{{question.userQuestion}}</td>
                         <td class="ToQT">{{question.timeofquestion}}</td>
 
-                        <!-- <tr class="data" v-for="question in questions" v-bind:key="question.id">
-                        <td colspan="5">{{question.response}}</td>
-                        </tr>
-                         -->
-
-
-                        <!-- <th scope="col">Answer</th> -->
-                        <td>
+                         <td>
                             <button type="button" id="openQBtn2" class="btn btn-primary" data-toggle="modal"
                                 data-target="#openQuestionModal"
                                 v-on:click="openUserQuestion(question.id), openAnswer(question.id)">
@@ -82,7 +74,6 @@
         </div>
 
 
-        <!-- Här är för USER och contributers att edit questions -->
         <div class="modal fade modal-xl" id="openQuestionModal" tabindex="-1">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
@@ -116,7 +107,6 @@
                             </div>
                             <div class="modal-footer">
 
-                                <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
                                 <div class="btn" data-dismiss="modal">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
@@ -291,14 +281,14 @@
             mounted() {
 
                 var self = this;
-                $.getJSON("/QaA", function (jsondata) {
-                    self.questions = jsondata;
-                    for (let i = 0; i < self.questions.length; i++) {
-                        if (self.questions[i].response || self.questions[i].voteUp || self.questions[i].voteDown || self.questions[i].userAnswer || self.questions[i].questionId || self.questions[i].timeofanswer) {
-                            self.answers.push({ response: self.questions[i].response, voteUp: self.questions[i].voteUp, voteDown: self.questions[i].voteDown, userAnswer: self.questions[i].userAnswer, questionId: self.questions[i].questionId, tiomofanswer: self.questions[i].timeofanswer, id: self.questions[i].id });
-                        }
-                    };
-                    console.log(self.answers);
+                $.getJSON("/questions", function (jsondata) {
+                     self.questions = jsondata;
+                    // for (let i = 0; i < self.questions.length; i++) {
+                    //     if (self.questions[i].response || self.questions[i].voteUp || self.questions[i].voteDown || self.questions[i].userAnswer || self.questions[i].questionId || self.questions[i].timeofanswer) {
+                    //         self.answers.push({ response: self.questions[i].response, voteUp: self.questions[i].voteUp, voteDown: self.questions[i].voteDown, userAnswer: self.questions[i].userAnswer, questionId: self.questions[i].questionId, tiomofanswer: self.questions[i].timeofanswer, id: self.questions[i].id });
+                    //     }
+                    // };
+                    // console.log(self.answers);
                 });
             },
         });

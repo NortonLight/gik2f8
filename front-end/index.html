@@ -17,19 +17,12 @@
 <body>
   <h1>Welcome to CIAAQ</h1>
   <div class="container" id="index">
-    <!--  Jag hade denna över buttons login-->
     <div id="container">
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal" id="button1"
         v-on:click="">Login</button>
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createAccountModal"
         id="button2">Create account</button>
     </div>
-    <!-- <button type="submit" class="btn btn-primary">Login</button>
-    <button type="submit" class="btn btn-primary">Creat account</button>
-    <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button> -->
-
-
-    <!-- HÄR ÄR MODAL FÖR ATT LOGGA IN-->
 
     <div class="modal fade" id="loginModal">
       <div class="modal-dialog">
@@ -53,8 +46,6 @@
         </div>
       </div>
     </div>
-    <!--  HÄR KOMMER MODAL FÖR ATT CREATE ACCOUNT-->
-
     <div class="modal fade" id="createAccountModal">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -83,7 +74,6 @@
                 <input type="text" class="form-control" name="addPassword" id="addPassword">
               </div>
               <div class="form-group">
-                <!-- Här bytte jag type till button istället för submit eftersom du INTE vill submitta formen (ursprungsfelet med att ni aldrig fick sucess.)-->
                 <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
                 <input id="ModalAddUserButton" type="button" class="btn btn-primary float-left" value="AddUser"
                   v-on:click="createAccount">

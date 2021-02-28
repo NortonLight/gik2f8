@@ -63,7 +63,6 @@
 
 
 
-    <!-- HÄR KOMMER VI GÖRA UserHandle MED en getAllUsers sen en sådan här handlae user knapp brevid.MODAL -->
     <div class="modal fade" id="userHandleModal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -74,14 +73,14 @@
             </button>
           </div>
           <div class="modal-body">
-          <div class="form-group">
-            <label for="open_Email">Email</label>
-            <input type="text" class="form-control" name="open_Email" id="open_Email" readonly>
-          </div>
-          <div class="form-group">
-            <label for="open_accountType">account type</label>
-            <input type="text" class="form-control" name="open_accountType" id="open_accountType" readonly>
-          </div>
+            <div class="form-group">
+              <label for="open_Email">Email</label>
+              <input type="text" class="form-control" name="open_Email" id="open_Email" readonly>
+            </div>
+            <div class="form-group">
+              <label for="open_accountType">account type</label>
+              <input type="text" class="form-control" name="open_accountType" id="open_accountType" readonly>
+            </div>
             <form id="formUserHandle">
               <div class="form-group">
                 <label for="Block">Change account type to:</label>
@@ -95,7 +94,8 @@
                 <label for="userBlockInfo">Block info</label>
                 <input type="text" class="form-control" name="blockInfo" id="open_block" readonly>
                 <input type="button" id="Unblock" class="btn btn-primary" value="Unblock User" v-on:click="Unblock">
-                <input type="button" id="block" class="btn btn-primary float-right" value="Block User" v-on:click="block">
+                <input type="button" id="block" class="btn btn-primary float-right" value="Block User"
+                  v-on:click="block">
               </div>
               <div class="form-group">
                 <label for="open_id"></label>

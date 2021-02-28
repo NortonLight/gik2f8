@@ -212,7 +212,7 @@
                                 if (answer[i].questionId === id) {
                                     data = answer[i].response;
                                     $('#open_Qanswer').val(answer[i].response);
-                                    break;
+                                    
                                 } else {
                                     answer[i].response = null;
                                     $('#open_Qanswer').val(answer[i].response);
@@ -220,7 +220,7 @@
                                     
                                 $('#open_AmessageId').val(answer[i].id);
                                 $('#voteUpnum').val(answer[i].voteUp);
-                                $('#voteDownnum').val(answer.voteDown);
+                                $('#voteDownnum').val(answer[i].voteDown);
                             };
 
                         },

@@ -88,7 +88,7 @@
                 <input type="button" id="duplicate" class="btn btn-primary" value="Duplicate"
                 v-on:click="duplicate">
                 <input type="button" id="unduplicate" class="btn btn-primary" value="unduplicate"
-                v-on:click="duplicate">
+                v-on:click="Unduplicate">
                 
               </div>
               <div class="form-group">
@@ -137,7 +137,7 @@
             success: (question) => {
               $('#open_Qmessage').val(question.question);
               $('#open_QmessageId').val(question.id);
-              if(question.duplicate != null){
+              if(question.duplicate != null && question.duplicate === 1){
                 $('#open_duplicate').val("Duplicated");
               }else{
                 $('#open_duplicate').val("Not duplicated");
@@ -165,7 +165,22 @@
         },
         duplicate() {
           var question = {
-            duplicate: $('#duplicate').val(),
+            duplicate: 1,
+            id: $('#open_QmessageId').val()
+          }
+          $.ajax({
+            url: '/duplicate',
+            type: 'PUT',
+            data: question,
+            success: () => {
+              $('#editQuestionModal').hide();
+            },
+          });
+
+        },
+        Unduplicate() {
+          var question = {
+            duplicate: 0,
             id: $('#open_QmessageId').val()
           }
           $.ajax({

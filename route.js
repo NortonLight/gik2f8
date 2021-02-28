@@ -251,15 +251,7 @@ routes.put('/duplicate', async (req, res) => {
         sess = req.session;
         const data = req.body;
         const duplicate = validation.test(data.duplicate);
-        if (data.duplicate == "duplicate") {
-            data.duplicate = 1;
-        } else {
-            data.duplicate = 0;
-        }
-        if (duplicate) {
-            await dbService.duplicate(data);
-            res.json('question was duplicated');
-        }
+        await dbService.duplicate(data);
     }
     catch (error) {
         throw new Error(error);

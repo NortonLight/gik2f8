@@ -71,6 +71,7 @@ body{
 }
 
 #openQuestionModal {
+    overflow: hidden;
     position: absolute;
     float: left;
     left: 50%;

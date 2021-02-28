@@ -142,12 +142,13 @@
             url: '/answer/' + id,
             type: 'GET',
             success: (answer) => {
-              // for (i in answer) {
-              //   $('#open_Qanswer').val(answer[i].response);
-                
-              // }
-              
-              $('#open_id').val(answer.id);
+              $('#open_Qanswer').val(null);
+              if (answer.questionId === id) {
+                $('#open_Qanswer').val(answer.response);
+              } else {
+                answer.response = null;
+                $('#open_Qanswer').val(answer.response);
+              };
             },
             error: (error) => {
               console.log(error);

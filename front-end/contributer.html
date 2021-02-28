@@ -77,36 +77,37 @@
             </button>
           </div>
           <div class="modal-body">
-          <form id="formEditQ">
-            <div class="form-group">
-              <label for="edit_Qmessage">Question</label>
-              <input type="text" class="form-control" name="open_Qmessage" id="open_Qmessage" readonly>
-            </div>
-            <div class="form-group">
-              <label for="answerQ">Answer</label>
-              <input type="text" class="form-control" name="open_Qanswer" id="open_Qanswer">
-            </div>
-            <div class="form-group">
-              <input type="checkbox" id="duplicate" name="duplicate" value="duplicate" v-on:click="duplicate">
-              <label for="male">Duplicate</label>
-            </div>
-            <div class="form-group">
-              <label for="edit_QmessageId"></label>
-              <input type="text" class="form-control" name="open_QmessageId" id="open_QmessageId" hidden>
-            </div>
-            <div class="modal-footer">
-              <div class="btn" data-dismiss="modal">
-                <input type="button" id="editQbtn1" class="btn btn-primary" value="Post Answer" v-on:click="AddAnswer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <form id="formEditQ">
+              <div class="form-group">
+                <label for="edit_Qmessage">Question</label>
+                <input type="text" class="form-control" name="open_Qmessage" id="open_Qmessage" readonly>
               </div>
-            </div>
-          </form>
+              <div class="form-group">
+                <label for="answerQ">Answer</label>
+                <input type="text" class="form-control" name="open_Qanswer" id="open_Qanswer">
+              </div>
+              <div class="form-group">
+                <input type="checkbox" id="duplicate" name="duplicate" value="duplicate" v-on:click="duplicate">
+                <label for="male">Duplicate</label>
+              </div>
+              <div class="form-group">
+                <label for="edit_QmessageId"></label>
+                <input type="text" class="form-control" name="open_QmessageId" id="open_QmessageId" hidden>
+              </div>
+              <div class="modal-footer">
+                <div class="btn" data-dismiss="modal">
+                  <input type="button" id="editQbtn1" class="btn btn-primary" value="Post Answer"
+                    v-on:click="AddAnswer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-  
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"
     integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj"
@@ -142,8 +143,15 @@
             url: '/answer/' + id,
             type: 'GET',
             success: (answer) => {
-              $('#open_Qanswer').val(answer.response);
-              $('#open_id').val(answer.id);
+              // $('#open_Qanswer').val(answer.response);
+              // $('#open_id').val(answer.id);
+              $('#open_Qanswer').val(null);
+              if (answer.questionId === id) {
+                $('#open_Qanswer').val(answer.response);
+              } else {
+                answer.response = null;
+                $('#open_Qanswer').val(answer.response);
+              };
             },
             error: (error) => {
               console.log(error);
@@ -164,7 +172,7 @@
             },
           });
         },
-        duplicate(){
+        duplicate() {
           var question = {
             duplicate: $('#duplicate').val(),
             id: $('#open_QmessageId').val()

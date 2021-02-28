@@ -67,7 +67,7 @@ const getAnswers = async (data) => {
 const getAnswersId = async (id) => {
     try {
         const dbCon = await dbPromise;
-        const answer = await dbCon.get('SELECT response, id, questionId, timeofanswer, userAnswer FROM answers WHERE questionId=?', [id]);
+        const answer = await dbCon.all('SELECT response, id, questionId, timeofanswer, userAnswer FROM answers WHERE questionId=?', [id]);
         return answer;
     }
     catch (error) {

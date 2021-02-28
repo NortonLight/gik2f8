@@ -217,26 +217,21 @@
                         type: 'GET',
                         success: (answer) => {
                             for (let i = 0; i < answer.length; i++) {
-                                if (answer[i].response || answer[i].voteUp || answer[i].voteDown || answer[i].userAnswer || answer[i].questionId || answer[i].timeofanswer) {
-                                    self.answers.push({ response: self.questions[i].response, voteUp: self.questions[i].voteUp, voteDown: self.questions[i].voteDown, userAnswer: self.questions[i].userAnswer, questionId: self.questions[i].questionId, tiomofanswer: self.questions[i].timeofanswer, id: self.questions[i].id });
-                                }
+                                $('#open_Qanswer').val(null);
+                                if (answer[i].questionId === id) {
+                                    data = answer[i].response;
+                                    $('#open_Qanswer').val(answer[i].response);
+                                    break;
+                                } else {
+                                    answer[i].response = null;
+                                    $('#open_Qanswer').val(answer[i].response);
+                                };
+                                    
+                                $('#open_AmessageId').val(answer[i].id);
+                                $('#voteUpnum').val(answer[i].voteUp);
+                                $('#voteDownnum').val(answer.voteDown);
                             };
-                            $('#open_Qanswer').val(null);
-                            if (answer.questionId === id) {
-                                $('#open_Qanswer').val(answer.response);
-                            } else {
-                                answer.response = null;
-                                $('#open_Qanswer').val(answer.response);
-                            };
-                            $('#open_AmessageId').val(answer.id);
-                            if (answer.vote === 1) {
-                                $('#voteUpnum').val(answer.vote);
-                            } else if (answer.vote === 0) {
-                                $('#voteDownnum').val(answer.vote);
-                            } else {
-                                $('#voteUpnum').val(0);
-                                $('#voteDownnum').val(0);
-                            }
+
                         },
                         error: (error) => {
                             console.log(error);

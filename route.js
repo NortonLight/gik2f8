@@ -47,18 +47,18 @@ routes.post('/login', async (req, res) => {
 
             }
         } else {
-            res.json({status: "nok", message: "email or password does not pass validation"});
+            res.json({ status: "nok", message: "email or password does not pass validation" });
         }
     }
     catch (error) {
         console.log(error);
-        res.json({status: error });
+        res.json({ status: error });
     }
 });
 
 //user
 routes.get('/users', async (req, res) => {
-    try{
+    try {
         sess = req.session;
         const allUsers = await dbService.getUsers();
         res.json(allUsers);
@@ -70,7 +70,7 @@ routes.get('/users', async (req, res) => {
 })
 
 routes.get('/users/:id', async (req, res) => {
-    try{
+    try {
         sess = req.session;
         id = req.params.id;
         const allUsers = await dbService.getuserbyId(id);
@@ -103,13 +103,13 @@ routes.post('/users', async (req, res) => {
 routes.put('/user', async (req, res) => {
     try {
         const data = req.body;
-        if (data.accounttype == 'Admin'){
+        if (data.accounttype == 'Admin') {
             data.accounttype = 1;
-        }else if (data.accounttype == 'Contributer'){
+        } else if (data.accounttype == 'Contributer') {
             data.accounttype = 2;
-        }else if (data.accounttype == 'Consumer'){
+        } else if (data.accounttype == 'Consumer') {
             data.accounttype = 3;
-        }else{
+        } else {
             data.accounttype = null;
         }
         const accounttype = intValidation.test(data.accounttype);
@@ -203,14 +203,14 @@ routes.get('/QaA', async (req, res) => {
 });
 
 routes.get('/question/:id', async (req, res) => {
-    try{
+    try {
         sess = req.session
         const qId = req.params.id;
         const question = await dbService.getQuestion(qId);
         res.json(question);
     }
     catch (error) {
-        throw new Error (error);
+        throw new Error(error);
     }
 });
 
@@ -236,7 +236,7 @@ routes.put('/question', async (req, res) => {
         const question = validation.test(data.question);
         const idMatch = intValidation.test(data.id);
         const duplicate = validation.test(data.duplicate);
-       // const userQuestion = data.userQuestion;
+        // const userQuestion = data.userQuestion;
         if (category && title && question && idMatch) {
             await dbService.updateQuestion(data, sess);
             res.json('question was updated');
@@ -246,17 +246,17 @@ routes.put('/question', async (req, res) => {
         throw new Error(error);
     }
 });
-routes.put('/duplicate', async (req, res) =>{
+routes.put('/duplicate', async (req, res) => {
     try {
         sess = req.session;
         const data = req.body;
         const duplicate = validation.test(data.duplicate);
-        if(data.duplicate == "duplicate"){
+        if (data.duplicate == "duplicate") {
             data.duplicate = 1;
-        }else{
+        } else {
             data.duplicate = 0;
         }
-       if (duplicate) {
+        if (duplicate) {
             await dbService.duplicate(data);
             res.json('question was duplicated');
         }
@@ -316,26 +316,30 @@ routes.post('/answer', async (req, res) => {
 });
 
 routes.get('/answer/:id', async (req, res) => {
-    try{
+    try {
         sess = req.session
         const qId = req.params.id;
         const answer = await dbService.getAnswersId(qId);
-        res.json(answer);
+        if (answer) {
+            res.json(answer);
+        } else {
+            res.json('No answers found');
+        }
     }
     catch (error) {
-        throw new Error (error);
+        throw new Error(error);
     }
 });
 
 routes.put('/vote', async (req, res) => {
-    try{
+    try {
         sess = req.session;
         const vote = req.body;
         const result = await dbService.updateAnswer(vote);
         res.json(result);
 
     }
-    catch(error){
+    catch (error) {
         throw new Error(error);
 
     }
@@ -348,7 +352,7 @@ routes.put('/answer', async (req, res) => {
         const response = validation.test(data.response);
         const questionId = intValidation.test(data.questionId);
         const id = intValidation.test(data.id);
-        if (response && sess &&questionId && id) {
+        if (response && sess && questionId && id) {
             await dbService.updateAnswer(data, sess);
             res.json('answer was updated');
         }

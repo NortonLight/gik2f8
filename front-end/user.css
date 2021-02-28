@@ -30,13 +30,13 @@ body{
 #logoId{
     font-size: 25px;
 }
-#buttonLogout, #buttonAccount, #buttonEditQ, #buttonEditTable, #delBtn, #closeBtn, #saveBtn{
+#buttonLogout, #buttonAccount, #buttonEditQ, #buttonEditTable{
     background-color: #8fa5bf;
     font-weight: bold;
     border: white;
     margin: 10px;
 }
-#openQBtn, #openQBtn2{
+#openQBtn, #openQBtn2, #askQBtn, #clearBtn, #delBtn, #saveBtn{
     background-color: #8fa5bf;
     font-weight: bold;
     border: white;
@@ -69,3 +69,11 @@ body{
     color: green;
     cursor:pointer;
 }
+
+#openQuestionModal {
+    position: absolute;
+    float: left;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }

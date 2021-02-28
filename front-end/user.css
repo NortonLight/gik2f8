@@ -55,3 +55,17 @@ body{
     max-width: 1140px;
 
 }
+#ThumbsDown:hover {
+    color: red;
+    cursor:pointer;
+
+}
+
+#ThumbsUp, #ThumbsDown {
+    color: #8fa5bf;
+}
+
+#ThumbsUp:hover {
+    color: green;
+    cursor:pointer;
+}

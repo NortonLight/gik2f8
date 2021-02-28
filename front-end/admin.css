@@ -35,6 +35,14 @@ body{
     border: white;
     margin: 10px;
 }
+
+#editQBtn, #editQbtn2, #PostABtn, #delQBtn {
+    background-color: #8fa5bf;
+    font-weight: bold;
+    border: white;
+}
+
+
 #editQuestionModal, #askQuestionModal{
     background-color: #8fa5bf;
     color: black;
@@ -46,4 +54,18 @@ body{
 #labelSignIn{
     font-size: 15px;
     margin: 13px;
+}
+
+#ThumbsDown:hover {
+    color: red;
+    cursor:pointer;
+}
+
+#ThumbsUp:hover {
+    color: green;
+    cursor:pointer;
+}
+
+#ThumbsUp, #ThumbsDown {
+    color: #8fa5bf;
 }

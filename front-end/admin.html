@@ -9,6 +9,8 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
   <link rel="stylesheet" href="./admin.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+  integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <title>CIAAQ</title>
 </head>
 
@@ -57,7 +59,7 @@
             <td>{{question.question}}</td>
             <td>{{question.userQuestion}}</td>
             <td>{{question.timeofquestion}}</td>
-            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal"
+            <td><button type="button" id="editQBtn" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal"
                 v-on:click="ShowQuestionInUpdateForm(question.id)">
                 Edit question
               </button></td>
@@ -97,16 +99,22 @@
               <div class="form-group">
                 <label for="edit_Qmessage">Question</label>
                 <input type="text" class="form-control" name="edit_Qmessage" id="edit_Qmessage">
+                <span id="ThumbsUp">
+                  <i class="fas fa-thumbs-up"></i></span>
+
+                <span id="ThumbsDown">
+                  <i class="fas fa-thumbs-down"></i></span>
               </div>
               <div class="form-group">
                 <label for="edit_QmessageId">Message Id</label>
                 <input type="text" class="form-control" name="edit_QmessageId" id="edit_QmessageId" readonly>
               </div>
               <div class="form-group">
+                
+                <input id="editQbtn2" type="button" class="btn btn-primary" value="Edit question" v-on:click="editQuestion">
+                <input id="PostABtn" type="button" class="btn btn-primary" value="Post answer" v-on:click="postAnswer">
+                <input id="delQBtn" type="button" class="btn btn-primary" value="Delete answer" v-on:click="deleteQuestion">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <input type="button" class="btn btn-primary" value="Edit question" v-on:click="editQuestion">
-                <input type="button" class="btn btn-primary" value="Post answer" v-on:click="postAnswer">
-                <input type="button" class="btn btn-primary" value="Delete answer" v-on:click="deleteQuestion">
               </div>
             </form>
           </div>

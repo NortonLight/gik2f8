@@ -36,9 +36,15 @@ body{
     margin: 10px;
 }
 
-#editQBtn, #editQbtn2, #PostABtn, #delQBtn {
+#editQBtn, #editQbtn2, #PostABtn, #delQBtn, #delBtn1, #editUser , #Update{
     background-color: #8fa5bf;
     font-weight: bold;
+    border: white;
+}
+
+#Unblock, #block {
+    margin-top: 4px;
+    background-color: #8fa5bf;
     border: white;
 }
 

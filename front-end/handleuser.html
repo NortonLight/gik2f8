@@ -53,11 +53,10 @@
             <td>{{user.email}}</td>
             <td>{{user.firstname}}</td>
             <td>{{user.lastname}}</td>
-            <td><button id="editUser" type="button" class="btn btn-primary" data-toggle="modal"
+            <td><button id="editUser" type="button" class="btn btn-primary float-right" data-toggle="modal"
                 data-target="#userHandleModal" v-on:click="openUser(user.id)">
                 Handle
                 user
-
               </button>
             </td>
           </tr>
@@ -77,19 +76,19 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+          <div class="modal-body">
           <div class="form-group">
-            <label for="open_Emaile">Email</label>
-            <input type="text" class="form-control" name="open_Qmessage" id="open_Email" readonly>
+            <label for="open_Email">Email</label>
+            <input type="text" class="form-control" name="open_Email" id="open_Email" readonly>
           </div>
           <div class="form-group">
             <label for="open_accountType">account type</label>
-            <input type="text" class="form-control" name="open_Qmessage" id="open_accountType" readonly>
+            <input type="text" class="form-control" name="open_accountType" id="open_accountType" readonly>
           </div>
-          <div class="modal-body">
             <form id="formUserHandle">
               <div class="form-group">
                 <label for="Block">Change account type to:</label>
-                <select class="form-control" name="editBlock" id="editAccount">
+                <select class="form-control" name="editAccount" id="editAccount">
                   <option>Admin</option>
                   <option>Contributer</option>
                   <option>Consumer</option>
@@ -98,9 +97,8 @@
               <div class="form-group">
                 <label for="userBlockInfo">Block info</label>
                 <input type="text" class="form-control" name="blockInfo" id="open_block" readonly>
-                <input type="button" id="block" class="btn btn-primary" value="Block User" v-on:click="block">
                 <input type="button" id="Unblock" class="btn btn-primary" value="Unblock User" v-on:click="Unblock">
-
+                <input type="button" id="block" class="btn btn-primary float-right" value="Block User" v-on:click="block">
               </div>
               <div class="form-group">
                 <label for="open_id"></label>

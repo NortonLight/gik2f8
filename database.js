@@ -67,7 +67,7 @@ const getAnswers = async (data) => {
 const getAnswersId = async (id) => {
     try {
         const dbCon = await dbPromise;
-        const answer = await dbCon.get('SELECT response, id, questionId, timeofanswer, userAnswer FROM answers WHERE questionId=?', [id]);
+        const answer = await dbCon.get('SELECT response, id, questionId, timeofanswer, vote, userAnswer FROM answers WHERE questionId=?', [id]);
         return answer;
     }
     catch (error) {
@@ -192,6 +192,16 @@ const updateAnswer = (async (data, sess) => {
         const dbCon = await dbPromise;
         const user = await dbCon.get('UPDATE answers set response=?, vote=?, userAnswer=?, questionId=? WHERE id=?', [data.response, data.vote, sess.email, data.questionId, data.id]);
         return user;
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+});
+const voteNaswer = (async (data) => {
+    try {
+        const dbCon = await dbPromise;
+        const vote = await dbCon.get('UPDATE answers set vote=? WHERE id=?', [data.vote, data.id]);
+        return vote;
     }
     catch (error) {
         throw new Error(error);
@@ -331,6 +341,7 @@ module.exports = {
     deleteAnswer: deleteAnswer,
     updateAnswer: updateAnswer,
     getAnswers: getAnswers,
+    voteNaswer: voteNaswer,
     getUsers: getUsers,
     getAnswersId: getAnswersId,
     getContAnswers: getContAnswers,

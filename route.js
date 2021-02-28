@@ -334,8 +334,8 @@ routes.get('/answer/:id', async (req, res) => {
 routes.put('/vote', async (req, res) => {
     try {
         sess = req.session;
-        const vote = req.body;
-        const result = await dbService.updateAnswer(vote);
+        const data = req.body;
+        const result = await dbService.voteNaswer(data);
         res.json(result);
 
     }

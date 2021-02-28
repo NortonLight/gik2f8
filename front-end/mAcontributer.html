@@ -142,13 +142,22 @@
             url: '/answer/' + id,
             type: 'GET',
             success: (answer) => {
-              $('#open_Qanswer').val(null);
-              if (answer.questionId === id) {
-                $('#open_Qanswer').val(answer.response);
-              } else {
-                answer.response = null;
-                $('#open_Qanswer').val(answer.response);
+              for (let i = 0; i < answer.length; i++) {
+                $('#open_Qanswer').val(null);
+                if (answer[i].questionId === id) {
+                  data = answer[i].response;
+                  $('#open_Qanswer').val(answer[i].response);
+
+                } else {
+                  answer[i].response = null;
+                  $('#open_Qanswer').val(answer[i].response);
+                };
+
+                $('#open_id').val(answer[i].id);
+                $('#voteUpnum').val(answer[i].voteUp);
+                $('#voteDownnum').val(answer[i].voteDown);
               };
+
             },
             error: (error) => {
               console.log(error);

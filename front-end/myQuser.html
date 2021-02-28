@@ -190,23 +190,6 @@
             },
             methods: {
 
-                //         ShowQuestionInUpdateForm(id) { //Vet inte om det är rätt detta, Detta är mest för att fylla på med grejer.
-                //   $.ajax({
-                //     url: '/question/' + id,
-                //     type: 'GET',
-                //     success: (question) => {
-                //       document.getElementById("editCategory").selectedIndex = question.category_id - 1;
-                //       $('#editCategory').val(question.category);
-                //       $('#editTitle').val(question.title);
-                //       $('#edit_Qmessage').val(question.question);
-                //       $('#edit_QmessageId').val(question.id)
-                //       //Måste vi ta emot alla saker som finns i vår table questions?
-                //       //det måste vi inte, vi kan ta emot bara de som ska ändras typ tiden och id behöver vi inte ta
-                //     }
-                //   });
-                //   $('#editQuestionModal').show();
-                // },
-
                 openUserQuestion(id) {
                     $.ajax({
                         url: '/question/' + id,

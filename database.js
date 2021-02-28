@@ -64,10 +64,10 @@ const getAnswers = async (id) => {
 };
 
 //tog bort all och körde get för och testa.
-const getAnswersId = async (data) => {
+const getAnswersId = async (id) => {
     try {
         const dbCon = await dbPromise;
-        const answer = await dbCon.all('SELECT response, id, questionId, timeofanswer, userAnswer FROM answers WHERE questionId=?', [id]);
+        const answer = await dbCon.all('SELECT * FROM answers WHERE questionId=?', [id]);
         return answer;
     }
     catch (error) {

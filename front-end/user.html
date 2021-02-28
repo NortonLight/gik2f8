@@ -109,28 +109,16 @@
                                 <input type="text" class="form-control" name="open_Qanswer" id="open_Qanswer" readonly>
                                 <span id="ThumbsUp" v-on:click="voteUp">
                                     <i class="fas fa-thumbs-up"></i></span>
-                                <!-- <div class="row text-center">
-                                        <div class="col">
-                                        <div class="counter"> -->
-                                <!-- <i class="fa fa-code fa-2x"></i> -->
-                                <input type="number" class="timer count-title count-number" id="voteUpnum" readonly>
-                                <!-- <p class="count-text "></p> -->
-                                <!-- </div> -->
+                                <input type="number" class="timer count-title count-number" style="width: 40px;" id="voteUpnum" readonly>
                                 <span id="ThumbsDown" v-on:click="voteDown">
                                     <i class="fas fa-thumbs-down"></i></span>
-                                <!-- <div class="row text-center">
-                                        <div class="col">
-                                        <div class="counter"> -->
-                                <!-- <i class="fa fa-code fa-2x"></i> -->
-                                <input type="number" class="timer count-title count-number" id="voteDownnum" readonly>
-                                <!-- <p class="count-text "></p> -->
-                                <!-- </div> -->
+                                <input type="number" class="timer count-title count-number" style="width: 40px;" id="voteDownnum" readonly>
                             </div>
                             <div class="modal-footer">
 
                                 <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
                                 <div class="btn" data-dismiss="modal">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="refreshPage">Close</button>
                                 </div>
                             </div>
                         </form>
@@ -138,6 +126,7 @@
                 </div>
             </div>
         </div>
+
 
         <div class="modal fade" id="askQuestionModal">
             <div class="modal-dialog">
@@ -199,6 +188,7 @@
 
             },
             methods: {
+
                 openUserQuestion(id) {
                     $.ajax({
                         url: '/question/' + id,
@@ -211,16 +201,12 @@
                         }
                     });
                 },
+
                 openAnswer(id) {
                     $.ajax({
                         url: '/answer/' + id,
                         type: 'GET',
                         success: (answer) => {
-                            for (let i = 0; i < answer.length; i++) {
-                                if (answer[i].response || answer[i].voteUp || answer[i].voteDown || answer[i].userAnswer || answer[i].questionId || answer[i].timeofanswer) {
-                                    self.answers.push({ response: self.questions[i].response, voteUp: self.questions[i].voteUp, voteDown: self.questions[i].voteDown, userAnswer: self.questions[i].userAnswer, questionId: self.questions[i].questionId, tiomofanswer: self.questions[i].timeofanswer, id: self.questions[i].id });
-                                }
-                            };
                             $('#open_Qanswer').val(null);
                             if (answer.questionId === id) {
                                 $('#open_Qanswer').val(answer.response);
@@ -243,6 +229,13 @@
                         }
                     });
                 },
+
+                refreshPage(){
+                $('#openQuestionModal').empty('#open_Qanswer');
+                    window.location.reload();
+                },
+
+
                 voteUp() {
                     var answer = {
                         id: $('#open_AmessageId').val()

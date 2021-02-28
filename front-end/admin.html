@@ -105,9 +105,15 @@
               <div class="form-group">
                 <label for="open_Qanswer">Answer </label>
                 <input type="text" class="form-control" name="open_Qanswer" id="open_Qanswer" readonly>
+                <span id="ThumbsUpAdmin" v-on:click="voteUp">
+                  <i class="fas fa-thumbs-up"></i></span>
+              <input type="number" class="timer count-title count-number" style="width: 40px;" id="voteUpnum" readonly>
+              <span id="ThumbsDownAdmin" v-on:click="voteDown">
+                  <i class="fas fa-thumbs-down"></i></span>
+              <input type="number" class="timer count-title count-number" style="width: 40px;" id="voteDownnum" readonly>
               </div>
-              <div class="form-group">
 
+              <div class="form-group">
                 <input id="editQbtn2" type="button" class="btn btn-primary" value="Edit question"
                   v-on:click="editQuestion">
                 <input id="PostABtn" type="button" class="btn btn-primary" value="Post answer" v-on:click="postAnswer">

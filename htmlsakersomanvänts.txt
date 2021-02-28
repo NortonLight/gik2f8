@@ -270,3 +270,20 @@
             </div>
             <!-- </a> 
           </div> -->
+
+forloop
+for (let i = 0; i < answer.length; i++) {
+                                if (answer[i].response || answer[i].voteUp || answer[i].voteDown || answer[i].userAnswer || answer[i].questionId || answer[i].timeofanswer) {
+                                    self.answers.push({ response: self.questions[i].response, voteUp: self.questions[i].voteUp, voteDown: self.questions[i].voteDown, userAnswer: self.questions[i].userAnswer, questionId: self.questions[i].questionId, tiomofanswer: self.questions[i].timeofanswer, id: self.questions[i].id });
+                                }
+                            };
+
+
+
+                // refreshPage() {
+                //     $('#openQuestionModal').on('hidden.bs.modal', function () {
+                //         $('#.modal-body').html("");
+                //         window.location.reload();
+                //     });
+                // },
+

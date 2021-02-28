@@ -164,11 +164,11 @@
                                     height="50px">
                             </div>
                             <div class="form-group">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-                                <input type="button" class="btn btn-primary float float-right" data-dismiss="modal"
+                                <input id="askQBtn" type="button" class="btn btn-primary" data-dismiss="modal"
                                     value="Ask question" v-on:click="askQuestion">
-                                <button input type="reset" class="btn btn-primary"> Clear fields</button>
+                                <button id="clearBtn" input type="reset" class="btn btn-secondary">Clear fields</button>
+                                <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
                             </div>
                         </form>
                     </div>

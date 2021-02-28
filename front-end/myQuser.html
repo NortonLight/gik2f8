@@ -64,14 +64,6 @@
                 </tbody>
             </table>
         </div>
-        <!-- <td>
-            <span id="ThumbsUp">
-              <i class="fas fa-thumbs-up"></i></span>
-          </td>
-          <td>
-            <span id="ThumbsDown">
-              <i class="fas fa-thumbs-down"></i></span>
-          </td> -->
 
         <!-- Här är för USER och contributers att edit questions -->
         <div class="modal fade" id="openUserQuestionModal" tabindex="-1">
@@ -106,21 +98,20 @@
                                 <label for="open_Qanswer">Answer</label>
                                 <input type="text" class="form-control" name="open_Qanswer" id="open_Qanswer" readonly>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" hidden>
                                 <label for="open_QmessageId">Message Id</label>
                                 <input type="text" class="form-control" name="open_QmessageId" id="open_QmessageId"
                                     readonly>
                             </div>
-                            <div class="modal-footer">
+                            <div class="form-group">
                                 <!-- PÅ EXEMPEL KÖR DEM FORM-GROUP MEN DENNA ÄR FRÅN BOOTSTRAP-->
-                                <div class="btn" data-dismiss="modal">
+                                <!-- <div class="btn" data-dismiss="modal"> -->
+                                <input type="button" id="saveBtn" class="btn btn-primary" data-dismiss="modal" value="Save changes"
+                                    v-on:click="editUserQuestion">
                                 <input type="button" id="delBtn" class="btn btn-primary" data-dismiss="modal" value="Delete answer"
                                     v-on:click="deleteQuestion">
-                                <input type="button" id="saveBtn" class="btn btn-primary float-right" data-dismiss="modal" value="Save changes"
-                                    v-on:click="editUserQuestion">
-                                <button type="button" id="closeBtn" class="btn btn-secondary float-left" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
                                 </div>
-                            </div>
                         </form>
                     </div>
                 </div>

@@ -109,21 +109,21 @@
                                 <input type="text" class="form-control" name="open_Qanswer" id="open_Qanswer" readonly>
                                 <span id="ThumbsUp" v-on:click="voteUp">
                                     <i class="fas fa-thumbs-up"></i></span>
-                                    <!-- <div class="row text-center">
+                                <!-- <div class="row text-center">
                                         <div class="col">
                                         <div class="counter"> -->
-                                  <!-- <i class="fa fa-code fa-2x"></i> -->
-                                  <input  type="number" class="timer count-title count-number" id="voteUpnum" readonly>
-                                   <!-- <p class="count-text "></p> -->
+                                <!-- <i class="fa fa-code fa-2x"></i> -->
+                                <input type="number" class="timer count-title count-number" id="voteUpnum" readonly>
+                                <!-- <p class="count-text "></p> -->
                                 <!-- </div> -->
                                 <span id="ThumbsDown" v-on:click="voteDown">
                                     <i class="fas fa-thumbs-down"></i></span>
-                                    <!-- <div class="row text-center">
+                                <!-- <div class="row text-center">
                                         <div class="col">
                                         <div class="counter"> -->
-                                  <!-- <i class="fa fa-code fa-2x"></i> -->
-                                  <input  type="number" class="timer count-title count-number" id="voteDownnum" readonly>
-                                   <!-- <p class="count-text "></p> -->
+                                <!-- <i class="fa fa-code fa-2x"></i> -->
+                                <input type="number" class="timer count-title count-number" id="voteDownnum" readonly>
+                                <!-- <p class="count-text "></p> -->
                                 <!-- </div> -->
                             </div>
                             <div class="modal-footer">
@@ -173,7 +173,8 @@
                                 <input id="askQBtn" type="button" class="btn btn-primary" data-dismiss="modal"
                                     value="Ask question" v-on:click="askQuestion">
                                 <button id="clearBtn" input type="reset" class="btn btn-secondary">Clear fields</button>
-                                <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary float-right"
+                                    data-dismiss="modal">Close</button>
                             </div>
                         </form>
                     </div>
@@ -215,6 +216,11 @@
                         url: '/answer/' + id,
                         type: 'GET',
                         success: (answer) => {
+                            for (let i = 0; i < answer.length; i++) {
+                                if (answer[i].response || answer[i].voteUp || answer[i].voteDown || answer[i].userAnswer || answer[i].questionId || answer[i].timeofanswer) {
+                                    self.answers.push({ response: self.questions[i].response, voteUp: self.questions[i].voteUp, voteDown: self.questions[i].voteDown, userAnswer: self.questions[i].userAnswer, questionId: self.questions[i].questionId, tiomofanswer: self.questions[i].timeofanswer, id: self.questions[i].id });
+                                }
+                            };
                             $('#open_Qanswer').val(null);
                             if (answer.questionId === id) {
                                 $('#open_Qanswer').val(answer.response);
@@ -223,11 +229,11 @@
                                 $('#open_Qanswer').val(answer.response);
                             };
                             $('#open_AmessageId').val(answer.id);
-                            if(answer.vote === 1){
+                            if (answer.vote === 1) {
                                 $('#voteUpnum').val(answer.vote);
-                            }else if (answer.vote === 0){
+                            } else if (answer.vote === 0) {
                                 $('#voteDownnum').val(answer.vote);
-                            }else{
+                            } else {
                                 $('#voteUpnum').val(0);
                                 $('#voteDownnum').val(0);
                             }
@@ -239,11 +245,10 @@
                 },
                 voteUp() {
                     var answer = {
-                        vote: 1,
                         id: $('#open_AmessageId').val()
                     }
                     $.ajax({
-                        url: '/vote',
+                        url: '/voteUp',
                         type: 'PUT',
                         data: answer,
                         success: () => {
@@ -254,11 +259,10 @@
                 },
                 voteDown() {
                     var answer = {
-                        vote : 0,
                         id: $('#open_AmessageId').val()
                     }
                     $.ajax({
-                        url: '/vote',
+                        url: '/voteDown',
                         type: 'PUT',
                         data: answer,
                         success: () => {
@@ -280,7 +284,7 @@
                             $('#askQuestionModal').hide(function () {
                                 $('#formAdd')[0].reset('#askQuestionModal');
                             });
-                          
+
                         },
                     });
                 },
@@ -297,8 +301,8 @@
                 $.getJSON("/QaA", function (jsondata) {
                     self.questions = jsondata;
                     for (let i = 0; i < self.questions.length; i++) {
-                        if (self.questions[i].response || self.questions[i].vote || self.questions[i].userAnswer || self.questions[i].questionId || self.questions[i].timeofanswer) {
-                            self.answers.push({ response: self.questions[i].response, vote: self.questions[i].vote, userAnswer: self.questions[i].userAnswer, questionId: self.questions[i].questionId, tiomofanswer: self.questions[i].timeofanswer, id: self.questions[i].id });
+                        if (self.questions[i].response || self.questions[i].voteUp || self.questions[i].voteDown || self.questions[i].userAnswer || self.questions[i].questionId || self.questions[i].timeofanswer) {
+                            self.answers.push({ response: self.questions[i].response, voteUp: self.questions[i].voteUp, voteDown: self.questions[i].voteDown, userAnswer: self.questions[i].userAnswer, questionId: self.questions[i].questionId, tiomofanswer: self.questions[i].timeofanswer, id: self.questions[i].id });
                         }
                     };
                     console.log(self.answers);

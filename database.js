@@ -67,7 +67,7 @@ const getAnswers = async (data) => {
 const getAnswersId = async (id) => {
     try {
         const dbCon = await dbPromise;
-        const answer = await dbCon.get('SELECT response, id, questionId, timeofanswer, vote, userAnswer FROM answers WHERE questionId=?', [id]);
+        const answer = await dbCon.get('SELECT response, id, questionId, timeofanswer, userAnswer FROM answers WHERE questionId=?', [id]);
         return answer;
     }
     catch (error) {
@@ -103,7 +103,7 @@ const getContAnswers = async (sess) => {
 const getUserQandAnswers = async () => {
     try {
         const dbCon = await dbPromise;
-        const userQandAnswers = await dbCon.all('SELECT questions.*, answers.response, answers.vote, answers.userAnswer, answers.questionId, answers.timeofanswer  FROM questions LEFT JOIN answers ON questions.Id = answers.questionId ORDER BY category ASC');
+        const userQandAnswers = await dbCon.all('SELECT questions.*, answers.response, answers.voteUp, answers.voteDown, answers.userAnswer, answers.questionId, answers.timeofanswer  FROM questions LEFT JOIN answers ON questions.Id = answers.questionId ORDER BY category ASC');
         return userQandAnswers;
         
     }
@@ -111,21 +111,6 @@ const getUserQandAnswers = async () => {
         throw new Error(error);
     }
 };
-
-
-// const getUserQandAnswers = async () => {
-//     try {
-//         const dbCon = await dbPromise;
-//         const userQandAnswers = await dbCon.all('SELECT * FROM questions INNER JOIN answers ON questions.Id = answers.questionId ORDER BY category ASC');
-//         return userQandAnswers;
-        
-//     }
-//     catch (error) {
-//         throw new Error(error);
-//     }
-// };
-
-
 
 const updateQuestion = (async (data, sess) => {
     try {
@@ -177,7 +162,7 @@ const addAnswer = async (data, sess) => {
     try {
         const dbCon = await dbPromise;
 
-        const answer = await dbCon.run('INSERT INTO answers (response, vote ,userAnswer, questionId) VALUES(?, ?, ?, ?)', [data.response, data.vote, sess.email, data.questionId]);
+        const answer = await dbCon.run('INSERT INTO answers (response, userAnswer, questionId, voteUp, voteDown) VALUES(?, ?, ?, ?, ?)', [data.response, sess.email, data.questionId, data.voteUp, data.voteDown]);
         return answer;
 
     }
@@ -190,17 +175,28 @@ const addAnswer = async (data, sess) => {
 const updateAnswer = (async (data, sess) => {
     try {
         const dbCon = await dbPromise;
-        const user = await dbCon.get('UPDATE answers set response=?, vote=?, userAnswer=?, questionId=? WHERE id=?', [data.response, data.vote, sess.email, data.questionId, data.id]);
+        const user = await dbCon.get('UPDATE answers set response=?, userAnswer=?, questionId=? WHERE id=?', [data.response, sess.email, data.questionId, data.id]);
         return user;
     }
     catch (error) {
         throw new Error(error);
     }
 });
-const voteNaswer = (async (data) => {
+const voteUpNaswer = (async (data) => {
     try {
         const dbCon = await dbPromise;
-        const vote = await dbCon.get('UPDATE answers set vote=? WHERE id=?', [data.vote, data.id]);
+        const vote = await dbCon.run('UPDATE answers set voteUp=voteUp+1 WHERE id=?', [data.id]);
+        return vote;
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+});
+
+const votedownAswer = (async (data) => {
+    try {
+        const dbCon = await dbPromise;
+        const vote = await dbCon.run('UPDATE answers SET voteDown=voteDown+1 WHERE id=?', [data.id]);
         return vote;
     }
     catch (error) {
@@ -341,7 +337,8 @@ module.exports = {
     deleteAnswer: deleteAnswer,
     updateAnswer: updateAnswer,
     getAnswers: getAnswers,
-    voteNaswer: voteNaswer,
+    voteUpNaswer: voteUpNaswer,
+    votedownAswer: votedownAswer,
     getUsers: getUsers,
     getAnswersId: getAnswersId,
     getContAnswers: getContAnswers,

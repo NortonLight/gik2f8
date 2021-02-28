@@ -85,9 +85,9 @@
               <div class="form-group">
                 <label for="male">Duplicate</label>
                 <input type="text" class="form-control" name="open_Qanswer" id="open_duplicate" readonly>
-                <input type="button" id="duplicate" class="btn btn-primary" value="Duplicate"
+                <input type="button" id="duplicate" class="btn btn-primary" data-dismiss="modal" value="Duplicate"
                 v-on:click="duplicate">
-                <input type="button" id="unduplicate" class="btn btn-primary" value="unduplicate"
+                <input type="button" id="unduplicate" class="btn btn-primary" data-dismiss="modal" value="unduplicate"
                 v-on:click="Unduplicate">
                 
               </div>
@@ -152,7 +152,9 @@
         AddAnswer() {
           var answer = {
             questionId: $('#open_QmessageId').val(),
-            response: $('#open_Qanswer').val()
+            response: $('#open_Qanswer').val(),
+            voteUp: 0,
+            voteDown: 0,
           }
           $.ajax({
             url: '/answer',

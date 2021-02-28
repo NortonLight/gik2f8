@@ -26,7 +26,8 @@ CREATE TABLE IF NOT EXISTS questions (
 DROP TABLE IF EXISTS answers;
 CREATE TABLE IF NOT EXISTS answers (
     response VARCHAR(512) NOT NULL,
-    vote INTEGER(12),
+    voteUp INTEGER(12),
+    voteDown INTEGER(12) ,
     userAnswer INTEGER(12)REFERENCES users(id),
     questionId INTEGER(12)REFERENCES questions(id),
     timeofanswer DATETIME DEFAULT CURRENT_TIMESTAMP,

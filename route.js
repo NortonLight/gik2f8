@@ -323,11 +323,26 @@ routes.get('/answer/:id', async (req, res) => {
     }
 });
 
-routes.put('/vote', async (req, res) => {
+routes.put('/voteUp', async (req, res) => {
     try {
         sess = req.session;
         const data = req.body;
-        const result = await dbService.voteNaswer(data);
+        const result = await dbService.voteUpNaswer(data);
+        res.json(result);
+
+    }
+    catch (error) {
+        throw new Error(error);
+
+    }
+
+});
+
+routes.put('/voteDown', async (req, res) => {
+    try {
+        sess = req.session;
+        const data = req.body;
+        const result = await dbService.votedownAswer(data);
         res.json(result);
 
     }
